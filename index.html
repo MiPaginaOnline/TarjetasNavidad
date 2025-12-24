@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎄 WishCraft | Crea tu Tarjeta Navideña</title>
+    <title>🎄 WishCraft | Crea tu Tarjeta Navideña Mágica</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -18,11 +18,12 @@
             --christmas-red: #C41E3A;
             --christmas-green: #228B22;
             --christmas-gold: #FFD700;
+            --christmas-blue: #1E3A8A;
             --snow-white: #FFFFFF;
-            --dark-red: #8B0000;
-            --dark-green: #006400;
-            --bg-light: #FFF9F0;
-            --text-dark: #2D3748;
+            --wood-brown: #8B4513;
+            --door-red: #B22222;
+            --light-glow: #FFF8DC;
+            --shadow-dark: rgba(0, 0, 0, 0.5);
         }
 
         html {
@@ -31,13 +32,14 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #0f2b1e 0%, #1a472a 100%);
+            background: linear-gradient(180deg, #0c1a14 0%, #1a472a 50%, #0f2b1e 100%);
             color: white;
             overflow-x: hidden;
             min-height: 100vh;
+            position: relative;
         }
 
-        /* ===== FONDO NEVADO ===== */
+        /* ===== FONDO NEVADO MEJORADO ===== */
         .snow-container {
             position: fixed;
             top: 0;
@@ -53,31 +55,59 @@
             background: white;
             border-radius: 50%;
             opacity: 0.8;
+            filter: blur(1px);
             animation: fall linear infinite;
         }
 
         @keyframes fall {
-            to {
-                transform: translateY(100vh);
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
             }
         }
 
-        /* ===== NAVEGACIÓN ===== */
+        /* ===== ESTRELLAS EN EL CIELO ===== */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        /* ===== NAVEGACIÓN MEJORADA ===== */
         .nav-christmas {
             position: fixed;
             top: 0;
             width: 100%;
             background: rgba(20, 40, 28, 0.95);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             z-index: 1000;
             border-bottom: 3px solid var(--christmas-red);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 0;
         }
 
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -86,341 +116,732 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
+            gap: 12px;
+            font-size: 2rem;
             font-weight: 700;
             color: white;
             text-decoration: none;
+            padding: 0.5rem 1rem;
+            background: rgba(196, 30, 58, 0.2);
+            border-radius: 15px;
+            border: 2px solid var(--christmas-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--christmas-red), var(--christmas-gold), var(--christmas-green));
+            z-index: -1;
+            border-radius: 15px;
+            animation: logo-glow 3s infinite alternate;
+        }
+
+        @keyframes logo-glow {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
         .logo i {
-            color: var(--christmas-green);
-            animation: glow 2s infinite alternate;
+            color: var(--christmas-gold);
+            animation: spin-slow 20s linear infinite;
+        }
+
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .logo span {
             font-family: 'Mountains of Christmas', cursive;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .logo-accent {
             color: var(--christmas-gold);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
 
         .nav-menu {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             align-items: center;
         }
 
         .nav-link {
             color: white;
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            transition: all 0.3s ease;
+            padding: 0.7rem 1.2rem;
+            border-radius: 25px;
+            transition: all 0.4s ease;
             display: flex;
             align-items: center;
             gap: 8px;
             font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
         }
 
         .nav-link:hover {
             background: var(--christmas-red);
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(196, 30, 58, 0.4);
         }
 
         .nav-link.active {
-            background: var(--christmas-green);
-            box-shadow: 0 4px 15px rgba(34, 139, 34, 0.4);
+            background: linear-gradient(135deg, var(--christmas-green), #006400);
+            box-shadow: 0 5px 15px rgba(34, 139, 34, 0.4);
+            border: 2px solid var(--christmas-gold);
+        }
+
+        .nav-link i {
+            font-size: 1.1rem;
         }
 
         .btn-nav-create {
-            background: linear-gradient(135deg, var(--christmas-red), var(--dark-red));
+            background: linear-gradient(135deg, var(--christmas-red), #8B0000);
             color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
+            padding: 0.9rem 1.8rem;
+            border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
+            gap: 10px;
+            transition: all 0.4s ease;
+            border: 2px solid var(--christmas-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-nav-create::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .btn-nav-create:hover::after {
+            opacity: 1;
         }
 
         .btn-nav-create:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(196, 30, 58, 0.4);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(196, 30, 58, 0.5);
+            animation: pulse 1s infinite alternate;
         }
 
-        /* ===== HERO SECTION ===== */
+        /* ===== HERO SECTION MEJORADA ===== */
         .hero-christmas {
             position: relative;
-            padding: 10rem 2rem 6rem;
+            padding: 12rem 2rem 6rem;
             text-align: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-                        url('https://images.unsplash.com/photo-1543083115-638c32cd3d58?auto=format&fit=crop&w=1600');
-            background-size: cover;
-            background-position: center;
+            background: radial-gradient(ellipse at center, rgba(26, 71, 42, 0.8) 0%, rgba(12, 26, 20, 0.9) 70%);
             margin-top: 80px;
-            border-bottom: 5px solid var(--christmas-green);
+            border-bottom: 5px solid var(--christmas-gold);
+            overflow: hidden;
+        }
+
+        .hero-christmas::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(196, 30, 58, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(34, 139, 34, 0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
 
         .hero-title {
-            font-size: 3.5rem;
+            font-size: 4.5rem;
             margin-bottom: 1.5rem;
             font-family: 'Mountains of Christmas', cursive;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            display: inline-block;
         }
 
         .title-line {
             display: block;
             line-height: 1.2;
+            margin-bottom: 0.5rem;
         }
 
         .title-line.accent {
             color: var(--christmas-gold);
-            font-size: 4rem;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            font-size: 5rem;
+            text-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.8),
+                0 0 40px rgba(255, 215, 0, 0.4);
+            animation: title-glow 2s infinite alternate;
+        }
+
+        @keyframes title-glow {
+            from {
+                text-shadow: 
+                    0 0 20px rgba(255, 215, 0, 0.8),
+                    0 0 40px rgba(255, 215, 0, 0.4);
+            }
+            to {
+                text-shadow: 
+                    0 0 30px rgba(255, 215, 0, 1),
+                    0 0 60px rgba(255, 215, 0, 0.6),
+                    0 0 80px rgba(255, 215, 0, 0.4);
+            }
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto 3rem;
-            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            line-height: 1.8;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            backdrop-filter: blur(10px);
         }
 
         .hero-stats {
             display: flex;
             justify-content: center;
-            gap: 3rem;
-            margin-bottom: 3rem;
+            gap: 4rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            min-width: 180px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            min-width: 220px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--christmas-red), var(--christmas-gold), var(--christmas-green));
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .stat-icon {
-            font-size: 2rem;
+            font-size: 3rem;
             color: var(--christmas-gold);
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
         }
 
         .stat-number {
             display: block;
-            font-size: 2rem;
+            font-size: 3rem;
             font-weight: 700;
             color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
         }
 
         .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
+            font-size: 1rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .hero-cta {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: linear-gradient(135deg, var(--christmas-red), var(--dark-red));
+            gap: 15px;
+            background: linear-gradient(135deg, var(--christmas-red), #8B0000);
             color: white;
-            padding: 1.2rem 2.5rem;
-            border-radius: 30px;
+            padding: 1.5rem 3rem;
+            border-radius: 40px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
+            font-size: 1.3rem;
+            transition: all 0.4s ease;
+            border: 3px solid var(--christmas-gold);
+            position: relative;
+            overflow: hidden;
+            animation: cta-pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
+        @keyframes cta-pulse {
+            0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        }
+
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.7s;
+        }
+
+        .hero-cta:hover::before {
+            left: 100%;
         }
 
         .hero-cta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(196, 30, 58, 0.4);
+            transform: translateY(-5px) scale(1.08);
+            box-shadow: 
+                0 20px 40px rgba(196, 30, 58, 0.6),
+                0 0 50px rgba(255, 215, 0, 0.3);
+            animation: none;
         }
 
-        /* ===== SECCIÓN DE CREACIÓN ===== */
+        .hero-cta i {
+            font-size: 1.5rem;
+        }
+
+        /* ===== SECCIÓN DE CREACIÓN MEJORADA ===== */
         .creation-section {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 6rem 2rem;
             position: relative;
             z-index: 2;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
+            position: relative;
         }
 
         .section-header h2 {
             font-family: 'Mountains of Christmas', cursive;
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             color: var(--christmas-gold);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '✨';
+            position: absolute;
+            top: -20px;
+            right: -40px;
+            font-size: 2rem;
+            animation: sparkle 1.5s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
 
         .section-subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
         }
 
         .creation-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 4rem;
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 3rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .creation-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--christmas-red), var(--christmas-gold), var(--christmas-green));
         }
 
         @media (max-width: 900px) {
             .creation-container {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
         }
 
+        /* ===== PANEL DE ENTRADA ===== */
         .input-panel {
             padding: 2rem;
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 15px;
+            border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .input-panel::before {
+            content: '🎁';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            background: var(--christmas-red);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--christmas-gold);
         }
 
         .input-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .input-group label {
-            display: block;
-            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
             color: var(--christmas-gold);
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .input-group label i {
+            font-size: 1.3rem;
         }
 
         .input-wrapper {
             position: relative;
+            margin-bottom: 0.5rem;
         }
 
         .input-wrapper input {
             width: 100%;
-            padding: 1rem 1rem 1rem 3rem;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 1.2rem 1.2rem 1.2rem 3.5rem;
+            background: rgba(255, 255, 255, 0.08);
             border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
+            border-radius: 15px;
             color: white;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            font-family: 'Poppins', sans-serif;
         }
 
         .input-wrapper input:focus {
             outline: none;
             border-color: var(--christmas-green);
-            box-shadow: 0 0 0 3px rgba(34, 139, 34, 0.3);
+            box-shadow: 
+                0 0 0 3px rgba(34, 139, 34, 0.3),
+                0 0 20px rgba(34, 139, 34, 0.2);
+            background: rgba(255, 255, 255, 0.12);
         }
 
         .input-decoration {
             position: absolute;
-            left: 1rem;
+            left: 1.2rem;
             top: 50%;
             transform: translateY(-50%);
             color: var(--christmas-gold);
+            font-size: 1.3rem;
+            pointer-events: none;
+        }
+
+        .input-hint {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0.5rem 1rem;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 10px;
+            border-left: 3px solid var(--christmas-gold);
+        }
+
+        .input-hint i {
+            color: var(--christmas-gold);
+        }
+
+        /* ===== BOTONES DE DISEÑO ===== */
+        .design-options {
+            margin: 2rem 0;
+        }
+
+        .design-options h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            color: var(--christmas-gold);
+            font-size: 1.2rem;
         }
 
         .design-buttons {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
-            margin-top: 1rem;
         }
 
         .design-btn {
             background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 1.2rem;
             color: white;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .design-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .design-btn:hover::before {
+            opacity: 1;
         }
 
         .design-btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.05);
             border-color: var(--christmas-green);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .design-btn.active {
             border-color: var(--christmas-red);
             background: rgba(196, 30, 58, 0.2);
+            box-shadow: 
+                0 5px 15px rgba(196, 30, 58, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .design-btn.active::after {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--christmas-green);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
         }
 
         .design-preview {
-            width: 60px;
-            height: 40px;
-            border-radius: 5px;
+            width: 80px;
+            height: 60px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.8rem;
+            background: var(--design-bg);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
         }
 
+        .design-btn:hover .design-preview {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* ===== BOTÓN CREAR ===== */
         .create-btn {
             width: 100%;
-            padding: 1.2rem;
-            background: linear-gradient(135deg, var(--christmas-red), var(--dark-red));
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--christmas-red), #8B0000);
             color: white;
             border: none;
-            border-radius: 15px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            border-radius: 20px;
+            font-size: 1.3rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 15px;
             margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--christmas-gold);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .create-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.7s;
+        }
+
+        .create-btn:hover::before {
+            left: 100%;
         }
 
         .create-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(196, 30, 58, 0.4);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 20px 40px rgba(196, 30, 58, 0.5),
+                0 0 60px rgba(255, 215, 0, 0.2);
+            animation: btn-glow 1s infinite alternate;
         }
 
-        /* ===== PREVIEW CARD ===== */
+        @keyframes btn-glow {
+            from {
+                box-shadow: 
+                    0 20px 40px rgba(196, 30, 58, 0.5),
+                    0 0 60px rgba(255, 215, 0, 0.2);
+            }
+            to {
+                box-shadow: 
+                    0 25px 50px rgba(196, 30, 58, 0.6),
+                    0 0 80px rgba(255, 215, 0, 0.3);
+            }
+        }
+
+        .btn-loader {
+            display: none;
+            gap: 5px;
+        }
+
+        .loader-dot {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: loader-dot 1.4s infinite;
+        }
+
+        .loader-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loader-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes loader-dot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(0.5); opacity: 0.5; }
+        }
+
+        /* ===== PREVIEW PANEL ===== */
         .preview-panel {
             padding: 2rem;
+            position: relative;
         }
 
         .card-preview-container {
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 15px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 2.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                inset 0 2px 10px rgba(0, 0, 0, 0.2),
+                0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-preview-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--christmas-green), var(--christmas-gold));
         }
 
         .preview-card {
             width: 100%;
-            height: 400px;
-            perspective: 1000px;
+            height: 450px;
+            perspective: 1500px;
             margin-bottom: 2rem;
+            position: relative;
         }
 
         .card-inner {
@@ -428,9 +849,10 @@
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.8s;
-            border-radius: 15px;
+            transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 20px;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .card-front, .card-back {
@@ -438,117 +860,718 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 15px;
-            padding: 2rem;
-        }
-
-        .card-front {
-            background: linear-gradient(135deg, var(--dark-red), var(--christmas-red));
+            border-radius: 20px;
+            padding: 2.5rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            overflow: hidden;
         }
 
-        .card-back {
-            background: linear-gradient(135deg, var(--dark-green), var(--christmas-green));
-            transform: rotateY(180deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+        .card-front {
+            background: linear-gradient(135deg, var(--design-bg-1, #8B0000), var(--design-bg-2, #C41E3A));
+            border: 5px solid var(--design-border, var(--christmas-gold));
+            box-shadow: 
+                inset 0 0 50px rgba(0, 0, 0, 0.2),
+                0 10px 30px rgba(0, 0, 0, 0.4);
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-front::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
         }
 
         .card-header {
             text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-corner {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--christmas-gold);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .top-left { top: 20px; left: 20px; }
+        .top-right { top: 20px; right: 20px; }
+        .bottom-left { bottom: 20px; left: 20px; }
+        .bottom-right { bottom: 20px; right: 20px; }
+
+        .card-title {
+            padding: 1rem 0;
         }
 
         .card-title h3 {
             font-family: 'Mountains of Christmas', cursive;
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             color: white;
             margin-bottom: 0.5rem;
+            text-shadow: 
+                0 2px 10px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(255, 215, 0, 0.3);
+            letter-spacing: 2px;
         }
 
         .title-underline {
-            width: 100px;
-            height: 3px;
-            background: var(--christmas-gold);
+            width: 150px;
+            height: 4px;
+            background: var(--design-accent, var(--christmas-gold));
             margin: 0 auto;
+            border-radius: 2px;
+            box-shadow: 0 2px 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-message {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .greeting {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+            font-style: italic;
         }
 
         .name-display {
             margin: 2rem 0;
+            position: relative;
+            padding: 1.5rem 3rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 
+                inset 0 0 20px rgba(0, 0, 0, 0.2),
+                0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .name-wrapper {
+            position: relative;
+            display: inline-block;
         }
 
         .user-name {
             font-family: 'Mountains of Christmas', cursive;
-            font-size: 2.5rem;
-            color: var(--christmas-gold);
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-size: 3.2rem;
+            color: var(--design-accent, var(--christmas-gold));
+            text-shadow: 
+                0 2px 10px rgba(0, 0, 0, 0.5),
+                0 0 30px currentColor;
+            animation: name-glow 2s infinite alternate;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes name-glow {
+            from {
+                text-shadow: 
+                    0 2px 10px rgba(0, 0, 0, 0.5),
+                    0 0 30px currentColor;
+            }
+            to {
+                text-shadow: 
+                    0 2px 15px rgba(0, 0, 0, 0.6),
+                    0 0 40px currentColor,
+                    0 0 60px rgba(255, 215, 0, 0.3);
+            }
+        }
+
+        .name-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(ellipse at center, var(--design-accent, var(--christmas-gold)) 0%, transparent 70%);
+            filter: blur(20px);
+            opacity: 0.3;
+            z-index: 0;
+            animation: glow-pulse 2s infinite alternate;
+        }
+
+        @keyframes glow-pulse {
+            from { opacity: 0.2; transform: translate(-50%, -50%) scale(1); }
+            to { opacity: 0.4; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        .wish {
+            font-size: 1.4rem;
+            color: white;
+            margin-top: 1.5rem;
+            font-weight: 500;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
 
         .card-decoration {
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            margin-top: 1rem;
+            gap: 3rem;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .decoration-tree {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--christmas-green);
+            animation: tree-sway 3s infinite alternate ease-in-out;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+        }
+
+        @keyframes tree-sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
         }
 
         .decoration-gifts {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
+            align-items: center;
         }
 
         .decoration-gifts i {
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: var(--christmas-gold);
+            animation: gift-bounce 2s infinite alternate;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
         }
 
-        /* ===== CÓMO FUNCIONA ===== */
+        .decoration-gifts i:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes gift-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .card-footer {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding-top: 1.5rem;
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .signature {
+            display: inline-block;
+            position: relative;
+        }
+
+        .signature-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+            padding: 0.5rem 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .signature-border {
+            position: absolute;
+            bottom: -5px;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--christmas-gold), transparent);
+        }
+
+        /* ===== CARD BACK ===== */
+        .card-back {
+            background: linear-gradient(135deg, #0f2b1e, #1a472a);
+            border: 5px solid var(--wood-brown);
+            transform: rotateY(180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-back::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 69, 19, 0.1) 2px,
+                    rgba(139, 69, 19, 0.1) 4px
+                ),
+                radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .back-content {
+            padding: 3rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            max-width: 80%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            color: var(--christmas-gold);
+            font-family: 'Mountains of Christmas', cursive;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .back-logo i {
+            animation: spin-slow 20s linear infinite;
+        }
+
+        .back-message {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .back-code {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .code-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+        .code-value {
+            font-family: monospace;
+            font-size: 1.3rem;
+            color: var(--christmas-gold);
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* ===== CONTROLES DE PREVIEW ===== */
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .preview-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--christmas-gold);
+            font-size: 1.3rem;
+        }
+
+        .preview-controls {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .control-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: var(--christmas-green);
+            transform: rotate(180deg) scale(1.1);
+            border-color: var(--christmas-gold);
+        }
+
+        .preview-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .info-item i {
+            color: var(--christmas-gold);
+            font-size: 1.2rem;
+        }
+
+        /* ===== SECCIÓN CÓMO FUNCIONA MEJORADA ===== */
         .how-section {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 4rem auto;
             padding: 4rem 2rem;
+            position: relative;
         }
 
         .steps-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
+            gap: 3rem;
+            margin-top: 4rem;
+            position: relative;
+        }
+
+        .steps-container::before {
+            content: '';
+            position: absolute;
+            top: 100px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--christmas-red) 20%, 
+                var(--christmas-gold) 50%, 
+                var(--christmas-green) 80%, 
+                transparent 100%
+            );
+            z-index: 1;
         }
 
         @media (max-width: 900px) {
             .steps-container {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .steps-container::before {
+                display: none;
             }
         }
 
         .step-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 15px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            padding: 3rem 2rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
             position: relative;
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
+            z-index: 2;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.03) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .step-card:hover::before {
+            opacity: 1;
         }
 
         .step-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px) scale(1.05);
             border-color: var(--christmas-red);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 60px rgba(196, 30, 58, 0.2);
         }
 
         .step-number {
             position: absolute;
-            top: -20px;
-            left: -20px;
-            background: var(--christmas-red);
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--christmas-red), #8B0000);
             color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            border: 4px solid var(--christmas-gold);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 3;
+        }
+
+        .step-ornament {
+            position: absolute;
+            bottom: -25px;
+            right: -25px;
+            background: var(--christmas-green);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            border: 3px solid var(--christmas-gold);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 3;
+            animation: ornament-float 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes ornament-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .step-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-content h3 {
+            color: var(--christmas-gold);
+            margin-bottom: 1.5rem;
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.2rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .step-content p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-features {
+            list-style: none;
+            text-align: left;
+        }
+
+        .step-features li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+        }
+
+        .step-features i {
+            color: var(--christmas-green);
+            min-width: 20px;
+        }
+
+        /* ===== SECCIÓN DESTACADOS ===== */
+        .featured-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .featured-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            padding: 2.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .featured-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            border-color: var(--christmas-gold);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 60px rgba(255, 215, 0, 0.1);
+        }
+
+        .featured-card.red {
+            border-left: 6px solid var(--christmas-red);
+        }
+
+        .featured-card.green {
+            border-left: 6px solid var(--christmas-green);
+        }
+
+        .featured-card.blue {
+            border-left: 6px solid var(--christmas-blue);
+        }
+
+        .featured-card.gold {
+            border-left: 6px solid var(--christmas-gold);
+        }
+
+        .featured-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .featured-badge {
+            background: linear-gradient(135deg, var(--christmas-gold), #DAA520);
+            color: #000;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .featured-date {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .featured-card-content {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .featured-card-content h4 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .featured-name {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.5rem;
+            color: var(--christmas-gold);
+            margin: 1.5rem 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .featured-wish {
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+            margin-top: 1rem;
+        }
+
+        .featured-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .featured-stats {
+            display: flex;
+            gap: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .featured-stats span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .featured-stats i {
+            color: var(--christmas-gold);
+        }
+
+        .featured-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--christmas-green);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            background: rgba(34, 139, 34, 0.2);
+            border-radius: 15px;
+            border: 1px solid rgba(34, 139, 34, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .featured-link:hover {
+            background: rgba(34, 139, 34, 0.4);
+            transform: translateX(5px);
+        }
+
+        .featured-ornament {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: var(--christmas-red);
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -556,200 +1579,135 @@
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            font-weight: 700;
+            color: white;
+            border: 3px solid var(--christmas-gold);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: ornament-spin 10s linear infinite;
         }
 
-        .step-content h3 {
-            color: var(--christmas-gold);
-            margin-bottom: 1rem;
-            font-family: 'Mountains of Christmas', cursive;
-            font-size: 1.8rem;
+        @keyframes ornament-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-        .step-features {
-            list-style: none;
-            margin-top: 1rem;
-        }
-
-        .step-features li {
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .step-features i {
-            color: var(--christmas-green);
-        }
-
-        .step-decoration {
-            position: absolute;
-            bottom: -20px;
-            right: -20px;
-            background: var(--christmas-green);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        /* ===== TARJETAS DESTACADAS ===== */
-        .featured-section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
-
-        .featured-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .featured-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 15px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .featured-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--christmas-gold);
-        }
-
-        .featured-card.red {
-            border-left: 5px solid var(--christmas-red);
-        }
-
-        .featured-card.green {
-            border-left: 5px solid var(--christmas-green);
-        }
-
-        .featured-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .featured-badge {
-            background: var(--christmas-gold);
-            color: var(--dark-red);
-            padding: 0.3rem 1rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .featured-name {
-            font-family: 'Mountains of Christmas', cursive;
-            font-size: 1.8rem;
-            color: var(--christmas-gold);
-            margin: 1rem 0;
-        }
-
-        .featured-stats {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .featured-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--christmas-green);
-            text-decoration: none;
-            margin-top: 1rem;
-            font-weight: 500;
-        }
-
-        .featured-ornament {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: var(--christmas-red);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
+        .view-all-container {
+            text-align: center;
+            margin-top: 4rem;
         }
 
         .view-all-btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: linear-gradient(135deg, var(--christmas-green), var(--dark-green));
+            gap: 15px;
+            background: linear-gradient(135deg, var(--christmas-green), #006400);
             color: white;
-            padding: 1rem 2rem;
-            border-radius: 25px;
+            padding: 1.2rem 2.5rem;
+            border-radius: 30px;
             text-decoration: none;
-            font-weight: 600;
-            margin-top: 3rem;
-            transition: all 0.3s ease;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            border: 3px solid var(--christmas-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .view-all-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.7s;
+        }
+
+        .view-all-btn:hover::before {
+            left: 100%;
         }
 
         .view-all-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(34, 139, 34, 0.4);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 15px 30px rgba(34, 139, 34, 0.5),
+                0 0 50px rgba(255, 215, 0, 0.2);
         }
 
-        /* ===== FOOTER ===== */
+        .arrow-move {
+            animation: arrow-move 1s infinite alternate;
+        }
+
+        @keyframes arrow-move {
+            from { transform: translateX(0); }
+            to { transform: translateX(5px); }
+        }
+
+        /* ===== FOOTER MEJORADO ===== */
         .christmas-footer {
-            background: rgba(20, 40, 28, 0.95);
-            margin-top: 4rem;
-            padding-top: 3rem;
-            border-top: 3px solid var(--christmas-red);
+            background: linear-gradient(180deg, #0c1a14 0%, rgba(12, 26, 20, 0.95) 100%);
+            margin-top: 6rem;
+            padding-top: 4rem;
+            border-top: 5px solid var(--christmas-red);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .christmas-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--christmas-gold), 
+                var(--christmas-red), 
+                var(--christmas-gold), 
+                transparent
+            );
         }
 
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 2rem 3rem;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
+            gap: 4rem;
         }
 
         .footer-logo {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: white;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+        }
+
+        .footer-logo i {
+            color: var(--christmas-gold);
+            animation: spin-slow 20s linear infinite;
         }
 
         .footer-description {
             color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
         }
 
         .footer-social {
             display: flex;
-            gap: 1rem;
+            gap: 1.2rem;
         }
 
         .social-icon {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
@@ -757,19 +1715,37 @@
             justify-content: center;
             color: white;
             text-decoration: none;
-            transition: all 0.3s ease;
+            font-size: 1.3rem;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
         }
 
         .social-icon:hover {
             background: var(--christmas-red);
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.1);
+            border-color: var(--christmas-gold);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
 
         .footer-links h4 {
             color: var(--christmas-gold);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             font-family: 'Mountains of Christmas', cursive;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--christmas-red);
+            border-radius: 2px;
         }
 
         .footer-links ul {
@@ -777,7 +1753,7 @@
         }
 
         .footer-links li {
-            margin-bottom: 0.8rem;
+            margin-bottom: 1.2rem;
         }
 
         .footer-links a {
@@ -786,20 +1762,115 @@
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            padding: 0.5rem;
+            border-radius: 8px;
         }
 
         .footer-links a:hover {
             color: var(--christmas-gold);
-            padding-left: 5px;
+            padding-left: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
+        }
+
+        .footer-links i {
+            width: 24px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .footer-message {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            margin-top: 1.5rem;
+        }
+
+        .footer-message p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .footer-countdown {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(196, 30, 58, 0.2);
+            border-radius: 15px;
+            border: 2px solid var(--christmas-gold);
+            margin-top: 1rem;
+        }
+
+        .countdown-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.5rem;
+        }
+
+        .countdown-timer {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .countdown-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--christmas-gold);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            animation: countdown-pulse 2s infinite;
+        }
+
+        @keyframes countdown-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .countdown-label-small {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .footer-bottom {
             text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
+            padding: 2.5rem;
+            background: rgba(0, 0, 0, 0.3);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .footer-bottom::before {
+            content: '🎄🎁✨';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            letter-spacing: 20px;
+        }
+
+        .footer-bottom p {
             color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem;
+        }
+
+        .copyright-message {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        .heart-beat {
+            color: var(--christmas-red);
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
 
         /* ===== RESPONSIVE ===== */
@@ -813,53 +1884,131 @@
                 background: none;
                 border: none;
                 color: white;
-                font-size: 1.5rem;
+                font-size: 1.8rem;
                 cursor: pointer;
+                padding: 0.5rem;
             }
             
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
             
             .title-line.accent {
-                font-size: 3rem;
+                font-size: 3.5rem;
             }
             
             .hero-stats {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 1.5rem;
+                align-items: center;
             }
             
             .stat-card {
-                min-width: auto;
+                min-width: 280px;
+            }
+            
+            .design-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+            
+            .footer-links h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .footer-links a {
+                justify-content: center;
             }
         }
 
-        /* ===== ANIMACIONES ===== */
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-            }
-            to {
-                text-shadow: 0 0 20px rgba(255, 215, 0, 0.8),
-                           0 0 30px rgba(255, 215, 0, 0.6);
-            }
+        /* ===== ANIMACIONES ADICIONALES ===== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        .heart-beat {
-            animation: heartbeat 1.5s infinite;
+        .floating {
+            animation: float 3s infinite ease-in-out;
         }
 
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .shimmer-text {
+            background: linear-gradient(90deg, 
+                var(--christmas-gold) 0%, 
+                #FFF 25%, 
+                var(--christmas-gold) 50%, 
+                #FFF 75%, 
+                var(--christmas-gold) 100%
+            );
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+        }
+
+        /* ===== NOTIFICACIONES ===== */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--christmas-green), #006400);
+            color: white;
+            padding: 1.2rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--christmas-gold);
+            z-index: 10000;
+            transform: translateX(150%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            max-width: 350px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification i {
+            font-size: 1.5rem;
+            color: var(--christmas-gold);
+        }
+
+        .notification.warning {
+            background: linear-gradient(135deg, #DAA520, #B8860B);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, var(--christmas-green), #228B22);
         }
     </style>
 </head>
 <body>
     <!-- Fondo Nevado -->
     <div class="snow-container" id="snowContainer"></div>
+    
+    <!-- Estrellas en el cielo -->
+    <div class="stars" id="stars"></div>
 
     <!-- Navegación -->
     <nav class="nav-christmas">
@@ -884,7 +2033,7 @@
                 </a>
                 <a href="#crear" class="btn-nav-create">
                     <i class="fas fa-plus"></i>
-                    Crear Tarjeta
+                    <span>Crear Tarjeta</span>
                 </a>
             </div>
             
@@ -897,48 +2046,49 @@
     <!-- Hero Section -->
     <header class="hero-christmas">
         <h1 class="hero-title">
-            <span class="title-line">Crea tu Tarjeta</span>
+            <span class="title-line">Crea tu Experiencia</span>
             <span class="title-line accent">Navideña Mágica</span>
         </h1>
         
         <p class="hero-subtitle">
-            Personaliza una tarjeta única con tu nombre y comparte<br>
-            el espíritu navideño con familia y amigos
+            Diseña una tarjeta única con puertas mágicas, elfos sorpresa y efectos especiales.<br>
+            ¡Haz que esta Navidad sea inolvidable!
         </p>
         
         <div class="hero-stats">
-            <div class="stat-card">
+            <div class="stat-card floating">
                 <div class="stat-icon">
                     <i class="fas fa-users"></i>
                 </div>
                 <div class="stat-content">
-                    <span class="stat-number">2,548</span>
+                    <span class="stat-number">3,847</span>
                     <span class="stat-label">Personas Felicitadas</span>
                 </div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card floating" style="animation-delay: 0.2s">
                 <div class="stat-icon">
                     <i class="fas fa-tree"></i>
                 </div>
                 <div class="stat-content">
-                    <span class="stat-number">893</span>
+                    <span class="stat-number">1,245</span>
                     <span class="stat-label">Tarjetas Hoy</span>
                 </div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card floating" style="animation-delay: 0.4s">
                 <div class="stat-icon">
-                    <i class="fas fa-share-alt"></i>
+                    <i class="fas fa-magic"></i>
                 </div>
                 <div class="stat-content">
-                    <span class="stat-number">1.2K</span>
-                    <span class="stat-label">Compartidas</span>
+                    <span class="stat-number">2.1K</span>
+                    <span class="stat-label">Experiencias Mágicas</span>
                 </div>
             </div>
         </div>
         
         <a href="#crear" class="hero-cta">
-            <i class="fas fa-magic"></i>
-            Crear Mi Tarjeta Navideña
+            <i class="fas fa-sparkles"></i>
+            <span class="shimmer-text">Crear Experiencia Mágica</span>
+            <i class="fas fa-arrow-down arrow-bounce"></i>
         </a>
     </header>
 
@@ -947,8 +2097,8 @@
         <!-- Sección de Creación -->
         <section id="crear" class="creation-section">
             <div class="section-header">
-                <h2>Personaliza tu Tarjeta Navideña</h2>
-                <p class="section-subtitle">Diseña una tarjeta especial en solo 2 minutos</p>
+                <h2>Diseña tu Experiencia Navideña</h2>
+                <p class="section-subtitle">Crea una tarjeta interactiva con puertas mágicas y sorpresas especiales</p>
             </div>
             
             <div class="creation-container">
@@ -956,89 +2106,138 @@
                 <div class="input-panel">
                     <div class="input-group">
                         <label for="userName">
-                            <i class="fas fa-user-circle"></i>
-                            Tu Nombre o Mensaje
+                            <i class="fas fa-user-edit"></i>
+                            Tu Nombre o Mensaje Especial
                         </label>
                         <div class="input-wrapper">
                             <input 
                                 type="text" 
                                 id="userName" 
-                                placeholder="Ej: La Familia Pérez"
-                                maxlength="50"
+                                placeholder="Ej: La Familia Rodríguez te desea Feliz Navidad"
+                                maxlength="60"
                             >
                             <div class="input-decoration">
                                 <i class="fas fa-snowflake"></i>
                             </div>
+                        </div>
+                        <div class="input-hint">
+                            <i class="fas fa-lightbulb"></i>
+                            Este mensaje aparecerá dentro de la tarjeta mágica
                         </div>
                     </div>
                     
                     <div class="input-group">
                         <label for="messageType">
                             <i class="fas fa-comment-alt"></i>
-                            Tipo de Mensaje
+                            Tipo de Experiencia
                         </label>
                         <div class="input-wrapper">
                             <select id="messageType">
-                                <option value="standard">🎄 Feliz Navidad</option>
-                                <option value="family">👨‍👩‍👧‍👦 Para la Familia</option>
-                                <option value="friends">👫 Para Amigos</option>
-                                <option value="funny">😂 Divertido</option>
+                                <option value="door">🚪 Puerta Mágica con Elfo</option>
+                                <option value="santa">🎅 Visita de Santa Claus</option>
+                                <option value="workshop">🔨 Taller de Duendes</option>
+                                <option value="northpole">🧊 Polo Norte Mágico</option>
                             </select>
                         </div>
                     </div>
                     
-                    <div class="input-group">
-                        <h4><i class="fas fa-palette"></i> Estilo Navideño</h4>
+                    <div class="design-options">
+                        <h4><i class="fas fa-palette"></i> Decoración Navideña</h4>
                         <div class="design-buttons">
                             <button class="design-btn active" data-design="1">
-                                <div class="design-preview" style="background: linear-gradient(135deg, #C41E3A, #8B0000)">
+                                <div class="design-preview" style="--design-bg: linear-gradient(135deg, #8B0000, #C41E3A)">
                                     <i class="fas fa-candy-cane"></i>
                                 </div>
-                                <span>Clásico Rojo</span>
+                                <span>Rojo Clásico</span>
                             </button>
                             <button class="design-btn" data-design="2">
-                                <div class="design-preview" style="background: linear-gradient(135deg, #228B22, #006400)">
+                                <div class="design-preview" style="--design-bg: linear-gradient(135deg, #006400, #228B22)">
                                     <i class="fas fa-tree"></i>
                                 </div>
-                                <span>Verde Navideño</span>
+                                <span>Verde Bosque</span>
                             </button>
                             <button class="design-btn" data-design="3">
-                                <div class="design-preview" style="background: linear-gradient(135deg, #4169E1, #00008B)">
+                                <div class="design-preview" style="--design-bg: linear-gradient(135deg, #00008B, #4169E1)">
                                     <i class="fas fa-snowflake"></i>
                                 </div>
                                 <span>Azul Invernal</span>
                             </button>
                             <button class="design-btn" data-design="4">
-                                <div class="design-preview" style="background: linear-gradient(135deg, #FFD700, #DAA520)">
+                                <div class="design-preview" style="--design-bg: linear-gradient(135deg, #DAA520, #FFD700)">
                                     <i class="fas fa-star"></i>
                                 </div>
-                                <span>Dorado Elegante</span>
+                                <span>Dorado Real</span>
                             </button>
                         </div>
                     </div>
                     
                     <button class="create-btn" id="generateBtn">
                         <i class="fas fa-sparkles"></i>
-                        <span class="btn-text">Crear Tarjeta Mágica</span>
+                        <span class="btn-text">Crear Experiencia Mágica</span>
+                        <div class="btn-loader" id="btnLoader">
+                            <div class="loader-dot"></div>
+                            <div class="loader-dot"></div>
+                            <div class="loader-dot"></div>
+                        </div>
                     </button>
                 </div>
                 
                 <!-- Vista Previa -->
                 <div class="preview-panel">
+                    <div class="preview-header">
+                        <h3><i class="fas fa-eye"></i> Vista Previa de la Experiencia</h3>
+                        <div class="preview-controls">
+                            <button class="control-btn" id="rotateBtn">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                            <button class="control-btn" id="fullscreenBtn">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
                     <div class="card-preview-container">
                         <div class="preview-card">
                             <div class="card-inner" id="cardInner">
-                                <div class="card-front">
+                                <!-- Card Front - Door Closed -->
+                                <div class="card-front" id="cardFront" 
+                                     style="--design-bg-1: #8B0000; --design-bg-2: #C41E3A; --design-border: #FFD700; --design-accent: #FFD700">
+                                    
+                                    <!-- Door Decoration -->
+                                    <div class="door-decoration">
+                                        <div class="door-frame">
+                                            <div class="door-knob" id="doorKnob">
+                                                <i class="fas fa-hand-point-up"></i>
+                                            </div>
+                                            <div class="door-wreath">
+                                                <i class="fas fa-holly-berry"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                     <div class="card-header">
+                                        <div class="card-corner top-left">
+                                            <i class="fas fa-holly-berry"></i>
+                                        </div>
+                                        <div class="card-corner top-right">
+                                            <i class="fas fa-holly-berry"></i>
+                                        </div>
                                         <div class="card-title">
-                                            <h3>¡Feliz Navidad!</h3>
+                                            <h3>Toca la Puerta</h3>
                                             <div class="title-underline"></div>
                                         </div>
                                     </div>
                                     
                                     <div class="card-body">
-                                        <div class="name-display">
-                                            <span class="user-name" id="previewName">Tu Nombre Aquí</span>
+                                        <div class="card-message">
+                                            <p class="greeting">Una sorpresa navideña te espera...</p>
+                                            <div class="name-display">
+                                                <div class="name-wrapper">
+                                                    <span class="user-name" id="previewName">Toca para abrir</span>
+                                                    <div class="name-glow"></div>
+                                                </div>
+                                            </div>
+                                            <p class="wish">¡Haz clic en la puerta para descubrir la magia!</p>
                                         </div>
                                         
                                         <div class="card-decoration">
@@ -1053,17 +2252,69 @@
                                     </div>
                                     
                                     <div class="card-footer">
-                                        <p>Que esta Navidad llene tu hogar de alegría y amor</p>
+                                        <div class="signature">
+                                            <span class="signature-text">Experiencia creada con WishCraft</span>
+                                            <div class="signature-border"></div>
+                                        </div>
+                                        <div class="card-corner bottom-left">
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <div class="card-corner bottom-right">
+                                            <i class="fas fa-star"></i>
+                                        </div>
                                     </div>
                                 </div>
                                 
+                                <!-- Card Back - Door Opened -->
                                 <div class="card-back">
-                                    <div class="back-content">
-                                        <h3>WishCraft</h3>
-                                        <p>Tarjeta creada con amor</p>
-                                        <small id="cardCode">Código: WC-NAVIDAD</small>
+                                    <div class="door-opened-scene">
+                                        <div class="elf-surprise">
+                                            <div class="elf-container">
+                                                <div class="elf-hat">
+                                                    <i class="fas fa-hat-wizard"></i>
+                                                </div>
+                                                <div class="elf-face">
+                                                    <div class="elf-eyes">⚫ ⚫</div>
+                                                    <div class="elf-smile">◡</div>
+                                                </div>
+                                                <div class="elf-message">
+                                                    <div class="speech-bubble">
+                                                        <p>¡Ho Ho Ho!</p>
+                                                        <p>Bienvenido a la magia navideña</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="surprise-content">
+                                            <h3 class="surprise-title">¡Feliz Navidad!</h3>
+                                            <div class="surprise-name" id="surpriseName">
+                                                Cargando sorpresa...
+                                            </div>
+                                            <p class="surprise-message">
+                                                Que esta Navidad esté llena de alegría,<br>
+                                                amor y momentos mágicos para ti y tu familia
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="magic-effects">
+                                            <div class="magic-sparkle">✨</div>
+                                            <div class="magic-sparkle">✨</div>
+                                            <div class="magic-sparkle">✨</div>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-info">
+                            <div class="info-item">
+                                <i class="fas fa-door-open"></i>
+                                <span>Puerta interactiva con sorpresa</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-volume-up"></i>
+                                <span>Efectos de sonido mágicos</span>
                             </div>
                         </div>
                     </div>
@@ -1074,55 +2325,55 @@
         <!-- Sección Cómo Funciona -->
         <section id="como-funciona" class="how-section">
             <div class="section-header">
-                <h2>Cómo Funciona WishCraft</h2>
-                <p class="section-subtitle">Crea y comparte en 3 pasos mágicos</p>
+                <h2>La Magia Detrás de la Experiencia</h2>
+                <p class="section-subtitle">Así funciona nuestra experiencia navideña interactiva</p>
             </div>
             
             <div class="steps-container">
                 <div class="step-card">
                     <div class="step-number">1</div>
                     <div class="step-content">
-                        <h3>Personaliza</h3>
-                        <p>Escribe tu nombre o mensaje especial. Elige entre diseños navideños únicos.</p>
+                        <h3>La Puerta Mágica</h3>
+                        <p>Tu destinatario verá una puerta navideña decorada. Al hacer clic en el picaporte, la magia comienza...</p>
                         <ul class="step-features">
-                            <li><i class="fas fa-check"></i> Nombres individuales o grupales</li>
-                            <li><i class="fas fa-check"></i> Varios estilos navideños</li>
-                            <li><i class="fas fa-check"></i> Mensajes predefinidos</li>
+                            <li><i class="fas fa-check"></i> Puerta interactiva con animación</li>
+                            <li><i class="fas fa-check"></i> Efectos de sonido realistas</li>
+                            <li><i class="fas fa-check"></i> Decoración navideña animada</li>
                         </ul>
                     </div>
-                    <div class="step-decoration">
-                        <i class="fas fa-gift"></i>
+                    <div class="step-ornament">
+                        <i class="fas fa-door-closed"></i>
                     </div>
                 </div>
                 
                 <div class="step-card">
                     <div class="step-number">2</div>
                     <div class="step-content">
-                        <h3>Genera</h3>
-                        <p>Nuestra magia navideña crea una tarjeta única con animaciones y efectos especiales.</p>
+                        <h3>La Sorpresa</h3>
+                        <p>Al abrirse la puerta, un elfo navideño da la bienvenida y revela el mensaje personalizado con efectos especiales.</p>
                         <ul class="step-features">
-                            <li><i class="fas fa-check"></i> Animaciones festivas</li>
-                            <li><i class="fas fa-check"></i> Efectos de nieve</li>
-                            <li><i class="fas fa-check"></i> Calidad HD</li>
+                            <li><i class="fas fa-check"></i> Elfo animado con personalidad</li>
+                            <li><i class="fas fa-check"></i> Efectos visuales espectaculares</li>
+                            <li><i class="fas fa-check"></i> Revelación dramática del mensaje</li>
                         </ul>
                     </div>
-                    <div class="step-decoration">
-                        <i class="fas fa-snowflake"></i>
+                    <div class="step-ornament">
+                        <i class="fas fa-hat-wizard"></i>
                     </div>
                 </div>
                 
                 <div class="step-card">
                     <div class="step-number">3</div>
                     <div class="step-content">
-                        <h3>Comparte</h3>
-                        <p>Envía tu tarjeta a través de WhatsApp, Facebook, o copia el enlace.</p>
+                        <h3>Compartir la Magia</h3>
+                        <p>La experiencia completa se puede compartir en redes sociales o enviar directamente a tus seres queridos.</p>
                         <ul class="step-features">
-                            <li><i class="fas fa-check"></i> Compartir en redes</li>
-                            <li><i class="fas fa-check"></i> Enlace personalizado</li>
-                            <li><i class="fas fa-check"></i> Vista en cualquier dispositivo</li>
+                            <li><i class="fas fa-check"></i> Enlace mágico único</li>
+                            <li><i class="fas fa-check"></i> Compatible con todos los dispositivos</li>
+                            <li><i class="fas fa-check"></i> Efectos que sorprenden a todos</li>
                         </ul>
                     </div>
-                    <div class="step-decoration">
+                    <div class="step-ornament">
                         <i class="fas fa-share-alt"></i>
                     </div>
                 </div>
@@ -1132,36 +2383,39 @@
         <!-- Tarjetas Destacadas -->
         <section class="featured-section">
             <div class="section-header">
-                <h2>Tarjetas Destacadas</h2>
-                <p class="section-subtitle">Inspírate con las creaciones de nuestra comunidad</p>
+                <h2>Experiencias Destacadas</h2>
+                <p class="section-subtitle">Descubre las creaciones más mágicas de nuestra comunidad</p>
             </div>
             
             <div class="featured-grid" id="featuredCards">
-                <!-- Tarjetas se cargan con JavaScript -->
+                <!-- Las experiencias se cargarán con JavaScript -->
                 <div class="featured-card red">
                     <div class="featured-card-header">
                         <div class="featured-badge">
                             <i class="fas fa-crown"></i>
-                            Destacada
+                            Puerta Mágica
                         </div>
                         <div class="featured-date">
-                            20 de Dic
+                            22 de Dic
                         </div>
                     </div>
                     <div class="featured-card-content">
-                        <h4>¡Feliz Navidad!</h4>
-                        <div class="featured-name">Familia González</div>
-                        <p class="featured-wish">Que esta Navidad sea especial</p>
+                        <h4>¡Sorpresa Navideña!</h4>
+                        <div class="featured-name">Familia Martínez</div>
+                        <p class="featured-wish">"Un elfo nos dio la bienvenida"</p>
                     </div>
                     <div class="featured-card-footer">
                         <div class="featured-stats">
-                            <span><i class="fas fa-eye"></i> 245</span>
-                            <span><i class="fas fa-heart"></i> 89</span>
+                            <span><i class="fas fa-door-open"></i> 356</span>
+                            <span><i class="fas fa-heart"></i> 124</span>
                         </div>
-                        <a href="#" class="featured-link">
-                            Ver Tarjeta
+                        <a href="card.html?id=navidad_123" class="featured-link">
+                            Abrir Puerta
                             <i class="fas fa-arrow-right"></i>
                         </a>
+                    </div>
+                    <div class="featured-ornament">
+                        <i class="fas fa-gift"></i>
                     </div>
                 </div>
                 
@@ -1169,34 +2423,38 @@
                     <div class="featured-card-header">
                         <div class="featured-badge">
                             <i class="fas fa-crown"></i>
-                            Destacada
+                            Taller de Duendes
                         </div>
                         <div class="featured-date">
-                            19 de Dic
+                            21 de Dic
                         </div>
                     </div>
                     <div class="featured-card-content">
-                        <h4>¡Feliz Navidad!</h4>
-                        <div class="featured-name">Los Mejores Amigos</div>
-                        <p class="featured-wish">Que esta Navidad sea especial</p>
+                        <h4>¡Felicidades!</h4>
+                        <div class="featured-name">Amigos del Barrio</div>
+                        <p class="featured-wish">"Los duendes nos sorprendieron"</p>
                     </div>
                     <div class="featured-card-footer">
                         <div class="featured-stats">
-                            <span><i class="fas fa-eye"></i> 189</span>
-                            <span><i class="fas fa-heart"></i> 67</span>
+                            <span><i class="fas fa-door-open"></i> 289</span>
+                            <span><i class="fas fa-heart"></i> 98</span>
                         </div>
-                        <a href="#" class="featured-link">
-                            Ver Tarjeta
+                        <a href="card.html?id=navidad_456" class="featured-link">
+                            Visitar Taller
                             <i class="fas fa-arrow-right"></i>
                         </a>
+                    </div>
+                    <div class="featured-ornament">
+                        <i class="fas fa-tree"></i>
                     </div>
                 </div>
             </div>
             
-            <div style="text-align: center; margin-top: 3rem;">
+            <div class="view-all-container">
                 <a href="gallery.html" class="view-all-btn">
                     <i class="fas fa-images"></i>
-                    Ver Galería Completa
+                    Ver Más Experiencias
+                    <i class="fas fa-arrow-right arrow-move"></i>
                 </a>
             </div>
         </section>
@@ -1211,8 +2469,8 @@
                     <span>Wish<span class="logo-accent">Craft</span></span>
                 </div>
                 <p class="footer-description">
-                    Creando magia navideña desde 2023.<br>
-                    ¡Que tus deseos se hagan realidad esta Navidad!
+                    Creando experiencias navideñas mágicas desde 2023.<br>
+                    Donde cada tarjeta es una puerta a la felicidad navideña.
                 </p>
                 <div class="footer-social">
                     <a href="#" class="social-icon">
@@ -1224,52 +2482,67 @@
                     <a href="#" class="social-icon">
                         <i class="fab fa-instagram"></i>
                     </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
                 </div>
             </div>
             
             <div>
-                <h4>Navegación</h4>
+                <h4>Experiencias</h4>
                 <ul class="footer-links">
                     <li>
-                        <a href="index.html">
-                            <i class="fas fa-home"></i>
-                            Inicio
+                        <a href="index.html#crear">
+                            <i class="fas fa-door-closed"></i>
+                            Puertas Mágicas
                         </a>
                     </li>
                     <li>
                         <a href="gallery.html">
-                            <i class="fas fa-images"></i>
-                            Galería Navideña
+                            <i class="fas fa-hat-wizard"></i>
+                            Visitas de Elfos
                         </a>
                     </li>
                     <li>
-                        <a href="#como-funciona">
-                            <i class="fas fa-question-circle"></i>
-                            Cómo Funciona
+                        <a href="#">
+                            <i class="fas fa-sleigh"></i>
+                            Paseos con Santa
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-icicles"></i>
+                            Polo Norte
                         </a>
                     </li>
                 </ul>
             </div>
             
             <div>
-                <h4>Recursos</h4>
+                <h4>Recursos Mágicos</h4>
                 <ul class="footer-links">
                     <li>
                         <a href="#">
-                            <i class="fas fa-shield-alt"></i>
-                            Privacidad
+                            <i class="fas fa-scroll"></i>
+                            Hechizos Navideños
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fas fa-file-contract"></i>
-                            Términos
+                            <i class="fas fa-book-sparkles"></i>
+                            Libro de Magia
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fas fa-envelope"></i>
-                            Contacto
+                            <i class="fas fa-wand-sparkles"></i>
+                            Varitas Mágicas
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-envelope-open-text"></i>
+                            Cartas al Polo Norte
                         </a>
                     </li>
                 </ul>
@@ -1278,125 +2551,314 @@
             <div>
                 <h4>¡Felices Fiestas!</h4>
                 <div class="footer-message">
-                    <p>Que esta Navidad traiga paz, alegría y prosperidad a tu hogar.</p>
-                    <div class="footer-countdown" style="margin-top: 1rem;">
-                        <div style="font-size: 0.9rem; opacity: 0.8;">Faltan para Navidad:</div>
-                        <div style="font-size: 2rem; font-weight: bold; color: var(--christmas-gold);" id="days">5</div>
+                    <p>Que la magia de la Navidad llene tu hogar de alegría, paz y momentos inolvidables.</p>
+                    <div class="footer-countdown">
+                        <div class="countdown-label">La magia comienza en:</div>
+                        <div class="countdown-timer">
+                            <span class="countdown-number" id="days">5</span>
+                            <span class="countdown-label-small">días mágicos</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; 2023 WishCraft. Todos los derechos reservados.</p>
-            <p style="margin-top: 0.5rem;">
-                Hecho con <i class="fas fa-heart heart-beat" style="color: var(--christmas-red);"></i> 
-                para esparcir alegría navideña
+            <p>&copy; 2023 WishCraft - Taller de Magia Navideña</p>
+            <p class="copyright-message">
+                Hecho con <i class="fas fa-heart heart-beat"></i> y un poco de polvo de estrellas
             </p>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script>
-        // Crear efecto de nieve
-        function createSnow() {
-            const container = document.getElementById('snowContainer');
-            const snowflakes = ['❄', '❅', '❆', '•', '✦'];
-            
-            for (let i = 0; i < 50; i++) {
+        // ===== VARIABLES GLOBALES =====
+        let currentDesign = 1;
+        let isCardFlipped = false;
+        let doorOpened = false;
+        
+        // Configuraciones de diseño
+        const designConfigs = {
+            1: {
+                bg1: '#8B0000',
+                bg2: '#C41E3A',
+                border: '#FFD700',
+                accent: '#FFD700',
+                name: 'Rojo Clásico'
+            },
+            2: {
+                bg1: '#006400',
+                bg2: '#228B22',
+                border: '#FF6B6B',
+                accent: '#FF6B6B',
+                name: 'Verde Bosque'
+            },
+            3: {
+                bg1: '#00008B',
+                bg2: '#4169E1',
+                border: '#FFFFFF',
+                accent: '#FFFFFF',
+                name: 'Azul Invernal'
+            },
+            4: {
+                bg1: '#DAA520',
+                bg2: '#FFD700',
+                border: '#C41E3A',
+                accent: '#C41E3A',
+                name: 'Dorado Real'
+            }
+        };
+
+        // ===== ELEMENTOS DOM =====
+        const userNameInput = document.getElementById('userName');
+        const previewName = document.getElementById('previewName');
+        const surpriseName = document.getElementById('surpriseName');
+        const designButtons = document.querySelectorAll('.design-btn');
+        const generateBtn = document.getElementById('generateBtn');
+        const rotateBtn = document.getElementById('rotateBtn');
+        const doorKnob = document.getElementById('doorKnob');
+        const cardInner = document.getElementById('cardInner');
+        const cardFront = document.getElementById('cardFront');
+        const daysElement = document.getElementById('days');
+
+        // ===== INICIALIZAR FONDO =====
+        function initBackground() {
+            // Crear nieve
+            const snowContainer = document.getElementById('snowContainer');
+            for (let i = 0; i < 100; i++) {
                 const snowflake = document.createElement('div');
                 snowflake.className = 'snowflake';
-                snowflake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
                 snowflake.style.left = Math.random() * 100 + 'vw';
                 snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
                 snowflake.style.animationDelay = Math.random() * 5 + 's';
-                snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+                snowflake.style.width = snowflake.style.height = Math.random() * 5 + 3 + 'px';
                 snowflake.style.opacity = Math.random() * 0.5 + 0.3;
-                container.appendChild(snowflake);
+                snowContainer.appendChild(snowflake);
+            }
+
+            // Crear estrellas
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.width = star.style.height = Math.random() * 3 + 1 + 'px';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
             }
         }
 
-        // Actualizar vista previa
-        document.getElementById('userName').addEventListener('input', function() {
-            const name = this.value.trim();
-            document.getElementById('previewName').textContent = name || 'Tu Nombre Aquí';
+        // ===== ACTUALIZAR VISTA PREVIA =====
+        userNameInput.addEventListener('input', function() {
+            const text = this.value.trim();
+            const displayText = text || 'Toca para abrir';
+            previewName.textContent = displayText;
+            surpriseName.textContent = text || '¡Feliz Navidad!';
             
-            // Generar código único
-            const code = 'WC-' + (name.substring(0, 3).toUpperCase() || 'YOU') + '-' + 
-                        Date.now().toString().substr(-4);
-            document.getElementById('cardCode').textContent = 'Código: ' + code;
+            // Efecto de escritura para el nombre sorpresa
+            if (text) {
+                typeWriterEffect(surpriseName, text);
+            }
         });
 
-        // Cambiar diseño
-        document.querySelectorAll('.design-btn').forEach(btn => {
+        function typeWriterEffect(element, text) {
+            element.textContent = '';
+            let i = 0;
+            const speed = 50;
+            
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // ===== CAMBIAR DISEÑO =====
+        designButtons.forEach(btn => {
             btn.addEventListener('click', function() {
-                document.querySelectorAll('.design-btn').forEach(b => b.classList.remove('active'));
+                designButtons.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
-                
-                const design = this.dataset.design;
-                const cardFront = document.querySelector('.card-front');
-                
-                // Cambiar colores según diseño
-                const designs = {
-                    '1': { bg: 'linear-gradient(135deg, #C41E3A, #8B0000)', color: '#FFD700' },
-                    '2': { bg: 'linear-gradient(135deg, #228B22, #006400)', color: '#FF6B6B' },
-                    '3': { bg: 'linear-gradient(135deg, #4169E1, #00008B)', color: '#FFFFFF' },
-                    '4': { bg: 'linear-gradient(135deg, #FFD700, #DAA520)', color: '#C41E3A' }
-                };
-                
-                const selected = designs[design];
-                cardFront.style.background = selected.bg;
-                document.querySelector('.user-name').style.color = selected.color;
-                document.querySelector('.title-underline').style.background = selected.color;
+                currentDesign = parseInt(this.dataset.design);
+                updateCardDesign();
             });
         });
 
-        // Girar tarjeta
-        let isFlipped = false;
-        document.getElementById('generateBtn').addEventListener('mouseenter', function() {
-            if (!isFlipped) {
-                document.getElementById('cardInner').style.transform = 'rotateY(180deg)';
-                isFlipped = true;
-                setTimeout(() => {
-                    document.getElementById('cardInner').style.transform = 'rotateY(0deg)';
-                    isFlipped = false;
-                }, 1000);
+        function updateCardDesign() {
+            const design = designConfigs[currentDesign];
+            
+            // Actualizar variables CSS
+            cardFront.style.setProperty('--design-bg-1', design.bg1);
+            cardFront.style.setProperty('--design-bg-2', design.bg2);
+            cardFront.style.setProperty('--design-border', design.border);
+            cardFront.style.setProperty('--design-accent', design.accent);
+            
+            // Actualizar elementos específicos
+            document.querySelector('.user-name').style.color = design.accent;
+            document.querySelector('.title-underline').style.background = design.accent;
+            document.querySelector('.name-glow').style.background = 
+                `radial-gradient(ellipse at center, ${design.accent} 0%, transparent 70%)`;
+        }
+
+        // ===== INTERACCIÓN CON LA PUERTA =====
+        doorKnob.addEventListener('click', function() {
+            if (!doorOpened) {
+                openDoor();
             }
         });
 
-        // Crear tarjeta
-        document.getElementById('generateBtn').addEventListener('click', function() {
-            const name = document.getElementById('userName').value.trim();
+        function openDoor() {
+            doorOpened = true;
+            
+            // Efecto de sonido (simulado)
+            playSoundEffect('doorOpen');
+            
+            // Animación del picaporte
+            doorKnob.style.transform = 'rotate(45deg) scale(1.2)';
+            doorKnob.style.color = '#FFD700';
+            
+            // Cambiar instrucción
+            previewName.textContent = '¡La puerta se abre!';
+            
+            // Después de un delay, mostrar la sorpresa
+            setTimeout(() => {
+                cardInner.style.transform = 'rotateY(180deg)';
+                
+                // Efectos mágicos
+                createMagicEffects();
+                
+                // Mostrar notificación
+                showNotification('🎄 ¡Un elfo te da la bienvenida!', 'success');
+            }, 1000);
+        }
+
+        // ===== EFECTOS DE SONIDO =====
+        function playSoundEffect(sound) {
+            // En una implementación real, aquí cargarías archivos de audio
+            console.log(`Reproduciendo sonido: ${sound}`);
+            
+            // Simulación de sonidos con la Web Audio API
+            if (window.AudioContext) {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                if (sound === 'doorOpen') {
+                    // Sonido de puerta abriéndose
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.5);
+                    
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.5);
+                }
+            }
+        }
+
+        // ===== EFECTOS MÁGICOS =====
+        function createMagicEffects() {
+            const scene = document.querySelector('.door-opened-scene');
+            
+            for (let i = 0; i < 15; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'magic-sparkle';
+                sparkle.textContent = '✨';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.fontSize = Math.random() * 20 + 10 + 'px';
+                sparkle.style.animationDelay = Math.random() * 2 + 's';
+                scene.appendChild(sparkle);
+                
+                // Remover después de la animación
+                setTimeout(() => sparkle.remove(), 3000);
+            }
+        }
+
+        // ===== GIRAR TARJETA =====
+        rotateBtn.addEventListener('click', function() {
+            if (!doorOpened) {
+                isCardFlipped = !isCardFlipped;
+                cardInner.style.transform = isCardFlipped ? 'rotateY(180deg)' : 'rotateY(0)';
+                this.innerHTML = isCardFlipped ? 
+                    '<i class="fas fa-undo"></i>' : 
+                    '<i class="fas fa-sync-alt"></i>';
+            }
+        });
+
+        // ===== PANTALLA COMPLETA =====
+        document.getElementById('fullscreenBtn').addEventListener('click', function() {
+            const previewContainer = document.querySelector('.card-preview-container');
+            if (!document.fullscreenElement) {
+                previewContainer.requestFullscreen().catch(err => {
+                    console.log(`Error: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        });
+
+        // ===== CREAR EXPERIENCIA =====
+        generateBtn.addEventListener('click', async function() {
+            const name = userNameInput.value.trim();
             
             if (!name) {
-                alert('🎅 ¡Escribe un nombre para tu tarjeta navideña!');
+                showNotification('🎅 ¡Escribe un mensaje para tu experiencia mágica!', 'warning');
+                userNameInput.focus();
                 return;
             }
 
-            // Mostrar animación
-            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando...';
+            // Animación de carga
+            const btnText = this.querySelector('.btn-text');
+            const btnLoader = this.querySelector('.btn-loader');
+            btnText.style.opacity = '0.5';
+            btnLoader.style.display = 'flex';
             this.disabled = true;
 
             // Simular creación
-            setTimeout(() => {
-                // Guardar en localStorage
-                const cardId = 'navidad_' + Date.now();
-                const cardData = {
-                    id: cardId,
-                    name: name,
-                    design: document.querySelector('.design-btn.active').dataset.design,
-                    timestamp: new Date().toISOString()
-                };
+            await new Promise(resolve => setTimeout(resolve, 2000));
 
-                localStorage.setItem(cardId, JSON.stringify(cardData));
-                
-                // Redirigir a página de tarjeta
-                window.location.href = `card.html?id=${cardId}`;
-            }, 1500);
+            // Crear datos de experiencia
+            const experienceId = 'navidad_magic_' + Date.now().toString(36);
+            const experienceData = {
+                id: experienceId,
+                name: name,
+                design: currentDesign,
+                experienceType: document.getElementById('messageType').value,
+                timestamp: new Date().toISOString(),
+                views: 0,
+                likes: 0,
+                doorOpened: false
+            };
+
+            // Guardar en localStorage
+            localStorage.setItem(experienceId, JSON.stringify(experienceData));
+            
+            // Actualizar galería
+            updateGallery(experienceData);
+            
+            // Redirigir a la experiencia
+            window.location.href = `card.html?id=${experienceId}&type=door`;
         });
 
-        // Contador para Navidad
-        function updateCountdown() {
+        function updateGallery(experienceData) {
+            let gallery = JSON.parse(localStorage.getItem('wishcraft_gallery')) || [];
+            gallery.unshift(experienceData);
+            if (gallery.length > 200) gallery = gallery.slice(0, 200);
+            localStorage.setItem('wishcraft_gallery', JSON.stringify(gallery));
+        }
+
+        // ===== CONTADOR NAVIDEÑO =====
+        function updateChristmasCountdown() {
             const now = new Date();
             const christmas = new Date(now.getFullYear(), 11, 25);
             if (now > christmas) {
@@ -1405,17 +2867,126 @@
             
             const diff = christmas - now;
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById('days').textContent = days;
+            
+            daysElement.textContent = days;
+            
+            // Efecto especial si faltan pocos días
+            if (days <= 10) {
+                daysElement.classList.add('countdown-urgent');
+            }
         }
 
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', function() {
-            createSnow();
-            updateCountdown();
+        // ===== NOTIFICACIONES =====
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
             
-            // Actualizar cada minuto
-            setInterval(updateCountdown, 60000);
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 10);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // ===== INICIALIZACIÓN =====
+        document.addEventListener('DOMContentLoaded', function() {
+            initBackground();
+            updateCardDesign();
+            updateChristmasCountdown();
+            
+            // Actualizar contador cada minuto
+            setInterval(updateChristmasCountdown, 60000);
+            
+            // Efectos de hover
+            setupHoverEffects();
+            
+            // Scroll suave
+            setupSmoothScroll();
+            
+            // Cargar ejemplos si no hay datos
+            loadExampleExperiences();
         });
+
+        function setupHoverEffects() {
+            // Efecto en botones de diseño
+            designButtons.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'translateY(-5px) scale(1.05)';
+                    }
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'translateY(0) scale(1)';
+                    }
+                });
+            });
+
+            // Efecto en botón crear
+            generateBtn.addEventListener('mouseenter', function() {
+                if (!this.disabled) {
+                    this.style.transform = 'translateY(-3px)';
+                }
+            });
+
+            generateBtn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        }
+
+        function setupSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        function loadExampleExperiences() {
+            // Cargar datos de ejemplo si el localStorage está vacío
+            const hasData = localStorage.getItem('wishcraft_gallery');
+            if (!hasData) {
+                const examples = [
+                    {
+                        id: 'navidad_example_1',
+                        name: 'Familia González',
+                        design: 1,
+                        experienceType: 'door',
+                        timestamp: new Date().toISOString(),
+                        views: 356,
+                        likes: 124
+                    },
+                    {
+                        id: 'navidad_example_2',
+                        name: 'Amigos del Barrio',
+                        design: 2,
+                        experienceType: 'workshop',
+                        timestamp: new Date(Date.now() - 86400000).toISOString(), // Ayer
+                        views: 289,
+                        likes: 98
+                    }
+                ];
+                localStorage.setItem('wishcraft_gallery', JSON.stringify(examples));
+            }
+        }
     </script>
 </body>
 </html>
