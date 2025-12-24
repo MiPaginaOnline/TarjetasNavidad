@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería Navideña | WishCraft</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f2b1e 0%, #1a472a 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 3rem;
+            color: #FFD700;
+            margin-bottom: 1rem;
+        }
+        
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #C41E3A;
+            transform: translateY(-2px);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .gallery-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            border-color: #FFD700;
+        }
+        
+        .card-preview {
+            background: linear-gradient(135deg, #C41E3A, #8B0000);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .card-name {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 1.8rem;
+            color: #FFD700;
+            margin: 1rem 0;
+        }
+        
+        .card-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .view-btn {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background: #228B22;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .view-btn:hover {
+            background: #1a7a1a;
+            transform: translateY(-2px);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            grid-column: 1 / -1;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            color: #FFD700;
+            margin-bottom: 1rem;
+        }
+        
+        .create-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #C41E3A;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 2rem;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .page-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .page-btn.active {
+            background: #FFD700;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="logo">
+                <i class="fas fa-tree"></i>
+                WishCraft
+            </a>
+            <h1>Galería Navideña</h1>
+            <p>Descubre las tarjetas creadas por nuestra comunidad</p>
+        </div>
+        
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">Todas</button>
+            <button class="filter-btn" data-filter="recent">Recientes</button>
+            <button class="filter-btn" data-filter="popular">Populares</button>
+            <button class="filter-btn" data-filter="family">Familia</button>
+            <button class="filter-btn" data-filter="friends">Amigos</button>
+        </div>
+        
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Las tarjetas se cargarán aquí -->
+        </div>
+        
+        <div class="pagination">
+            <button class="page-btn">‹</button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">›</button>
+        </div>
+    </div>
+
+    <script>
+        // Cargar galería
+        function loadGallery(filter = 'all') {
+            const galleryGrid = document.getElementById('galleryGrid');
+            
+            // Obtener todas las tarjetas del localStorage
+            let allCards = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('navidad_')) {
+                    try {
+                        const card = JSON.parse(localStorage.getItem(key));
+                        allCards.push({...card, id: key});
+                    } catch(e) {
+                        console.error('Error parsing card:', key);
+                    }
+                }
+            }
+            
+            // Ordenar por fecha (más reciente primero)
+            allCards.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            
+            // Aplicar filtro
+            let filteredCards = allCards;
+            if (filter === 'recent') {
+                // Últimas 24 horas
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                filteredCards = allCards.filter(card => new Date(card.timestamp) > yesterday);
+            } else if (filter === 'popular') {
+                // Ordenar por vistas
+                filteredCards = [...allCards].sort((a, b) => (b.views || 0) - (a.views || 0));
+            }
+            
+            // Mostrar tarjetas
+            if (filteredCards.length === 0) {
+                galleryGrid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-tree"></i>
+                        <h3>¡No hay tarjetas aún!</h3>
+                        <p>Sé el primero en crear una tarjeta navideña</p>
+                        <a href="index.html" class="create-link">
+                            <i class="fas fa-plus"></i>
+                            Crear Tarjeta
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            galleryGrid.innerHTML = filteredCards.map(card => {
+                const date = new Date(card.timestamp);
+                const formattedDate = `${date.getDate()} de Diciembre`;
+                
+                return `
+                    <div class="gallery-card">
+                        <div class="card-preview">
+                            <h4>¡Feliz Navidad!</h4>
+                            <div class="card-name">${card.name}</div>
+                            <p>Que esta Navidad sea especial</p>
+                        </div>
+                        <div class="card-info">
+                            <span><i class="fas fa-eye"></i> ${card.views || 0}</span>
+                            <span><i class="fas fa-heart"></i> ${card.likes || 0}</span>
+                            <span>${formattedDate}</span>
+                        </div>
+                        <a href="card.html?id=${card.id}" class="view-btn">
+                            Ver Tarjeta Completa
+                        </a>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Filtros
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                loadGallery(this.dataset.filter);
+            });
+        });
+        
+        // Cargar al iniciar
+        document.addEventListener('DOMContentLoaded', () => loadGallery());
+    </script>
+</body>
+</html>
