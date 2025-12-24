@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WishCraft | Crea tu Tarjeta Navideña Mágica</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0c2c1a 0%, #1a472a 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Navegación */
+        .navbar {
+            background: rgba(10, 40, 25, 0.95);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #c41e3a;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.2rem;
+            color: #FFD700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background: #c41e3a;
+            color: white;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            text-align: center;
+            padding: 0 2rem;
+            margin-top: 60px;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(196, 30, 58, 0.15) 0%, transparent 50%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+        
+        .hero-title {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 4.5rem;
+            color: #FFD700;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        /* Creación de Tarjetas */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h2 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 3.5rem;
+            color: #FFD700;
+            margin-bottom: 1rem;
+        }
+        
+        .creation-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Diseños de Tarjetas Mejorados */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+        
+        .card-design {
+            background: linear-gradient(145deg, #1a472a, #0c2c1a);
+            border-radius: 20px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-design:hover {
+            transform: translateY(-10px);
+            border-color: #FFD700;
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.2);
+        }
+        
+        .card-design.active {
+            border-color: #c41e3a;
+            background: linear-gradient(145deg, #c41e3a, #8b0000);
+        }
+        
+        .card-preview {
+            min-height: 250px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Tarjeta Clásica */
+        .classic-card {
+            background: linear-gradient(135deg, #c41e3a, #8b0000);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        .classic-card::before {
+            content: "🎄";
+            font-size: 4rem;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            opacity: 0.3;
+        }
+        
+        /* Tarjeta Elegante */
+        .elegant-card {
+            background: linear-gradient(135deg, #1a472a, #0c2c1a);
+            border: 3px solid #FFD700;
+        }
+        
+        .elegant-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 10px,
+                #FFD700 10px,
+                #FFD700 20px
+            );
+        }
+        
+        /* Tarjeta Mágica */
+        .magic-card {
+            background: linear-gradient(135deg, #0c2c1a, #c41e3a);
+            animation: shimmer 3s infinite alternate;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        .magic-card::after {
+            content: "✨";
+            position: absolute;
+            font-size: 2rem;
+            animation: float 3s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Contenido de la Tarjeta */
+        .card-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .card-greeting {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .card-name-display {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.5rem;
+            color: #FFD700;
+            margin: 1.5rem 0;
+            padding: 0.5rem 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            display: inline-block;
+            border: 2px dashed #FFD700;
+        }
+        
+        .card-wish {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        /* Decoraciones Navideñas */
+        .snowflakes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .snowflake {
+            position: absolute;
+            color: white;
+            font-size: 1rem;
+            animation: fall linear infinite;
+            opacity: 0.8;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        
+        .ornaments {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .ornament {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: swing 3s infinite ease-in-out;
+        }
+        
+        @keyframes swing {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+        
+        /* Formulario */
+        .input-container {
+            max-width: 500px;
+            margin: 0 auto 3rem;
+        }
+        
+        .name-input {
+            width: 100%;
+            padding: 1.5rem 2rem;
+            font-size: 1.3rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .name-input:focus {
+            outline: none;
+            border-color: #c41e3a;
+            box-shadow: 0 0 20px rgba(196, 30, 58, 0.5);
+            transform: scale(1.02);
+        }
+        
+        .input-hint {
+            text-align: center;
+            margin-top: 1rem;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Botones */
+        .btn-create {
+            background: linear-gradient(135deg, #c41e3a, #8b0000);
+            color: white;
+            border: none;
+            padding: 1.5rem 3rem;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 3rem auto;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(196, 30, 58, 0.4);
+        }
+        
+        .btn-create:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(196, 30, 58, 0.6);
+        }
+        
+        .btn-create:active {
+            transform: translateY(0) scale(1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .card-name-display {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            background: rgba(10, 40, 25, 0.95);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            border-top: 2px solid #c41e3a;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-tree"></i>
+                WishCraft Navidad
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="active"><i class="fas fa-home"></i> Inicio</a>
+                <a href="gallery.html"><i class="fas fa-images"></i> Galería</a>
+                <a href="card.html"><i class="fas fa-star"></i> Mi Tarjeta</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">¡Crea tu Tarjeta Navideña Mágica!</h1>
+            <p class="hero-subtitle">Diseña una tarjeta única, llena de magia navideña, y comparte la alegría con quienes más quieres</p>
+            
+            <!-- Decoraciones Navideñas -->
+            <div class="snowflakes">
+                <div class="snowflake">❄</div>
+                <div class="snowflake">❅</div>
+                <div class="snowflake">❆</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Principal -->
+    <main class="container">
+        <section class="creation-section">
+            <div class="section-header">
+                <h2>🎄 Diseña tu Tarjeta</h2>
+                <p>Elige entre nuestros diseños exclusivos y crea algo especial</p>
+            </div>
+
+            <!-- Input del Nombre -->
+            <div class="input-container">
+                <input 
+                    type="text" 
+                    class="name-input" 
+                    id="userName" 
+                    placeholder="Escribe tu nombre o el de tu familia..."
+                    maxlength="30"
+                >
+                <p class="input-hint">
+                    <i class="fas fa-lightbulb"></i> Ejemplo: Familia Rodríguez, Amigos del Barrio, María y Juan
+                </p>
+            </div>
+
+            <!-- Diseños de Tarjetas -->
+            <div class="cards-grid">
+                <!-- Tarjeta Clásica -->
+                <div class="card-design active" data-design="1">
+                    <div class="card-preview classic-card">
+                        <div class="card-content">
+                            <h3 class="card-greeting">¡Feliz Navidad!</h3>
+                            <div class="card-name-display" id="previewName1">Tu Nombre</div>
+                            <p class="card-wish">Que esta Navidad llene tu hogar de alegría, amor y paz</p>
+                        </div>
+                        <div class="ornaments">
+                            <div class="ornament" style="top: 20%; left: 15%;"></div>
+                            <div class="ornament" style="top: 60%; right: 20%; background: #c41e3a;"></div>
+                        </div>
+                    </div>
+                    <div class="design-info">
+                        <h4><i class="fas fa-candy-cane"></i> Clásica Navideña</h4>
+                        <p>Rojo tradicional con decoraciones doradas</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Elegante -->
+                <div class="card-design" data-design="2">
+                    <div class="card-preview elegant-card">
+                        <div class="card-content">
+                            <h3 class="card-greeting">Felices Fiestas</h3>
+                            <div class="card-name-display" id="previewName2">Tu Nombre</div>
+                            <p class="card-wish">Brindamos por la unión y la felicidad familiar</p>
+                        </div>
+                        <div class="ornaments">
+                            <div class="ornament" style="top: 30%; left: 10%; background: #228B22;"></div>
+                            <div class="ornament" style="bottom: 30%; right: 10%;"></div>
+                        </div>
+                    </div>
+                    <div class="design-info">
+                        <h4><i class="fas fa-gem"></i> Elegante Dorada</h4>
+                        <p>Verde esmeralda con bordes dorados</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Mágica -->
+                <div class="card-design" data-design="3">
+                    <div class="card-preview magic-card">
+                        <div class="card-content">
+                            <h3 class="card-greeting">Navidad Mágica</h3>
+                            <div class="card-name-display" id="previewName3">Tu Nombre</div>
+                            <p class="card-wish">Donde los sueños se hacen realidad</p>
+                        </div>
+                        <div class="ornaments">
+                            <div class="ornament" style="top: 40%; left: 25%; background: #4169E1;"></div>
+                            <div class="ornament" style="bottom: 40%; right: 25%; background: #9370DB;"></div>
+                        </div>
+                    </div>
+                    <div class="design-info">
+                        <h4><i class="fas fa-sparkles"></i> Mágica Animada</h4>
+                        <p>Efectos especiales y animaciones únicas</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botón de Creación -->
+            <div style="text-align: center;">
+                <button class="btn-create" id="createBtn">
+                    <i class="fas fa-magic"></i>
+                    <span>¡Crear Mi Tarjeta Mágica!</span>
+                    <i class="fas fa-gift"></i>
+                </button>
+                <p style="margin-top: 1rem; opacity: 0.8;">
+                    <i class="fas fa-shield-alt"></i> Tu tarjeta será única y podrás compartirla inmediatamente
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+                <div class="logo">
+                    <i class="fas fa-tree"></i>
+                    WishCraft Navidad
+                </div>
+                <div>
+                    <p>© 2024 WishCraft. Todos los derechos reservados.</p>
+                    <p style="margin-top: 0.5rem; color: #FFD700;">¡Feliz Navidad y Próspero Año Nuevo!</p>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
+                    <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+                    <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Variables
+        let currentDesign = 1;
+        const userNameInput = document.getElementById('userName');
+        const createBtn = document.getElementById('createBtn');
+        
+        // Inicializar snowflakes
+        function createSnowflakes() {
+            const snowflakesContainer = document.querySelector('.snowflakes');
+            const snowflakeSymbols = ['❄', '❅', '❆', '•'];
+            
+            for (let i = 0; i < 30; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.textContent = snowflakeSymbols[Math.floor(Math.random() * snowflakeSymbols.length)];
+                snowflake.style.left = `${Math.random() * 100}%`;
+                snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                snowflake.style.animationDelay = `${Math.random() * 5}s`;
+                snowflake.style.fontSize = `${Math.random() * 20 + 10}px`;
+                snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+        
+        // Actualizar vista previa del nombre
+        function updateNamePreviews() {
+            const name = userNameInput.value.trim() || 'Tu Nombre';
+            document.querySelectorAll('.card-name-display').forEach(display => {
+                display.textContent = name;
+            });
+        }
+        
+        // Seleccionar diseño
+        document.querySelectorAll('.card-design').forEach(design => {
+            design.addEventListener('click', function() {
+                document.querySelectorAll('.card-design').forEach(d => {
+                    d.classList.remove('active');
+                });
+                this.classList.add('active');
+                currentDesign = parseInt(this.dataset.design);
+                
+                // Efecto visual
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-10px)';
+                }, 50);
+            });
+        });
+        
+        // Crear tarjeta
+        createBtn.addEventListener('click', function() {
+            const name = userNameInput.value.trim();
+            
+            if (!name) {
+                // Efecto de error
+                userNameInput.style.borderColor = '#ff4444';
+                userNameInput.style.boxShadow = '0 0 20px rgba(255, 68, 68, 0.5)';
+                userNameInput.placeholder = '¡Por favor, escribe un nombre!';
+                
+                setTimeout(() => {
+                    userNameInput.style.borderColor = 'rgba(255, 215, 0, 0.5)';
+                    userNameInput.style.boxShadow = 'none';
+                    userNameInput.placeholder = 'Escribe tu nombre o el de tu familia...';
+                }, 2000);
+                
+                return;
+            }
+            
+            // Efecto de carga
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Creando magia navideña...</span>';
+            this.disabled = true;
+            
+            // Crear datos de la tarjeta
+            const cardData = {
+                id: 'navidad_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                name: name,
+                design: currentDesign,
+                timestamp: new Date().toISOString(),
+                views: 0,
+                likes: 0,
+                shares: 0
+            };
+            
+            // Simular proceso de creación
+            setTimeout(() => {
+                // Guardar en localStorage
+                localStorage.setItem(cardData.id, JSON.stringify(cardData));
+                
+                // Actualizar galería
+                let gallery = JSON.parse(localStorage.getItem('navidad_gallery')) || [];
+                gallery.unshift(cardData);
+                if (gallery.length > 100) gallery = gallery.slice(0, 100);
+                localStorage.setItem('navidad_gallery', JSON.stringify(gallery));
+                
+                // Redirigir a la tarjeta
+                window.location.href = `card.html?id=${cardData.id}`;
+            }, 1500);
+        });
+        
+        // Efecto al escribir
+        userNameInput.addEventListener('input', function() {
+            updateNamePreviews();
+            
+            // Efecto visual mientras se escribe
+            if (this.value.trim()) {
+                this.style.background = 'rgba(255, 255, 255, 0.15)';
+            } else {
+                this.style.background = 'rgba(255, 255, 255, 0.1)';
+            }
+        });
+        
+        // Efecto hover en el botón
+        createBtn.addEventListener('mouseenter', function() {
+            if (!this.disabled) {
+                this.style.transform = 'translateY(-5px) scale(1.05)';
+            }
+        });
+        
+        createBtn.addEventListener('mouseleave', function() {
+            if (!this.disabled) {
+                this.style.transform = 'translateY(0) scale(1)';
+            }
+        });
+        
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            createSnowflakes();
+            updateNamePreviews();
+            
+            // Efecto de entrada
+            document.querySelectorAll('.card-design').forEach((design, index) => {
+                design.style.opacity = '0';
+                design.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    design.style.transition = 'all 0.6s ease';
+                    design.style.opacity = '1';
+                    design.style.transform = 'translateY(0)';
+                }, 300 + (index * 200));
+            });
+        });
+    </script>
+</body>
+</html>
