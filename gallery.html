@@ -3,302 +3,866 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería Navideña | WishCraft</title>
+    <title>🎄 Galería Mágica | WishCraft</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        :root {
+            --christmas-red: #C41E3A;
+            --christmas-green: #228B22;
+            --christmas-gold: #FFD700;
+            --snow-white: #FFFFFF;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #0f2b1e 0%, #1a472a 100%);
+            background: linear-gradient(180deg, #0c1a14 0%, #1a472a 100%);
             color: white;
             min-height: 100vh;
         }
-        
-        .container {
-            max-width: 1200px;
+
+        /* Fondo */
+        .gallery-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .snowflake {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh); }
+        }
+
+        /* Contenedor principal */
+        .gallery-container {
+            max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
+            position: relative;
+            z-index: 1;
         }
-        
-        .header {
+
+        /* Encabezado */
+        .gallery-header {
             text-align: center;
             margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            border: 3px solid var(--christmas-gold);
+            backdrop-filter: blur(10px);
         }
-        
-        .logo {
-            font-size: 2rem;
+
+        .gallery-logo {
+            font-size: 2.5rem;
             font-weight: bold;
             color: white;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
             margin-bottom: 1rem;
         }
-        
-        h1 {
+
+        .gallery-logo i {
+            color: var(--christmas-gold);
+            animation: spin-slow 20s linear infinite;
+        }
+
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .gallery-title {
             font-family: 'Mountains of Christmas', cursive;
-            font-size: 3rem;
-            color: #FFD700;
-            margin-bottom: 1rem;
+            font-size: 4rem;
+            color: var(--christmas-gold);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
-        
-        .filters {
+
+        .gallery-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Filtros */
+        .gallery-filters {
             display: flex;
             justify-content: center;
             gap: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             flex-wrap: wrap;
         }
-        
+
         .filter-btn {
-            padding: 0.8rem 1.5rem;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             color: white;
-            border-radius: 20px;
+            border-radius: 25px;
             cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        
-        .filter-btn:hover,
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
         .filter-btn.active {
-            background: #C41E3A;
-            transform: translateY(-2px);
+            background: var(--christmas-red);
+            border-color: var(--christmas-gold);
+            box-shadow: 0 5px 15px rgba(196, 30, 58, 0.3);
         }
-        
-        .gallery-grid {
+
+        .filter-btn i {
+            font-size: 1.2rem;
+        }
+
+        /* Grid de experiencias */
+        .experiences-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
         }
-        
-        .gallery-card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
+
+        /* Tarjeta de experiencia */
+        .experience-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--christmas-gold);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 60px rgba(255, 215, 0, 0.1);
+        }
+
+        .card-header {
             padding: 1.5rem;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        .gallery-card:hover {
-            transform: translateY(-5px);
-            border-color: #FFD700;
+
+        .experience-type {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--christmas-gold);
+            font-weight: 600;
         }
-        
+
+        .experience-date {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
         .card-preview {
-            background: linear-gradient(135deg, #C41E3A, #8B0000);
-            border-radius: 10px;
-            padding: 2rem;
-            text-align: center;
-            margin-bottom: 1rem;
-            min-height: 200px;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .door-preview {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #8B0000, #C41E3A);
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            position: relative;
         }
-        
-        .card-name {
+
+        .preview-door {
+            width: 100px;
+            height: 180px;
+            background: var(--christmas-red);
+            border: 6px solid #5D2906;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .preview-knob {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--christmas-gold);
+            border-radius: 50%;
+        }
+
+        .preview-wreath {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: var(--christmas-green);
+        }
+
+        .preview-instruction {
+            color: white;
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .experience-name {
             font-family: 'Mountains of Christmas', cursive;
-            font-size: 1.8rem;
-            color: #FFD700;
-            margin: 1rem 0;
+            font-size: 2.5rem;
+            color: var(--christmas-gold);
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
-        
-        .card-info {
+
+        .experience-message {
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .card-footer {
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: space-between;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            opacity: 0.8;
+            align-items: center;
         }
-        
-        .view-btn {
-            display: block;
-            width: 100%;
-            padding: 0.8rem;
-            background: #228B22;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            text-align: center;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
+
+        .experience-stats {
+            display: flex;
+            gap: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
         }
-        
-        .view-btn:hover {
-            background: #1a7a1a;
-            transform: translateY(-2px);
+
+        .experience-stats span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
-        
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            grid-column: 1 / -1;
+
+        .experience-stats i {
+            color: var(--christmas-gold);
         }
-        
-        .empty-state i {
-            font-size: 4rem;
-            color: #FFD700;
-            margin-bottom: 1rem;
-        }
-        
-        .create-link {
+
+        .open-experience {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: #C41E3A;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, var(--christmas-green), #006400);
             color: white;
-            padding: 1rem 2rem;
-            border-radius: 25px;
             text-decoration: none;
-            margin-top: 2rem;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
-        
-        .pagination {
+
+        .open-experience:hover {
+            background: linear-gradient(135deg, #006400, #228B22);
+            transform: translateX(5px);
+            border-color: var(--christmas-gold);
+        }
+
+        /* Estado vacío */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 6rem 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 25px;
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .empty-icon {
+            font-size: 5rem;
+            color: var(--christmas-gold);
+            margin-bottom: 2rem;
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 3rem;
+            color: var(--christmas-gold);
+            margin-bottom: 1rem;
+        }
+
+        .empty-message {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .create-experience-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 1.2rem 2.5rem;
+            background: linear-gradient(135deg, var(--christmas-red), #8B0000);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border: 3px solid var(--christmas-gold);
+            transition: all 0.3s ease;
+        }
+
+        .create-experience-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(196, 30, 58, 0.4);
+        }
+
+        /* Paginación */
+        .gallery-pagination {
             display: flex;
             justify-content: center;
             gap: 1rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
-        
+
         .page-btn {
-            padding: 0.5rem 1rem;
-            background: rgba(255,255,255,0.1);
-            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             color: white;
-            border-radius: 5px;
             cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
+
+        .page-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
         .page-btn.active {
-            background: #FFD700;
-            color: #000;
+            background: var(--christmas-red);
+            border-color: var(--christmas-gold);
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        .gallery-footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--christmas-gold);
+            text-decoration: none;
+            padding: 1rem 2rem;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-home:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .gallery-container {
+                padding: 1rem;
+            }
+            
+            .gallery-title {
+                font-size: 2.5rem;
+            }
+            
+            .gallery-filters {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .experiences-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .experience-card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <a href="index.html" class="logo">
+    <!-- Fondo nevado -->
+    <div class="gallery-background" id="galleryBackground"></div>
+
+    <div class="gallery-container">
+        <!-- Encabezado -->
+        <header class="gallery-header">
+            <a href="index.html" class="gallery-logo">
                 <i class="fas fa-tree"></i>
                 WishCraft
             </a>
-            <h1>Galería Navideña</h1>
-            <p>Descubre las tarjetas creadas por nuestra comunidad</p>
+            <h1 class="gallery-title">Galería Mágica</h1>
+            <p class="gallery-subtitle">
+                Descubre las experiencias navideñas más encantadoras creadas por nuestra comunidad.
+                Cada puerta esconde una sorpresa única.
+            </p>
+        </header>
+
+        <!-- Filtros -->
+        <div class="gallery-filters">
+            <button class="filter-btn active" data-filter="all">
+                <i class="fas fa-star"></i>
+                Todas las Experiencias
+            </button>
+            <button class="filter-btn" data-filter="recent">
+                <i class="fas fa-clock"></i>
+                Recientes
+            </button>
+            <button class="filter-btn" data-filter="popular">
+                <i class="fas fa-fire"></i>
+                Populares
+            </button>
+            <button class="filter-btn" data-filter="doors">
+                <i class="fas fa-door-closed"></i>
+                Puertas Mágicas
+            </button>
+            <button class="filter-btn" data-filter="elfs">
+                <i class="fas fa-hat-wizard"></i>
+                Con Elfos
+            </button>
         </div>
-        
-        <div class="filters">
-            <button class="filter-btn active" data-filter="all">Todas</button>
-            <button class="filter-btn" data-filter="recent">Recientes</button>
-            <button class="filter-btn" data-filter="popular">Populares</button>
-            <button class="filter-btn" data-filter="family">Familia</button>
-            <button class="filter-btn" data-filter="friends">Amigos</button>
+
+        <!-- Grid de experiencias -->
+        <div class="experiences-grid" id="experiencesGrid">
+            <!-- Las experiencias se cargarán con JavaScript -->
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">
+                    <i class="fas fa-door-closed"></i>
+                </div>
+                <h2 class="empty-title">¡No hay experiencias aún!</h2>
+                <p class="empty-message">
+                    Sé el primero en crear una experiencia navideña mágica.
+                    Diseña una puerta con sorpresa y compártela con el mundo.
+                </p>
+                <a href="index.html" class="create-experience-btn">
+                    <i class="fas fa-plus"></i>
+                    Crear Primera Experiencia
+                </a>
+            </div>
         </div>
-        
-        <div class="gallery-grid" id="galleryGrid">
-            <!-- Las tarjetas se cargarán aquí -->
-        </div>
-        
-        <div class="pagination">
+
+        <!-- Paginación -->
+        <div class="gallery-pagination">
             <button class="page-btn">‹</button>
             <button class="page-btn active">1</button>
             <button class="page-btn">2</button>
             <button class="page-btn">3</button>
+            <button class="page-btn">4</button>
+            <button class="page-btn">5</button>
             <button class="page-btn">›</button>
         </div>
+
+        <!-- Footer -->
+        <footer class="gallery-footer">
+            <p>✨ Cada experiencia es única, como cada copo de nieve ✨</p>
+            <a href="index.html" class="back-to-home">
+                <i class="fas fa-home"></i>
+                Volver al Taller Mágico
+            </a>
+        </footer>
     </div>
 
     <script>
-        // Cargar galería
-        function loadGallery(filter = 'all') {
-            const galleryGrid = document.getElementById('galleryGrid');
+        // Variables
+        let currentFilter = 'all';
+        let currentPage = 1;
+        const experiencesPerPage = 9;
+        let allExperiences = [];
+
+        // Elementos DOM
+        const experiencesGrid = document.getElementById('experiencesGrid');
+        const emptyState = document.getElementById('emptyState');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const pageButtons = document.querySelectorAll('.page-btn');
+
+        // Inicializar fondo nevado
+        function initSnow() {
+            const container = document.getElementById('galleryBackground');
+            for (let i = 0; i < 60; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.width = snowflake.style.height = Math.random() * 4 + 2 + 'px';
+                snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+                container.appendChild(snowflake);
+            }
+        }
+
+        // Cargar experiencias
+        function loadExperiences() {
+            // Obtener todas las experiencias del localStorage
+            allExperiences = [];
             
-            // Obtener todas las tarjetas del localStorage
-            let allCards = [];
+            // Buscar todas las experiencias navideñas
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
-                if (key.startsWith('navidad_')) {
+                if (key.startsWith('navidad_') || key.startsWith('wishcraft_')) {
                     try {
-                        const card = JSON.parse(localStorage.getItem(key));
-                        allCards.push({...card, id: key});
+                        const experience = JSON.parse(localStorage.getItem(key));
+                        experience.id = key;
+                        allExperiences.push(experience);
                     } catch(e) {
-                        console.error('Error parsing card:', key);
+                        console.error('Error parsing experience:', key);
                     }
                 }
             }
-            
+
             // Ordenar por fecha (más reciente primero)
-            allCards.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-            
+            allExperiences.sort((a, b) => {
+                const dateA = new Date(a.timestamp || 0);
+                const dateB = new Date(b.timestamp || 0);
+                return dateB - dateA;
+            });
+
+            // Mostrar experiencias
+            displayExperiences();
+        }
+
+        // Mostrar experiencias
+        function displayExperiences() {
             // Aplicar filtro
-            let filteredCards = allCards;
-            if (filter === 'recent') {
-                // Últimas 24 horas
-                const yesterday = new Date();
-                yesterday.setDate(yesterday.getDate() - 1);
-                filteredCards = allCards.filter(card => new Date(card.timestamp) > yesterday);
-            } else if (filter === 'popular') {
-                // Ordenar por vistas
-                filteredCards = [...allCards].sort((a, b) => (b.views || 0) - (a.views || 0));
-            }
+            let filteredExperiences = filterExperiences(allExperiences);
             
-            // Mostrar tarjetas
-            if (filteredCards.length === 0) {
-                galleryGrid.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-tree"></i>
-                        <h3>¡No hay tarjetas aún!</h3>
-                        <p>Sé el primero en crear una tarjeta navideña</p>
-                        <a href="index.html" class="create-link">
-                            <i class="fas fa-plus"></i>
-                            Crear Tarjeta
-                        </a>
-                    </div>
-                `;
+            // Aplicar paginación
+            const startIndex = (currentPage - 1) * experiencesPerPage;
+            const endIndex = startIndex + experiencesPerPage;
+            const pageExperiences = filteredExperiences.slice(startIndex, endIndex);
+
+            // Si no hay experiencias, mostrar estado vacío
+            if (pageExperiences.length === 0) {
+                emptyState.style.display = 'block';
+                experiencesGrid.innerHTML = '';
+                experiencesGrid.appendChild(emptyState);
                 return;
             }
-            
-            galleryGrid.innerHTML = filteredCards.map(card => {
-                const date = new Date(card.timestamp);
+
+            // Ocultar estado vacío
+            emptyState.style.display = 'none';
+
+            // Generar HTML de las experiencias
+            experiencesGrid.innerHTML = pageExperiences.map(experience => {
+                const date = new Date(experience.timestamp || Date.now());
                 const formattedDate = `${date.getDate()} de Diciembre`;
                 
+                // Determinar tipo de experiencia
+                const experienceType = experience.experienceType || 'door';
+                const typeIcon = experienceType === 'door' ? 'fa-door-closed' :
+                               experienceType === 'santa' ? 'fa-sleigh' :
+                               experienceType === 'workshop' ? 'fa-tools' : 'fa-hat-wizard';
+                
+                const typeText = experienceType === 'door' ? 'Puerta Mágica' :
+                               experienceType === 'santa' ? 'Santa' :
+                               experienceType === 'workshop' ? 'Taller' : 'Elfo';
+
+                // Configuración de diseño
+                const design = experience.design || 1;
+                const doorColor = design === 1 ? '#8B0000' :
+                                design === 2 ? '#006400' :
+                                design === 3 ? '#00008B' : '#DAA520';
+
                 return `
-                    <div class="gallery-card">
+                    <div class="experience-card" data-id="${experience.id}">
+                        <div class="card-header">
+                            <div class="experience-type">
+                                <i class="fas ${typeIcon}"></i>
+                                ${typeText}
+                            </div>
+                            <div class="experience-date">
+                                ${formattedDate}
+                            </div>
+                        </div>
+                        
                         <div class="card-preview">
-                            <h4>¡Feliz Navidad!</h4>
-                            <div class="card-name">${card.name}</div>
-                            <p>Que esta Navidad sea especial</p>
+                            <div class="door-preview" style="background: linear-gradient(135deg, ${doorColor}, ${doorColor}99)">
+                                <div class="preview-door" style="background: ${doorColor}">
+                                    <div class="preview-wreath">
+                                        <i class="fas fa-holly-berry"></i>
+                                    </div>
+                                    <div class="preview-knob"></div>
+                                </div>
+                                <p class="preview-instruction">Toca la puerta para descubrir la sorpresa</p>
+                            </div>
                         </div>
-                        <div class="card-info">
-                            <span><i class="fas fa-eye"></i> ${card.views || 0}</span>
-                            <span><i class="fas fa-heart"></i> ${card.likes || 0}</span>
-                            <span>${formattedDate}</span>
+                        
+                        <div class="card-content">
+                            <h3 class="experience-name">${experience.name || 'Experiencia Navideña'}</h3>
+                            <p class="experience-message">
+                                Una sorpresa especial creada con magia navideña
+                            </p>
                         </div>
-                        <a href="card.html?id=${card.id}" class="view-btn">
-                            Ver Tarjeta Completa
-                        </a>
+                        
+                        <div class="card-footer">
+                            <div class="experience-stats">
+                                <span>
+                                    <i class="fas fa-eye"></i>
+                                    ${experience.views || 0}
+                                </span>
+                                <span>
+                                    <i class="fas fa-heart"></i>
+                                    ${experience.likes || 0}
+                                </span>
+                                <span>
+                                    <i class="fas fa-share-alt"></i>
+                                    ${experience.shares || 0}
+                                </span>
+                            </div>
+                            <a href="card.html?id=${experience.id}" class="open-experience">
+                                <i class="fas fa-door-open"></i>
+                                Abrir Puerta
+                            </a>
+                        </div>
                     </div>
                 `;
             }).join('');
+
+            // Actualizar paginación
+            updatePagination(filteredExperiences.length);
         }
-        
-        // Filtros
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                loadGallery(this.dataset.filter);
+
+        // Filtrar experiencias
+        function filterExperiences(experiences) {
+            switch(currentFilter) {
+                case 'recent':
+                    // Últimas 24 horas
+                    const yesterday = new Date();
+                    yesterday.setDate(yesterday.getDate() - 1);
+                    return experiences.filter(exp => 
+                        new Date(exp.timestamp || 0) > yesterday
+                    );
+                    
+                case 'popular':
+                    // Ordenar por vistas
+                    return [...experiences].sort((a, b) => 
+                        (b.views || 0) - (a.views || 0)
+                    );
+                    
+                case 'doors':
+                    // Solo puertas mágicas
+                    return experiences.filter(exp => 
+                        !exp.experienceType || exp.experienceType === 'door'
+                    );
+                    
+                case 'elfs':
+                    // Solo con elfos
+                    return experiences.filter(exp => 
+                        exp.experienceType === 'elf' || exp.experienceType === 'workshop'
+                    );
+                    
+                default:
+                    return experiences;
+            }
+        }
+
+        // Actualizar paginación
+        function updatePagination(totalExperiences) {
+            const totalPages = Math.ceil(totalExperiences / experiencesPerPage);
+            
+            // Actualizar botones de página
+            pageButtons.forEach((btn, index) => {
+                if (index === 0) {
+                    // Botón anterior
+                    btn.disabled = currentPage === 1;
+                    btn.style.opacity = currentPage === 1 ? '0.5' : '1';
+                } else if (index === pageButtons.length - 1) {
+                    // Botón siguiente
+                    btn.disabled = currentPage === totalPages;
+                    btn.style.opacity = currentPage === totalPages ? '0.5' : '1';
+                } else if (index <= totalPages) {
+                    // Números de página
+                    btn.textContent = index;
+                    btn.classList.toggle('active', index === currentPage);
+                    btn.style.display = 'flex';
+                } else {
+                    // Ocultar páginas extras
+                    btn.style.display = 'none';
+                }
             });
+        }
+
+        // Cambiar página
+        function changePage(page) {
+            if (page < 1) return;
+            
+            const totalExperiences = filterExperiences(allExperiences).length;
+            const totalPages = Math.ceil(totalExperiences / experiencesPerPage);
+            
+            if (page > totalPages) return;
+            
+            currentPage = page;
+            displayExperiences();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Cambiar filtro
+        function changeFilter(filter) {
+            currentFilter = filter;
+            currentPage = 1;
+            displayExperiences();
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            initSnow();
+            loadExperiences();
+            
+            // Event listeners para filtros
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    changeFilter(this.dataset.filter);
+                });
+            });
+            
+            // Event listeners para paginación
+            pageButtons.forEach((btn, index) => {
+                btn.addEventListener('click', function() {
+                    if (index === 0) {
+                        // Anterior
+                        changePage(currentPage - 1);
+                    } else if (index === pageButtons.length - 1) {
+                        // Siguiente
+                        changePage(currentPage + 1);
+                    } else {
+                        // Número de página
+                        changePage(index);
+                    }
+                });
+            });
+            
+            // Ejemplo: Cargar datos de ejemplo si no hay ninguno
+            setTimeout(() => {
+                if (allExperiences.length === 0) {
+                    // Crear algunas experiencias de ejemplo
+                    const exampleExperiences = [
+                        {
+                            id: 'navidad_example_1',
+                            name: 'La Familia Rodríguez',
+                            design: 1,
+                            experienceType: 'door',
+                            timestamp: new Date().toISOString(),
+                            views: 356,
+                            likes: 124,
+                            shares: 45
+                        },
+                        {
+                            id: 'navidad_example_2',
+                            name: 'Amigos del Barrio',
+                            design: 2,
+                            experienceType: 'elf',
+                            timestamp: new Date(Date.now() - 86400000).toISOString(),
+                            views: 289,
+                            likes: 98,
+                            shares: 32
+                        },
+                        {
+                            id: 'navidad_example_3',
+                            name: 'Compañeros de Trabajo',
+                            design: 3,
+                            experienceType: 'santa',
+                            timestamp: new Date(Date.now() - 172800000).toISOString(),
+                            views: 421,
+                            likes: 156,
+                            shares: 67
+                        }
+                    ];
+                    
+                    // Guardar ejemplos
+                    exampleExperiences.forEach(exp => {
+                        localStorage.setItem(exp.id, JSON.stringify(exp));
+                    });
+                    
+                    // Recargar experiencias
+                    loadExperiences();
+                }
+            }, 1000);
         });
-        
-        // Cargar al iniciar
-        document.addEventListener('DOMContentLoaded', () => loadGallery());
+
+        // Recargar experiencias periódicamente (por si otras pestañas crean nuevas)
+        setInterval(loadExperiences, 5000);
     </script>
 </body>
 </html>
