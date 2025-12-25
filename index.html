@@ -15,7 +15,7 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #0c2c1a 0%, #1a472a 100%);
+            background: linear-gradient(135deg, #0b2517 0%, #143623 100%);
             color: white;
             min-height: 100vh;
             overflow-x: hidden;
@@ -23,18 +23,19 @@
         
         /* Navegación */
         .navbar {
-            background: rgba(10, 40, 25, 0.95);
-            padding: 1rem 2rem;
+            background: rgba(8, 35, 20, 0.95);
+            padding: 1.2rem 3rem;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid #c41e3a;
+            backdrop-filter: blur(15px);
+            border-bottom: 3px solid #c41e3a;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
         }
         
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -43,653 +44,1014 @@
         
         .logo {
             font-family: 'Mountains of Christmas', cursive;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: #FFD700;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
+            align-items: center;
         }
         
         .nav-links a {
             color: white;
             text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            padding: 0.8rem 1.8rem;
+            border-radius: 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .nav-links a:hover::before {
+            left: 100%;
         }
         
         .nav-links a:hover, .nav-links a.active {
-            background: #c41e3a;
-            color: white;
+            background: linear-gradient(135deg, #c41e3a, #8b0000);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(196, 30, 58, 0.4);
         }
         
-        /* Hero Section */
+        /* Hero Section Premium */
         .hero-section {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            text-align: center;
             padding: 0 2rem;
-            margin-top: 60px;
+            margin-top: 80px;
+            overflow: hidden;
+        }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: 
                 radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(196, 30, 58, 0.15) 0%, transparent 50%);
+                radial-gradient(circle at 80% 20%, rgba(196, 30, 58, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(34, 139, 34, 0.1) 0%, transparent 50%);
+            z-index: 1;
         }
         
         .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 800px;
+            max-width: 900px;
+            text-align: center;
+            padding: 3rem;
+            background: rgba(8, 35, 20, 0.7);
+            border-radius: 30px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(20px);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                0 0 100px rgba(255, 215, 0, 0.1) inset;
         }
         
         .hero-title {
             font-family: 'Mountains of Christmas', cursive;
-            font-size: 4.5rem;
+            font-size: 5.5rem;
             color: #FFD700;
             margin-bottom: 1.5rem;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            text-shadow: 
+                0 4px 20px rgba(0, 0, 0, 0.7),
+                0 0 30px rgba(255, 215, 0, 0.4);
+            line-height: 1.1;
+            background: linear-gradient(45deg, #FFD700, #FFEC8B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .hero-subtitle {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             margin-bottom: 3rem;
-            opacity: 0.9;
-            line-height: 1.6;
+            line-height: 1.8;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        /* Creación de Tarjetas */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
+        /* Botón CTA Premium */
+        .cta-button {
+            background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+            color: white;
+            border: none;
+            padding: 1.8rem 4rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            margin: 2rem 0;
+            box-shadow: 
+                0 15px 35px rgba(196, 30, 58, 0.5),
+                0 0 50px rgba(255, 215, 0, 0.2) inset;
         }
         
-        .section-header {
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 
+                0 25px 50px rgba(196, 30, 58, 0.6),
+                0 0 60px rgba(255, 215, 0, 0.3) inset;
+            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+        }
+        
+        .cta-button:active {
+            transform: translateY(-4px) scale(1.02);
+        }
+        
+        /* Stats Premium */
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat-box {
             text-align: center;
-            margin-bottom: 4rem;
-        }
-        
-        .section-header h2 {
-            font-family: 'Mountains of Christmas', cursive;
-            font-size: 3.5rem;
-            color: #FFD700;
-            margin-bottom: 1rem;
-        }
-        
-        .creation-section {
+            padding: 2rem;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 25px;
-            padding: 3rem;
-            margin-bottom: 4rem;
-            border: 2px solid rgba(255, 215, 0, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            min-width: 180px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            transition: transform 0.4s ease;
+            backdrop-filter: blur(10px);
         }
         
-        /* Diseños de Tarjetas Mejorados */
-        .cards-grid {
+        .stat-box:hover {
+            transform: translateY(-10px);
+            border-color: #c41e3a;
+            background: rgba(196, 30, 58, 0.1);
+        }
+        
+        .stat-number {
+            display: block;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+            font-family: 'Mountains of Christmas', cursive;
+            text-shadow: 0 2px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Sección de Características */
+        .features-section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 4rem;
+            color: #FFD700;
+            margin-bottom: 4rem;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
-            margin: 3rem 0;
+            gap: 3rem;
+            margin-top: 3rem;
         }
         
-        .card-design {
-            background: linear-gradient(145deg, #1a472a, #0c2c1a);
-            border-radius: 20px;
-            padding: 2rem;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            border: 2px solid transparent;
+        .feature-card {
+            background: linear-gradient(145deg, rgba(8, 35, 20, 0.8), rgba(12, 44, 26, 0.8));
+            border-radius: 25px;
+            padding: 3rem;
+            text-align: center;
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
         
-        .card-design:hover {
-            transform: translateY(-10px);
-            border-color: #FFD700;
-            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.2);
-        }
-        
-        .card-design.active {
-            border-color: #c41e3a;
-            background: linear-gradient(145deg, #c41e3a, #8b0000);
-        }
-        
-        .card-preview {
-            min-height: 250px;
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Tarjeta Clásica */
-        .classic-card {
-            background: linear-gradient(135deg, #c41e3a, #8b0000);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
-                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-        
-        .classic-card::before {
-            content: "🎄";
-            font-size: 4rem;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            opacity: 0.3;
-        }
-        
-        /* Tarjeta Elegante */
-        .elegant-card {
-            background: linear-gradient(135deg, #1a472a, #0c2c1a);
-            border: 3px solid #FFD700;
-        }
-        
-        .elegant-card::before {
-            content: "";
+        .feature-card::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent 10px,
-                #FFD700 10px,
-                #FFD700 20px
-            );
+            height: 4px;
+            background: linear-gradient(90deg, #c41e3a, #FFD700, #228B22);
         }
         
-        /* Tarjeta Mágica */
-        .magic-card {
-            background: linear-gradient(135deg, #0c2c1a, #c41e3a);
-            animation: shimmer 3s infinite alternate;
+        .feature-card:hover {
+            transform: translateY(-15px);
+            border-color: #FFD700;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 60px rgba(255, 215, 0, 0.1) inset;
         }
         
-        @keyframes shimmer {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-        
-        .magic-card::after {
-            content: "✨";
-            position: absolute;
-            font-size: 2rem;
-            animation: float 3s infinite ease-in-out;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        /* Contenido de la Tarjeta */
-        .card-content {
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .card-greeting {
-            font-family: 'Mountains of Christmas', cursive;
-            font-size: 2.2rem;
-            color: white;
-            margin-bottom: 1rem;
-        }
-        
-        .card-name-display {
-            font-family: 'Mountains of Christmas', cursive;
-            font-size: 2.5rem;
+        .feature-icon {
+            font-size: 4rem;
             color: #FFD700;
-            margin: 1.5rem 0;
-            padding: 0.5rem 2rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
+            margin-bottom: 2rem;
             display: inline-block;
-            border: 2px dashed #FFD700;
+            padding: 1.5rem;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.3);
         }
         
-        .card-wish {
+        .feature-title {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .feature-description {
             font-size: 1.1rem;
+            line-height: 1.7;
             opacity: 0.9;
-            max-width: 300px;
+        }
+        
+        /* Footer Premium */
+        .main-footer {
+            background: linear-gradient(180deg, rgba(8, 35, 20, 0.95), rgba(6, 25, 15, 0.95));
+            padding: 5rem 2rem 2rem;
+            border-top: 3px solid #c41e3a;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+        
+        .footer-logo {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.8rem;
+            color: #FFD700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .footer-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+        }
+        
+        .social-link {
+            width: 55px;
+            height: 55px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+        }
+        
+        .social-link:hover {
+            background: #c41e3a;
+            transform: translateY(-5px) rotate(10deg);
+            border-color: #FFD700;
+            box-shadow: 0 10px 25px rgba(196, 30, 58, 0.4);
+        }
+        
+        .footer-section h4 {
+            color: #FFD700;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-family: 'Mountains of Christmas', cursive;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .footer-section h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #c41e3a;
+            border-radius: 2px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 1.2rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .footer-links a:hover {
+            color: #FFD700;
+            transform: translateX(10px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 1400px;
             margin: 0 auto;
         }
         
-        /* Decoraciones Navideñas */
+        .copyright {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-message {
+            color: #FFD700;
+            font-size: 1.2rem;
+            font-family: 'Mountains of Christmas', cursive;
+        }
+        
+        /* Animaciones de nieve */
         .snowflakes {
-            position: absolute;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
+            z-index: 9999;
         }
         
         .snowflake {
             position: absolute;
             color: white;
-            font-size: 1rem;
-            animation: fall linear infinite;
+            font-size: 1.5rem;
             opacity: 0.8;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: fall linear infinite;
         }
         
         @keyframes fall {
             to {
-                transform: translateY(100vh);
+                transform: translateY(100vh) rotate(360deg);
             }
-        }
-        
-        .ornaments {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-        
-        .ornament {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #FFD700;
-            border-radius: 50%;
-            animation: swing 3s infinite ease-in-out;
-        }
-        
-        @keyframes swing {
-            0%, 100% { transform: rotate(-10deg); }
-            50% { transform: rotate(10deg); }
-        }
-        
-        /* Formulario */
-        .input-container {
-            max-width: 500px;
-            margin: 0 auto 3rem;
-        }
-        
-        .name-input {
-            width: 100%;
-            padding: 1.5rem 2rem;
-            font-size: 1.3rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 215, 0, 0.5);
-            border-radius: 15px;
-            color: white;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .name-input:focus {
-            outline: none;
-            border-color: #c41e3a;
-            box-shadow: 0 0 20px rgba(196, 30, 58, 0.5);
-            transform: scale(1.02);
-        }
-        
-        .input-hint {
-            text-align: center;
-            margin-top: 1rem;
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-        
-        /* Botones */
-        .btn-create {
-            background: linear-gradient(135deg, #c41e3a, #8b0000);
-            color: white;
-            border: none;
-            padding: 1.5rem 3rem;
-            font-size: 1.3rem;
-            border-radius: 50px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin: 3rem auto;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 20px rgba(196, 30, 58, 0.4);
-        }
-        
-        .btn-create:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(196, 30, 58, 0.6);
-        }
-        
-        .btn-create:active {
-            transform: translateY(0) scale(1);
         }
         
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .hero-title {
-                font-size: 3rem;
+                font-size: 4rem;
             }
             
-            .cards-grid {
+            .features-grid {
                 grid-template-columns: 1fr;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
             }
             
             .nav-links {
                 display: none;
             }
             
-            .card-name-display {
-                font-size: 2rem;
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .cta-button {
+                padding: 1.5rem 2.5rem;
+                font-size: 1.3rem;
+            }
+            
+            .hero-stats {
+                gap: 2rem;
+            }
+            
+            .stat-box {
+                min-width: 140px;
+                padding: 1.5rem;
             }
         }
         
-        /* Footer */
-        .footer {
-            background: rgba(10, 40, 25, 0.95);
-            padding: 3rem 2rem;
-            margin-top: 4rem;
-            border-top: 2px solid #c41e3a;
+        /* Modal de creación */
+        .creation-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .modal-content {
+            background: linear-gradient(145deg, #0c2c1a, #1a472a);
+            border-radius: 30px;
+            padding: 3rem;
+            max-width: 700px;
+            width: 100%;
+            border: 3px solid #FFD700;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.6),
+                0 0 100px rgba(255, 215, 0, 0.2);
+            position: relative;
+            animation: modalAppear 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #FFD700;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            background: rgba(255, 215, 0, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        .modal-title {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 3rem;
+            color: #FFD700;
+            margin-bottom: 2rem;
             text-align: center;
+        }
+        
+        .name-input {
+            width: 100%;
+            padding: 1.8rem 2rem;
+            font-size: 1.4rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 20px;
+            color: white;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .name-input:focus {
+            outline: none;
+            border-color: #c41e3a;
+            box-shadow: 0 0 30px rgba(196, 30, 58, 0.5);
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+        
+        .modal-btn {
+            padding: 1.5rem 3rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 200px;
+            justify-content: center;
+        }
+        
+        .btn-create {
+            background: linear-gradient(135deg, #c41e3a, #8b0000);
+            color: white;
+        }
+        
+        .btn-cancel {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .modal-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
 <body>
-    <!-- Navegación -->
+    <!-- Navegación Premium -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
                 <i class="fas fa-tree"></i>
-                WishCraft Navidad
+                WishCraft
             </a>
             <div class="nav-links">
                 <a href="index.html" class="active"><i class="fas fa-home"></i> Inicio</a>
                 <a href="gallery.html"><i class="fas fa-images"></i> Galería</a>
-                <a href="card.html"><i class="fas fa-star"></i> Mi Tarjeta</a>
+                <a href="#features"><i class="fas fa-star"></i> Características</a>
+                <a href="#" id="createBtnNav"><i class="fas fa-plus-circle"></i> Crear Ahora</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section Premium -->
     <section class="hero-section">
+        <div class="hero-background"></div>
         <div class="hero-content">
-            <h1 class="hero-title">¡Crea tu Tarjeta Navideña Mágica!</h1>
-            <p class="hero-subtitle">Diseña una tarjeta única, llena de magia navideña, y comparte la alegría con quienes más quieres</p>
+            <h1 class="hero-title">Crea Tu Tarjeta Navideña Mágica</h1>
+            <p class="hero-subtitle">
+                Diseña una tarjeta única con efectos especiales, animaciones sorprendentes 
+                y comparte la magia de la Navidad con quienes más quieres
+            </p>
             
-            <!-- Decoraciones Navideñas -->
-            <div class="snowflakes">
-                <div class="snowflake">❄</div>
-                <div class="snowflake">❅</div>
-                <div class="snowflake">❆</div>
+            <button class="cta-button" id="createBtnHero">
+                <i class="fas fa-magic"></i>
+                CREAR TARJETA MÁGICA
+                <i class="fas fa-gift"></i>
+            </button>
+            
+            <div class="hero-stats">
+                <div class="stat-box">
+                    <span class="stat-number" id="totalCards">2,548</span>
+                    <span class="stat-label">Tarjetas Creadas</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" id="happyUsers">1,892</span>
+                    <span class="stat-label">Familias Felices</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" id="sharedCards">4,327</span>
+                    <span class="stat-label">Veces Compartidas</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección Principal -->
-    <main class="container">
-        <section class="creation-section">
-            <div class="section-header">
-                <h2>🎄 Diseña tu Tarjeta</h2>
-                <p>Elige entre nuestros diseños exclusivos y crea algo especial</p>
-            </div>
-
-            <!-- Input del Nombre -->
-            <div class="input-container">
-                <input 
-                    type="text" 
-                    class="name-input" 
-                    id="userName" 
-                    placeholder="Escribe tu nombre o el de tu familia..."
-                    maxlength="30"
-                >
-                <p class="input-hint">
-                    <i class="fas fa-lightbulb"></i> Ejemplo: Familia Rodríguez, Amigos del Barrio, María y Juan
+    <!-- Sección de Características -->
+    <section id="features" class="features-section">
+        <h2 class="section-title">✨ Características Mágicas</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-door-closed"></i>
+                </div>
+                <h3 class="feature-title">Puerta Mágica</h3>
+                <p class="feature-description">
+                    Tu invitado encontrará una misteriosa puerta navideña que deberá tocar para revelar la tarjeta mágica escondida detrás.
                 </p>
             </div>
-
-            <!-- Diseños de Tarjetas -->
-            <div class="cards-grid">
-                <!-- Tarjeta Clásica -->
-                <div class="card-design active" data-design="1">
-                    <div class="card-preview classic-card">
-                        <div class="card-content">
-                            <h3 class="card-greeting">¡Feliz Navidad!</h3>
-                            <div class="card-name-display" id="previewName1">Tu Nombre</div>
-                            <p class="card-wish">Que esta Navidad llene tu hogar de alegría, amor y paz</p>
-                        </div>
-                        <div class="ornaments">
-                            <div class="ornament" style="top: 20%; left: 15%;"></div>
-                            <div class="ornament" style="top: 60%; right: 20%; background: #c41e3a;"></div>
-                        </div>
-                    </div>
-                    <div class="design-info">
-                        <h4><i class="fas fa-candy-cane"></i> Clásica Navideña</h4>
-                        <p>Rojo tradicional con decoraciones doradas</p>
-                    </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-snowflake"></i>
                 </div>
-
-                <!-- Tarjeta Elegante -->
-                <div class="card-design" data-design="2">
-                    <div class="card-preview elegant-card">
-                        <div class="card-content">
-                            <h3 class="card-greeting">Felices Fiestas</h3>
-                            <div class="card-name-display" id="previewName2">Tu Nombre</div>
-                            <p class="card-wish">Brindamos por la unión y la felicidad familiar</p>
-                        </div>
-                        <div class="ornaments">
-                            <div class="ornament" style="top: 30%; left: 10%; background: #228B22;"></div>
-                            <div class="ornament" style="bottom: 30%; right: 10%;"></div>
-                        </div>
-                    </div>
-                    <div class="design-info">
-                        <h4><i class="fas fa-gem"></i> Elegante Dorada</h4>
-                        <p>Verde esmeralda con bordes dorados</p>
-                    </div>
-                </div>
-
-                <!-- Tarjeta Mágica -->
-                <div class="card-design" data-design="3">
-                    <div class="card-preview magic-card">
-                        <div class="card-content">
-                            <h3 class="card-greeting">Navidad Mágica</h3>
-                            <div class="card-name-display" id="previewName3">Tu Nombre</div>
-                            <p class="card-wish">Donde los sueños se hacen realidad</p>
-                        </div>
-                        <div class="ornaments">
-                            <div class="ornament" style="top: 40%; left: 25%; background: #4169E1;"></div>
-                            <div class="ornament" style="bottom: 40%; right: 25%; background: #9370DB;"></div>
-                        </div>
-                    </div>
-                    <div class="design-info">
-                        <h4><i class="fas fa-sparkles"></i> Mágica Animada</h4>
-                        <p>Efectos especiales y animaciones únicas</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Botón de Creación -->
-            <div style="text-align: center;">
-                <button class="btn-create" id="createBtn">
-                    <i class="fas fa-magic"></i>
-                    <span>¡Crear Mi Tarjeta Mágica!</span>
-                    <i class="fas fa-gift"></i>
-                </button>
-                <p style="margin-top: 1rem; opacity: 0.8;">
-                    <i class="fas fa-shield-alt"></i> Tu tarjeta será única y podrás compartirla inmediatamente
+                <h3 class="feature-title">Efectos de Nieve</h3>
+                <p class="feature-description">
+                    Fondo animado con nieve realista y efectos de partículas que crean una atmósfera navideña inmersiva.
                 </p>
             </div>
-        </section>
-    </main>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-sparkles"></i>
+                </div>
+                <h3 class="feature-title">Animaciones Especiales</h3>
+                <p class="feature-description">
+                    Luces parpadeantes, estrellas brillantes y decoraciones animadas que hacen única cada tarjeta.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-share-alt"></i>
+                </div>
+                <h3 class="feature-title">Compartir Fácil</h3>
+                <p class="feature-description">
+                    Comparte tu tarjeta mágica en WhatsApp, Facebook, Instagram o cualquier red social con un solo clic.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3 class="feature-title">Diseños Premium</h3>
+                <p class="feature-description">
+                    3 diseños exclusivos: Clásico Rojo, Elegante Dorado y Mágico Animado, cada uno con efectos únicos.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3 class="feature-title">Totalmente Responsive</h3>
+                <p class="feature-description">
+                    Se ve perfecto en cualquier dispositivo: móvil, tablet o computadora, manteniendo toda la magia.
+                </p>
+            </div>
+        </div>
+    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
-                <div class="logo">
+    <!-- Footer Premium -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
                     <i class="fas fa-tree"></i>
-                    WishCraft Navidad
+                    WishCraft
                 </div>
-                <div>
-                    <p>© 2024 WishCraft. Todos los derechos reservados.</p>
-                    <p style="margin-top: 0.5rem; color: #FFD700;">¡Feliz Navidad y Próspero Año Nuevo!</p>
-                </div>
-                <div style="display: flex; gap: 1rem;">
-                    <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
-                    <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
-                    <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-whatsapp"></i></a>
+                <p class="footer-description">
+                    Creando momentos mágicos y recuerdos inolvidables esta Navidad. 
+                    Cada tarjeta es una obra de arte digital llena de amor y alegría festiva.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
+            
+            <div class="footer-section">
+                <h4>Enlaces Rápidos</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="gallery.html"><i class="fas fa-images"></i> Galería</a></li>
+                    <li><a href="#features"><i class="fas fa-star"></i> Características</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> Ayuda</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-envelope"></i> soporte@wishcraft.com</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> +34 912 345 678</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Madrid, España</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copyright">© 2024 WishCraft. Todos los derechos reservados.</p>
+            <p class="footer-message">¡Feliz Navidad y Próspero Año Nuevo! 🎄✨</p>
         </div>
     </footer>
 
-    <script>
-        // Variables
-        let currentDesign = 1;
-        const userNameInput = document.getElementById('userName');
-        const createBtn = document.getElementById('createBtn');
-        
-        // Inicializar snowflakes
-        function createSnowflakes() {
-            const snowflakesContainer = document.querySelector('.snowflakes');
-            const snowflakeSymbols = ['❄', '❅', '❆', '•'];
+    <!-- Modal de creación -->
+    <div class="creation-modal" id="creationModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
             
-            for (let i = 0; i < 30; i++) {
+            <h2 class="modal-title">🎅 Crea Tu Tarjeta</h2>
+            
+            <input 
+                type="text" 
+                class="name-input" 
+                id="userName" 
+                placeholder="Escribe el nombre que aparecerá en la tarjeta..."
+                maxlength="40"
+            >
+            
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <p style="opacity: 0.8; margin-bottom: 1rem;">
+                    <i class="fas fa-lightbulb"></i> Puedes usar: Tu nombre, Familia Pérez, Amigos, Compañeros de trabajo...
+                </p>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="modal-btn btn-cancel" id="cancelBtn">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button class="modal-btn btn-create" id="confirmCreateBtn">
+                    <i class="fas fa-magic"></i>
+                    Crear Tarjeta Mágica
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor de nieve -->
+    <div class="snowflakes" id="snowflakes"></div>
+
+    <script>
+        // Variables globales
+        let currentDesign = 1;
+        
+        // Elementos del DOM
+        const createBtnHero = document.getElementById('createBtnHero');
+        const createBtnNav = document.getElementById('createBtnNav');
+        const creationModal = document.getElementById('creationModal');
+        const closeModal = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const confirmCreateBtn = document.getElementById('confirmCreateBtn');
+        const userNameInput = document.getElementById('userName');
+        const snowflakesContainer = document.getElementById('snowflakes');
+        
+        // Crear efectos de nieve
+        function createSnowflakes() {
+            const snowflakeSymbols = ['❄', '❅', '❆', '•', '*', '+'];
+            
+            for (let i = 0; i < 50; i++) {
                 const snowflake = document.createElement('div');
                 snowflake.className = 'snowflake';
                 snowflake.textContent = snowflakeSymbols[Math.floor(Math.random() * snowflakeSymbols.length)];
                 snowflake.style.left = `${Math.random() * 100}%`;
-                snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                snowflake.style.fontSize = `${Math.random() * 20 + 15}px`;
+                snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+                snowflake.style.animationDuration = `${Math.random() * 10 + 5}s`;
                 snowflake.style.animationDelay = `${Math.random() * 5}s`;
-                snowflake.style.fontSize = `${Math.random() * 20 + 10}px`;
-                snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+                snowflake.style.filter = `blur(${Math.random() * 2}px)`;
                 snowflakesContainer.appendChild(snowflake);
             }
         }
         
-        // Actualizar vista previa del nombre
-        function updateNamePreviews() {
-            const name = userNameInput.value.trim() || 'Tu Nombre';
-            document.querySelectorAll('.card-name-display').forEach(display => {
-                display.textContent = name;
-            });
+        // Actualizar estadísticas
+        function updateStats() {
+            const gallery = JSON.parse(localStorage.getItem('wishcraft_gallery')) || [];
+            const totalCards = gallery.length;
+            
+            // Calcular usuarios felices (tarjetas con más de 5 vistas)
+            const happyUsers = gallery.filter(card => (card.views || 0) > 5).length;
+            
+            // Calcular compartidos totales
+            const sharedCards = gallery.reduce((sum, card) => sum + (card.shares || 0), 0);
+            
+            // Actualizar UI
+            document.getElementById('totalCards').textContent = totalCards.toLocaleString();
+            document.getElementById('happyUsers').textContent = happyUsers.toLocaleString();
+            document.getElementById('sharedCards').textContent = sharedCards.toLocaleString();
         }
         
-        // Seleccionar diseño
-        document.querySelectorAll('.card-design').forEach(design => {
-            design.addEventListener('click', function() {
-                document.querySelectorAll('.card-design').forEach(d => {
-                    d.classList.remove('active');
-                });
-                this.classList.add('active');
-                currentDesign = parseInt(this.dataset.design);
-                
-                // Efecto visual
-                this.style.transform = 'scale(0.98)';
-                setTimeout(() => {
-                    this.style.transform = 'translateY(-10px)';
-                }, 50);
-            });
-        });
+        // Mostrar modal
+        function showCreationModal() {
+            creationModal.style.display = 'flex';
+            userNameInput.focus();
+            
+            // Animación de entrada
+            creationModal.style.opacity = '0';
+            setTimeout(() => {
+                creationModal.style.transition = 'opacity 0.3s ease';
+                creationModal.style.opacity = '1';
+            }, 10);
+        }
+        
+        // Ocultar modal
+        function hideCreationModal() {
+            creationModal.style.opacity = '0';
+            setTimeout(() => {
+                creationModal.style.display = 'none';
+                userNameInput.value = '';
+            }, 300);
+        }
         
         // Crear tarjeta
-        createBtn.addEventListener('click', function() {
+        function createCard() {
             const name = userNameInput.value.trim();
             
             if (!name) {
                 // Efecto de error
                 userNameInput.style.borderColor = '#ff4444';
-                userNameInput.style.boxShadow = '0 0 20px rgba(255, 68, 68, 0.5)';
+                userNameInput.style.animation = 'shake 0.5s ease';
                 userNameInput.placeholder = '¡Por favor, escribe un nombre!';
                 
                 setTimeout(() => {
-                    userNameInput.style.borderColor = 'rgba(255, 215, 0, 0.5)';
-                    userNameInput.style.boxShadow = 'none';
-                    userNameInput.placeholder = 'Escribe tu nombre o el de tu familia...';
+                    userNameInput.style.borderColor = 'rgba(255, 215, 0, 0.4)';
+                    userNameInput.style.animation = '';
+                    userNameInput.placeholder = 'Escribe el nombre que aparecerá en la tarjeta...';
                 }, 2000);
-                
                 return;
             }
             
-            // Efecto de carga
-            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Creando magia navideña...</span>';
-            this.disabled = true;
+            // Efecto de creación
+            confirmCreateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando magia...';
+            confirmCreateBtn.disabled = true;
+            
+            // Generar ID único
+            const cardId = 'wishcraft_' + Date.now() + '_' + Math.random().toString(36).substr(2, 12);
             
             // Crear datos de la tarjeta
             const cardData = {
-                id: 'navidad_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                id: cardId,
                 name: name,
                 design: currentDesign,
                 timestamp: new Date().toISOString(),
                 views: 0,
                 likes: 0,
-                shares: 0
+                shares: 0,
+                creator: 'user_' + Math.random().toString(36).substr(2, 8)
             };
             
-            // Simular proceso de creación
-            setTimeout(() => {
-                // Guardar en localStorage
-                localStorage.setItem(cardData.id, JSON.stringify(cardData));
-                
-                // Actualizar galería
-                let gallery = JSON.parse(localStorage.getItem('navidad_gallery')) || [];
-                gallery.unshift(cardData);
-                if (gallery.length > 100) gallery = gallery.slice(0, 100);
-                localStorage.setItem('navidad_gallery', JSON.stringify(gallery));
-                
-                // Redirigir a la tarjeta
-                window.location.href = `card.html?id=${cardData.id}`;
-            }, 1500);
-        });
-        
-        // Efecto al escribir
-        userNameInput.addEventListener('input', function() {
-            updateNamePreviews();
+            // Guardar en localStorage
+            localStorage.setItem(cardId, JSON.stringify(cardData));
             
-            // Efecto visual mientras se escribe
-            if (this.value.trim()) {
-                this.style.background = 'rgba(255, 255, 255, 0.15)';
-            } else {
-                this.style.background = 'rgba(255, 255, 255, 0.1)';
+            // Actualizar galería
+            let gallery = JSON.parse(localStorage.getItem('wishcraft_gallery')) || [];
+            gallery.unshift(cardData);
+            if (gallery.length > 500) gallery = gallery.slice(0, 500);
+            localStorage.setItem('wishcraft_gallery', JSON.stringify(gallery));
+            
+            // Efecto visual
+            setTimeout(() => {
+                confirmCreateBtn.innerHTML = '<i class="fas fa-check"></i> ¡Creada!';
+                confirmCreateBtn.style.background = 'linear-gradient(135deg, #10B981, #059669)';
+                
+                setTimeout(() => {
+                    // Redirigir a la página de la tarjeta
+                    window.location.href = `card-view.html?id=${cardId}`;
+                }, 800);
+            }, 1500);
+        }
+        
+        // Event Listeners
+        createBtnHero.addEventListener('click', showCreationModal);
+        createBtnNav.addEventListener('click', showCreationModal);
+        
+        closeModal.addEventListener('click', hideCreationModal);
+        cancelBtn.addEventListener('click', hideCreationModal);
+        
+        // Cerrar modal al hacer clic fuera
+        creationModal.addEventListener('click', function(e) {
+            if (e.target === creationModal) {
+                hideCreationModal();
             }
         });
         
-        // Efecto hover en el botón
-        createBtn.addEventListener('mouseenter', function() {
-            if (!this.disabled) {
-                this.style.transform = 'translateY(-5px) scale(1.05)';
+        // Crear al presionar Enter
+        userNameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                createCard();
             }
         });
         
-        createBtn.addEventListener('mouseleave', function() {
-            if (!this.disabled) {
-                this.style.transform = 'translateY(0) scale(1)';
-            }
+        confirmCreateBtn.addEventListener('click', createCard);
+        
+        // Efecto hover en botones
+        [createBtnHero, createBtnNav].forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                if (!this.disabled) {
+                    this.style.transform = 'translateY(-8px) scale(1.05)';
+                }
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                if (!this.disabled) {
+                    this.style.transform = 'translateY(0) scale(1)';
+                }
+            });
         });
         
         // Inicializar
         document.addEventListener('DOMContentLoaded', function() {
             createSnowflakes();
-            updateNamePreviews();
+            updateStats();
             
-            // Efecto de entrada
-            document.querySelectorAll('.card-design').forEach((design, index) => {
-                design.style.opacity = '0';
-                design.style.transform = 'translateY(30px)';
+            // Actualizar estadísticas periódicamente
+            setInterval(updateStats, 10000);
+            
+            // Cargar diseño aleatorio
+            currentDesign = Math.floor(Math.random() * 3) + 1;
+            
+            // Efectos de entrada
+            const elements = document.querySelectorAll('.feature-card, .stat-box');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
                 
                 setTimeout(() => {
-                    design.style.transition = 'all 0.6s ease';
-                    design.style.opacity = '1';
-                    design.style.transform = 'translateY(0)';
-                }, 300 + (index * 200));
+                    el.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 200 + (index * 100));
             });
+            
+            // Animación CSS para shake
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                    20%, 40%, 60%, 80% { transform: translateX(5px); }
+                }
+            `;
+            document.head.appendChild(style);
         });
     </script>
 </body>
