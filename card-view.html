@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta Navideña Especial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0b1a14;
+            color: white;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        /* Nieve de fondo */
+        .snow-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .snow-particle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            filter: blur(1px);
+            animation: snow-fall linear infinite;
+        }
+        
+        @keyframes snow-fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        
+        /* Contenedor principal */
+        .door-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+        
+        /* La puerta */
+        .christmas-door {
+            position: relative;
+            width: 90%;
+            max-width: 500px;
+            height: 80vh;
+            max-height: 700px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 2.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 10;
+        }
+        
+        .door-open {
+            transform: rotateY(-120deg) translateX(-50%);
+        }
+        
+        .door-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #8b0000, #5a0000);
+            border-radius: 20px;
+            border: 15px solid #8B4513;
+            box-shadow: 
+                inset 0 0 50px rgba(0, 0, 0, 0.5),
+                0 20px 60px rgba(0, 0, 0, 0.8),
+                0 0 100px rgba(139, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .door-knob {
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle, #FFD700, #B8860B);
+            border-radius: 50%;
+            border: 5px solid #8B4513;
+            box-shadow: 
+                inset 0 0 20px rgba(255, 215, 0, 0.5),
+                0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8B4513;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            animation: knob-glow 2s infinite alternate;
+        }
+        
+        @keyframes knob-glow {
+            from {
+                box-shadow: 
+                    inset 0 0 20px rgba(255, 215, 0, 0.5),
+                    0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+            to {
+                box-shadow: 
+                    inset 0 0 30px rgba(255, 215, 0, 0.8),
+                    0 15px 40px rgba(255, 215, 0, 0.3);
+            }
+        }
+        
+        .door-decoration {
+            position: absolute;
+            font-size: 3rem;
+            color: #228B22;
+            animation: swing 4s infinite ease-in-out;
+        }
+        
+        .decoration-1 { top: 20%; left: 20%; }
+        .decoration-2 { top: 20%; right: 20%; }
+        .decoration-3 { bottom: 30%; left: 30%; }
+        .decoration-4 { bottom: 30%; right: 30%; }
+        
+        @keyframes swing {
+            0%, 100% { transform: rotate(-15deg); }
+            50% { transform: rotate(15deg); }
+        }
+        
+        .door-instruction {
+            margin-top: 3rem;
+            font-size: 1.5rem;
+            color: #FFD700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        
+        /* Contenido detrás de la puerta */
+        .card-behind-door {
+            position: absolute;
+            width: 90%;
+            max-width: 500px;
+            height: 80vh;
+            max-height: 700px;
+            opacity: 0;
+            transition: opacity 1.5s ease 1s;
+            z-index: 5;
+        }
+        
+        .card-revealed {
+            opacity: 1;
+        }
+        
+        /* Tarjeta navideña */
+        .christmas-card {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+            border-radius: 25px;
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.6),
+                0 0 100px rgba(255, 215, 0, 0.2) inset;
+            border: 10px solid #FFD700;
+        }
+        
+        .card-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .card-year {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.8rem;
+            color: #FFD700;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .card-greeting {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 4.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            line-height: 1.1;
+        }
+        
+        .card-name {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 5rem;
+            color: #FFD700;
+            margin: 2.5rem 0;
+            padding: 1.5rem 4rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            border: 3px dashed #FFD700;
+            animation: name-glow 3s infinite alternate;
+        }
+        
+        @keyframes name-glow {
+            from {
+                box-shadow: 
+                    0 0 30px rgba(255, 215, 0, 0.3),
+                    inset 0 0 30px rgba(255, 215, 0, 0.1);
+            }
+            to {
+                box-shadow: 
+                    0 0 60px rgba(255, 215, 0, 0.6),
+                    inset 0 0 50px rgba(255, 215, 0, 0.2);
+            }
+        }
+        
+        .card-message {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            max-width: 400px;
+            margin: 2rem auto;
+            opacity: 0.95;
+        }
+        
+        .card-signature {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px dashed rgba(255, 255, 255, 0.3);
+            font-style: italic;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Decoraciones de la tarjeta */
+        .card-decoration {
+            position: absolute;
+            font-size: 3rem;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        .card-dec-1 { top: 10%; left: 10%; animation: float 6s infinite ease-in-out; }
+        .card-dec-2 { top: 10%; right: 10%; animation: float 7s infinite ease-in-out 0.5s; }
+        .card-dec-3 { bottom: 10%; left: 10%; animation: float 8s infinite ease-in-out 1s; }
+        .card-dec-4 { bottom: 10%; right: 10%; animation: float 9s infinite ease-in-out 1.5s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        /* Efectos de luz */
+        .light-beam {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: beam-rotate 20s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes beam-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Botones de acción */
+        .card-actions {
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 1s ease 2.5s;
+        }
+        
+        .actions-visible {
+            opacity: 1;
+        }
+        
+        .action-btn {
+            padding: 1.2rem 2.5rem;
+            background: linear-gradient(135deg, #228B22, #1a7a1a);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        }
+        
+        .btn-share {
+            background: linear-gradient(135deg, #4169E1, #1E40AF);
+        }
+        
+        .btn-new {
+            background: linear-gradient(135deg, #FFD700, #FFC107);
+            color: #000;
+        }
+        
+        /* Mensaje de carga */
+        .loading-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: #FFD700;
+            text-align: center;
+            z-index: 1000;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .christmas-door {
+                width: 95%;
+                height: 85vh;
+            }
+            
+            .card-behind-door {
+                width: 95%;
+                height: 85vh;
+            }
+            
+            .christmas-card {
+                padding: 2rem;
+            }
+            
+            .card-greeting {
+                font-size: 3.5rem;
+            }
+            
+            .card-name {
+                font-size: 3.5rem;
+                padding: 1rem 2rem;
+            }
+            
+            .card-actions {
+                flex-direction: column;
+                align-items: center;
+                padding: 0 1rem;
+            }
+            
+            .action-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Nieve de fondo -->
+    <div class="snow-background" id="snowBackground"></div>
+    
+    <!-- Haz de luz -->
+    <div class="light-beam"></div>
+    
+    <!-- Contenedor de la puerta -->
+    <div class="door-container">
+        <!-- La puerta -->
+        <div class="christmas-door" id="christmasDoor">
+            <div class="door-front">
+                <div class="door-decoration decoration-1">🎄</div>
+                <div class="door-decoration decoration-2">✨</div>
+                <div class="door-decoration decoration-3">🎁</div>
+                <div class="door-decoration decoration-4">⭐</div>
+                
+                <h1 style="font-family: 'Mountains of Christmas', cursive; font-size: 4rem; color: #FFD700; margin-bottom: 1rem;">
+                    ¡Feliz Navidad!
+                </h1>
+                
+                <p style="font-size: 1.3rem; max-width: 300px; line-height: 1.6; margin-bottom: 2rem;">
+                    Toca la puerta para descubrir una sorpresa navideña especial...
+                </p>
+                
+                <div class="door-knob">
+                    <i class="fas fa-hand-pointer"></i>
+                </div>
+                
+                <div class="door-instruction">
+                    👆 Toca el pomo de la puerta
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tarjeta detrás de la puerta -->
+        <div class="card-behind-door" id="cardBehindDoor">
+            <div class="christmas-card">
+                <!-- Decoraciones -->
+                <div class="card-decoration card-dec-1">❄</div>
+                <div class="card-decoration card-dec-2">🎄</div>
+                <div class="card-decoration card-dec-3">✨</div>
+                <div class="card-decoration card-dec-4">🎅</div>
+                
+                <!-- Contenido -->
+                <div class="card-content">
+                    <div class="card-year">
+                        <span>2024</span>
+                        <i class="fas fa-arrow-right"></i>
+                        <span>2025</span>
+                    </div>
+                    
+                    <h2 class="card-greeting" id="cardGreeting">¡Feliz Navidad!</h2>
+                    
+                    <div class="card-name" id="cardName">
+                        Cargando...
+                    </div>
+                    
+                    <p class="card-message" id="cardMessage">
+                        Que esta Navidad llene tu corazón de alegría, 
+                        tu hogar de amor y tu vida de bendiciones infinitas.
+                    </p>
+                    
+                    <div class="card-signature">
+                        <i class="fas fa-heart"></i>
+                        Con cariño, WishCraft
+                        <i class="fas fa-heart"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Botones de acción (aparecen después) -->
+    <div class="card-actions" id="cardActions">
+        <button class="action-btn btn-share" id="shareBtn">
+            <i class="fas fa-share-alt"></i>
+            Compartir Tarjeta
+        </button>
+        <a href="index.html" class="action-btn btn-new">
+            <i class="fas fa-plus"></i>
+            Crear Mi Tarjeta
+        </a>
+    </div>
+    
+    <!-- Mensaje de carga -->
+    <div class="loading-message" id="loadingMessage">
+        <i class="fas fa-spinner fa-spin"></i>
+        <div style="margin-top: 1rem;">Cargando magia navideña...</div>
+    </div>
+
+    <script>
+        // Variables
+        let cardData = null;
+        let doorOpened = false;
+        
+        // Crear nieve
+        function createSnow() {
+            const container = document.getElementById('snowBackground');
+            const snowCount = 100;
+            
+            for (let i = 0; i < snowCount; i++) {
+                const snow = document.createElement('div');
+                snow.className = 'snow-particle';
+                snow.style.width = `${Math.random() * 10 + 5}px`;
+                snow.style.height = snow.style.width;
+                snow.style.left = `${Math.random() * 100}%`;
+                snow.style.top = `${Math.random() * -100}px`;
+                snow.style.opacity = Math.random() * 0.8 + 0.2;
+                snow.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                snow.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(snow);
+            }
+        }
+        
+        // Cargar datos de la tarjeta
+        async function loadCardData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const cardId = urlParams.get('id');
+            
+            if (!cardId) {
+                showError('No se encontró la tarjeta');
+                return;
+            }
+            
+            try {
+                // Simular carga
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                const savedCard = localStorage.getItem(cardId);
+                if (!savedCard) {
+                    showError('La tarjeta no existe');
+                    return;
+                }
+                
+                cardData = JSON.parse(savedCard);
+                displayCard();
+                
+                // Ocultar mensaje de carga
+                document.getElementById('loadingMessage').style.display = 'none';
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Error al cargar la tarjeta');
+            }
+        }
+        
+        // Mostrar tarjeta
+        function displayCard() {
+            if (!cardData) return;
+            
+            // Actualizar contenido
+            document.getElementById('cardName').textContent = cardData.name;
+            
+            // Actualizar estadísticas
+            cardData.views = (cardData.views || 0) + 1;
+            localStorage.setItem(cardData.id, JSON.stringify(cardData));
+            
+            // Configurar diseño
+            const greetings = [
+                "¡Feliz Navidad!",
+                "Felices Fiestas",
+                "Navidad Mágica"
+            ];
+            
+            const messages = [
+                "Que esta Navidad llene tu corazón de alegría, tu hogar de amor y tu vida de bendiciones infinitas.",
+                "Que la magia de la Navidad traiga paz a tu espíritu y felicidad a tu corazón.",
+                "Que esta Navidad sea el comienzo de un año lleno de amor, salud y prosperidad."
+            ];
+            
+            const design = cardData.design || 1;
+            document.getElementById('cardGreeting').textContent = greetings[design - 1] || greetings[0];
+            document.getElementById('cardMessage').textContent = messages[design - 1] || messages[0];
+        }
+        
+        // Abrir puerta
+        function openDoor() {
+            if (doorOpened) return;
+            
+            doorOpened = true;
+            const door = document.getElementById('christmasDoor');
+            const cardBehind = document.getElementById('cardBehindDoor');
+            const actions = document.getElementById('cardActions');
+            
+            // Sonido de puerta (simulado)
+            playDoorSound();
+            
+            // Animación de la puerta
+            door.classList.add('door-open');
+            
+            // Mostrar tarjeta después de 1 segundo
+            setTimeout(() => {
+                cardBehind.classList.add('card-revealed');
+                
+                // Mostrar botones después de 1.5 segundos más
+                setTimeout(() => {
+                    actions.classList.add('actions-visible');
+                }, 1500);
+            }, 1000);
+            
+            // Efectos especiales
+            createSparkles();
+        }
+        
+        // Efectos de sonido
+        function playDoorSound() {
+            // Crear audio context para sonido de puerta
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 1.5);
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1.5);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 1.5);
+            } catch (e) {
+                console.log('Audio not supported');
+            }
+        }
+        
+        // Crear efectos de partículas
+        function createSparkles() {
+            const container = document.querySelector('.door-container');
+            const sparkleCount = 30;
+            
+            for (let i = 0; i < sparkleCount; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.style.position = 'absolute';
+                sparkle.style.width = '10px';
+                sparkle.style.height = '10px';
+                sparkle.style.background = '#FFD700';
+                sparkle.style.borderRadius = '50%';
+                sparkle.style.boxShadow = '0 0 20px #FFD700';
+                sparkle.style.left = '50%';
+                sparkle.style.top = '50%';
+                sparkle.style.transform = 'translate(-50%, -50%)';
+                sparkle.style.animation = `sparkle-fly ${Math.random() * 2 + 1}s forwards`;
+                
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 100 + Math.random() * 200;
+                const endX = Math.cos(angle) * distance;
+                const endY = Math.sin(angle) * distance;
+                
+                sparkle.style.setProperty('--end-x', `${endX}px`);
+                sparkle.style.setProperty('--end-y', `${endY}px`);
+                
+                container.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1000);
+            }
+            
+            // Añadir animación CSS
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes sparkle-fly {
+                    to {
+                        transform: translate(calc(-50% + var(--end-x)), calc(-50% + var(--end-y)));
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // Configurar compartir
+        function setupSharing() {
+            const shareBtn = document.getElementById('shareBtn');
+            
+            shareBtn.addEventListener('click', async function() {
+                if (!cardData) return;
+                
+                // Incrementar contador
+                cardData.shares = (cardData.shares || 0) + 1;
+                localStorage.setItem(cardData.id, JSON.stringify(cardData));
+                
+                // Efecto visual
+                this.innerHTML = '<i class="fas fa-check"></i> ¡Compartido!';
+                this.style.background = 'linear-gradient(135deg, #10B981, #059669)';
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-share-alt"></i> Compartir Tarjeta';
+                    this.style.background = 'linear-gradient(135deg, #4169E1, #1E40AF)';
+                }, 2000);
+                
+                const shareUrl = window.location.href;
+                const shareText = `🎄 ¡Mira la tarjeta navideña que ${cardData.name} ha creado con WishCraft! 🎄 ${shareUrl}`;
+                
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            title: 'Tarjeta Navideña Mágica',
+                            text: shareText,
+                            url: shareUrl
+                        });
+                    } catch (err) {
+                        fallbackShare(shareText, shareUrl);
+                    }
+                } else {
+                    fallbackShare(shareText, shareUrl);
+                }
+            });
+        }
+        
+        function fallbackShare(text, url) {
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+        
+        // Mostrar error
+        function showError(message) {
+            document.getElementById('loadingMessage').innerHTML = `
+                <i class="fas fa-exclamation-triangle"></i>
+                <div style="margin-top: 1rem;">${message}</div>
+                <a href="index.html" style="display: inline-block; margin-top: 1rem; color: #FFD700;">
+                    Volver al inicio
+                </a>
+            `;
+        }
+        
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            createSnow();
+            loadCardData();
+            setupSharing();
+            
+            // Evento para abrir la puerta
+            document.getElementById('christmasDoor').addEventListener('click', openDoor);
+            
+            // También abrir con tecla espacio
+            document.addEventListener('keydown', function(e) {
+                if (e.code === 'Space' && !doorOpened) {
+                    openDoor();
+                }
+            });
+            
+            // Efecto hover en el pomo
+            const knob = document.querySelector('.door-knob');
+            knob.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-50%) scale(1.2)';
+            });
+            
+            knob.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-50%) scale(1)';
+            });
+            
+            // Efecto de clic en el pomo
+            knob.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.style.transform = 'translateY(-50%) scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-50%) scale(1)';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>
