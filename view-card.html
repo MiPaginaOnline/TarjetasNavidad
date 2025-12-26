@@ -279,25 +279,44 @@
             line-height: 1.6;
         }
 
-        .home-link {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 12px 25px;
-            background-color: #c62828;
-            color: white;
-            text-decoration: none;
+        .share-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .share-btn {
+            padding: 12px 20px;
             border-radius: 10px;
+            border: none;
             font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .home-link:hover {
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #1da851;
+            transform: translateY(-3px);
+        }
+
+        .create-btn {
+            background-color: #c62828;
+            color: white;
+        }
+
+        .create-btn:hover {
             background-color: #b71c1c;
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(198, 40, 40, 0.4);
         }
 
         .snow-background {
@@ -363,6 +382,16 @@
             
             .card-message {
                 font-size: 1.5rem;
+            }
+            
+            .share-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .share-btn {
+                width: 250px;
+                justify-content: center;
             }
         }
     </style>
@@ -454,9 +483,15 @@
             <p>Esta tarjeta navideña ha sido creada especialmente para ti con mucho cariño. ¡Que disfrutes de estas fiestas rodeado de tus seres queridos!</p>
         </div>
         
-        <a href="#" class="home-link" id="createLink">
-            <i class="fas fa-gift"></i> Crea tu propia tarjeta navideña
-        </a>
+        <div class="share-buttons">
+            <button class="share-btn whatsapp-btn" id="shareWhatsApp">
+                <i class="fab fa-whatsapp"></i> Compartir por WhatsApp
+            </button>
+            
+            <a href="index.html" class="share-btn create-btn">
+                <i class="fas fa-gift"></i> Crea tu propia tarjeta
+            </a>
+        </div>
     </div>
 
     <script>
@@ -468,7 +503,7 @@
         const cardInner = document.getElementById('cardInner');
         const flipCardBtn = document.getElementById('flipCardBtn');
         const flipCardBtnInside = document.getElementById('flipCardBtnInside');
-        const createLink = document.getElementById('createLink');
+        const shareWhatsAppBtn = document.getElementById('shareWhatsApp');
         
         // Elementos de la tarjeta
         const cardRecipient = document.getElementById('cardRecipient');
@@ -481,6 +516,9 @@
         // Voltear tarjeta
         flipCardBtn.addEventListener('click', flipCard);
         flipCardBtnInside.addEventListener('click', flipCard);
+        
+        // Compartir por WhatsApp
+        shareWhatsAppBtn.addEventListener('click', shareViaWhatsApp);
         
         // Función para voltear la tarjeta
         function flipCard() {
@@ -581,6 +619,14 @@
             }
         }
         
+        // Función para compartir por WhatsApp
+        function shareViaWhatsApp() {
+            const currentUrl = window.location.href;
+            const shareText = `¡Mira esta tarjeta navideña que recibí! ${currentUrl}`;
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+        
         // Función para crear nieve en el fondo
         function createSnow() {
             const snowBackground = document.getElementById('snowBackground');
@@ -599,9 +645,6 @@
             }
         }
         
-        // Configurar enlace para crear tarjeta
-        createLink.href = window.location.origin + window.location.pathname.replace('view-card.html', 'index.html');
-        
         // Inicializar
         loadCardData();
         createSnow();
@@ -613,6 +656,21 @@
             // Voltear de nuevo después de 7 segundos
             setTimeout(flipCard, 7000);
         }, 5000);
+        
+        // Intentar usar la API de Web Share si está disponible
+        if (navigator.share) {
+            // Cambiar el botón de WhatsApp por el nativo
+            shareWhatsAppBtn.innerHTML = '<i class="fas fa-share-alt"></i> Compartir con...';
+            shareWhatsAppBtn.onclick = () => {
+                navigator.share({
+                    title: 'Tarjeta Navideña',
+                    text: '¡Mira esta tarjeta navideña que recibí!',
+                    url: window.location.href
+                }).catch(err => {
+                    console.log('Error al compartir:', err);
+                });
+            };
+        }
     </script>
 </body>
 </html>
