@@ -406,6 +406,122 @@
             max-width: 800px;
         }
 
+        /* Modal para compartir */
+        .share-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .share-modal-content {
+            background: linear-gradient(135deg, #1a472a 0%, #0a3d1a 100%);
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 2px solid #ffd700;
+        }
+
+        .share-modal h3 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2rem;
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+
+        .share-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .share-option {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .share-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .share-icon {
+            font-size: 2rem;
+        }
+
+        .share-option span {
+            font-size: 0.9rem;
+        }
+
+        .whatsapp { color: #25D366; }
+        .facebook { color: #1877F2; }
+        .twitter { color: #1DA1F2; }
+        .telegram { color: #0088cc; }
+        .email { color: #EA4335; }
+        .copy { color: #FFD700; }
+
+        .share-url {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .share-url input {
+            flex: 1;
+            background: white;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .copy-url-btn {
+            background: #ffd700;
+            color: #0a3d1a;
+            border: none;
+            border-radius: 8px;
+            padding: 0 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .copy-url-btn:hover {
+            background: #ffed4e;
+        }
+
+        .close-modal {
+            background: #c62828;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .close-modal:hover {
+            background: #b71c1c;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .main-content {
@@ -423,6 +539,10 @@
             
             h1 {
                 font-size: 2.5rem;
+            }
+            
+            .share-options {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -442,6 +562,10 @@
             
             .card-message {
                 font-size: 1.5rem;
+            }
+            
+            .share-options {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -495,7 +619,7 @@
                 </div>
                 
                 <div class="instructions">
-                    <p><i class="fas fa-lightbulb"></i> <strong>Instrucciones:</strong> Personaliza los campos de arriba y haz clic en "Vista previa" para ver los cambios. Cuando termines, haz clic en "Compartir tarjeta" para obtener un enlace único que podrás enviar a tus seres queridos.</p>
+                    <p><i class="fas fa-lightbulb"></i> <strong>Instrucciones:</strong> Personaliza los campos de arriba y haz clic en "Vista previa" para ver los cambios. Cuando termines, haz clic en "Compartir tarjeta" para abrir el menú de compartir con WhatsApp, Facebook y más opciones.</p>
                 </div>
             </div>
             
@@ -574,6 +698,53 @@
         </div>
     </div>
 
+    <!-- Modal para compartir -->
+    <div class="share-modal" id="shareModal">
+        <div class="share-modal-content">
+            <h3>Compartir Tarjeta Navideña</h3>
+            <p>Selecciona cómo quieres compartir tu tarjeta navideña:</p>
+            
+            <div class="share-options">
+                <div class="share-option" id="shareWhatsApp">
+                    <i class="fab fa-whatsapp share-icon whatsapp"></i>
+                    <span>WhatsApp</span>
+                </div>
+                
+                <div class="share-option" id="shareFacebook">
+                    <i class="fab fa-facebook share-icon facebook"></i>
+                    <span>Facebook</span>
+                </div>
+                
+                <div class="share-option" id="shareTwitter">
+                    <i class="fab fa-twitter share-icon twitter"></i>
+                    <span>Twitter</span>
+                </div>
+                
+                <div class="share-option" id="shareTelegram">
+                    <i class="fab fa-telegram share-icon telegram"></i>
+                    <span>Telegram</span>
+                </div>
+                
+                <div class="share-option" id="shareEmail">
+                    <i class="fas fa-envelope share-icon email"></i>
+                    <span>Email</span>
+                </div>
+                
+                <div class="share-option" id="shareCopy">
+                    <i class="fas fa-copy share-icon copy"></i>
+                    <span>Copiar enlace</span>
+                </div>
+            </div>
+            
+            <div class="share-url">
+                <input type="text" id="shareUrlInput" readonly value="Generando enlace...">
+                <button class="copy-url-btn" id="copyUrlBtn">Copiar</button>
+            </div>
+            
+            <button class="close-modal" id="closeModal">Cerrar</button>
+        </div>
+    </div>
+
     <script>
         // Elementos del DOM
         const recipientInput = document.getElementById('recipient');
@@ -593,6 +764,23 @@
         const previewMessageInside = document.getElementById('previewMessageInside');
         const previewSenderInside = document.getElementById('previewSenderInside');
         const christmasCard = document.getElementById('christmasCard');
+        
+        // Elementos del modal de compartir
+        const shareModal = document.getElementById('shareModal');
+        const shareUrlInput = document.getElementById('shareUrlInput');
+        const copyUrlBtn = document.getElementById('copyUrlBtn');
+        const closeModal = document.getElementById('closeModal');
+        
+        // Botones de compartir
+        const shareWhatsApp = document.getElementById('shareWhatsApp');
+        const shareFacebook = document.getElementById('shareFacebook');
+        const shareTwitter = document.getElementById('shareTwitter');
+        const shareTelegram = document.getElementById('shareTelegram');
+        const shareEmail = document.getElementById('shareEmail');
+        const shareCopy = document.getElementById('shareCopy');
+        
+        // Variables para la tarjeta
+        let currentCardId = null;
         
         // Actualizar vista previa cuando se hace clic en el botón
         previewBtn.addEventListener('click', updatePreview);
@@ -615,8 +803,20 @@
         flipCardBtn.addEventListener('click', flipCard);
         flipCardBtnInside.addEventListener('click', flipCard);
         
-        // Compartir tarjeta
-        shareBtn.addEventListener('click', shareCard);
+        // Abrir modal para compartir
+        shareBtn.addEventListener('click', openShareModal);
+        
+        // Cerrar modal
+        closeModal.addEventListener('click', () => {
+            shareModal.style.display = 'none';
+        });
+        
+        // Cerrar modal al hacer clic fuera
+        window.addEventListener('click', (e) => {
+            if (e.target === shareModal) {
+                shareModal.style.display = 'none';
+            }
+        });
         
         // Función para actualizar la vista previa
         function updatePreview() {
@@ -691,10 +891,10 @@
             }
         }
         
-        // Función para compartir la tarjeta
-        function shareCard() {
+        // Función para abrir el modal de compartir
+        function openShareModal() {
             // Crear un ID único para la tarjeta
-            const cardId = 'navidad-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            currentCardId = 'navidad-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
             
             // Guardar datos de la tarjeta en localStorage
             const cardData = {
@@ -705,20 +905,128 @@
                 timestamp: new Date().toISOString()
             };
             
-            localStorage.setItem(cardId, JSON.stringify(cardData));
+            localStorage.setItem(currentCardId, JSON.stringify(cardData));
             
             // Crear URL para compartir
-            const shareUrl = `${window.location.origin}?card=${cardId}`;
+            const shareUrl = `${window.location.origin}/view-card.html?card=${currentCardId}`;
+            const shareText = `¡He creado una tarjeta navideña personalizada para ti! ${shareUrl}`;
             
-            // Mostrar mensaje con opción para copiar el enlace
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(shareUrl).then(() => {
-                    alert(`¡Tarjeta creada con éxito!\n\nTu enlace para compartir ha sido copiado al portapapeles:\n${shareUrl}\n\nEnvía este enlace a tus seres queridos para que vean tu tarjeta navideña.`);
+            // Actualizar el campo de URL
+            shareUrlInput.value = shareUrl;
+            
+            // Configurar los botones de compartir
+            setupShareButtons(shareUrl, shareText);
+            
+            // Mostrar el modal
+            shareModal.style.display = 'flex';
+        }
+        
+        // Función para configurar los botones de compartir
+        function setupShareButtons(url, text) {
+            // WhatsApp
+            shareWhatsApp.onclick = () => {
+                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+                window.open(whatsappUrl, '_blank');
+            };
+            
+            // Facebook
+            shareFacebook.onclick = () => {
+                const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+                window.open(facebookUrl, '_blank', 'width=600,height=400');
+            };
+            
+            // Twitter
+            shareTwitter.onclick = () => {
+                const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent("¡Mira mi tarjeta navideña personalizada!")}`;
+                window.open(twitterUrl, '_blank', 'width=600,height=400');
+            };
+            
+            // Telegram
+            shareTelegram.onclick = () => {
+                const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent("¡Mira mi tarjeta navideña personalizada!")}`;
+                window.open(telegramUrl, '_blank');
+            };
+            
+            // Email
+            shareEmail.onclick = () => {
+                const subject = "Tarjeta Navideña Personalizada";
+                const body = `Hola,\n\nHe creado una tarjeta navideña personalizada para ti. Puedes verla aquí: ${url}\n\n¡Felices Fiestas!`;
+                const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                window.location.href = mailtoUrl;
+            };
+            
+            // Copiar enlace
+            shareCopy.onclick = copyUrlBtn.onclick = () => {
+                navigator.clipboard.writeText(url).then(() => {
+                    copyUrlBtn.textContent = '¡Copiado!';
+                    copyUrlBtn.style.background = '#4CAF50';
+                    
+                    setTimeout(() => {
+                        copyUrlBtn.textContent = 'Copiar';
+                        copyUrlBtn.style.background = '#ffd700';
+                    }, 2000);
+                }).catch(() => {
+                    // Fallback para navegadores antiguos
+                    shareUrlInput.select();
+                    document.execCommand('copy');
+                    
+                    copyUrlBtn.textContent = '¡Copiado!';
+                    copyUrlBtn.style.background = '#4CAF50';
+                    
+                    setTimeout(() => {
+                        copyUrlBtn.textContent = 'Copiar';
+                        copyUrlBtn.style.background = '#ffd700';
+                    }, 2000);
                 });
-            } else {
-                // Fallback para navegadores antiguos
-                prompt("¡Tarjeta creada con éxito! Copia este enlace y compártelo con tus seres queridos:", shareUrl);
+            };
+            
+            // Intentar usar la API de Web Share si está disponible (para dispositivos móviles)
+            if (navigator.share) {
+                // Reemplazar todos los botones por el nativo
+                setupNativeSharing(url, text);
             }
+        }
+        
+        // Función para usar la API de Web Share nativa
+        function setupNativeSharing(url, text) {
+            const nativeShareBtn = document.createElement('div');
+            nativeShareBtn.className = 'share-option';
+            nativeShareBtn.innerHTML = `
+                <i class="fas fa-share-alt share-icon" style="color: #9C27B0;"></i>
+                <span>Compartir nativo</span>
+            `;
+            
+            nativeShareBtn.onclick = () => {
+                navigator.share({
+                    title: 'Tarjeta Navideña',
+                    text: '¡Mira mi tarjeta navideña personalizada!',
+                    url: url
+                }).catch(err => {
+                    console.log('Error al compartir:', err);
+                });
+            };
+            
+            // Reemplazar el grid de opciones por el botón nativo
+            const shareOptions = document.querySelector('.share-options');
+            shareOptions.innerHTML = '';
+            shareOptions.appendChild(nativeShareBtn);
+            
+            // También mantener la opción de copiar
+            const copyOption = shareCopy.cloneNode(true);
+            shareOptions.appendChild(copyOption);
+            
+            // Reasignar el evento de copiar
+            copyOption.onclick = () => {
+                navigator.clipboard.writeText(url).then(() => {
+                    copyUrlBtn.textContent = '¡Copiado!';
+                    copyUrlBtn.style.background = '#4CAF50';
+                    
+                    setTimeout(() => {
+                        copyUrlBtn.textContent = 'Copiar';
+                        copyUrlBtn.style.background = '#ffd700';
+                    }, 2000);
+                });
+            };
         }
         
         // Inicializar la vista previa
