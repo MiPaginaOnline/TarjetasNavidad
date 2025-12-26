@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta Navideña</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #0a3d1a 0%, #1a472a 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            z-index: 2;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 3rem;
+            color: #ffd700;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #e0f7d7;
+            margin-bottom: 20px;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+            margin: 20px 0;
+        }
+
+        .christmas-card {
+            width: 400px;
+            height: 500px;
+            background-color: #0a3d1a;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 10px solid #8b4513;
+            transform-style: preserve-3d;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+        }
+
+        .card-front, .card-inside {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .card-front {
+            background-color: #0a3d1a;
+        }
+
+        .card-inside {
+            background-color: #fff;
+            color: #333;
+            transform: rotateY(180deg);
+        }
+
+        .card-header {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-title {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.5rem;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .card-subtitle {
+            font-size: 1.2rem;
+            color: #fff;
+            font-style: italic;
+        }
+
+        .card-content {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-message {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 1.8rem;
+            line-height: 1.4;
+            max-width: 90%;
+        }
+
+        .card-footer {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-sender {
+            font-size: 1.3rem;
+            color: #ffd700;
+            font-weight: 600;
+        }
+
+        /* Christmas decorations */
+        .snowflake {
+            position: absolute;
+            color: white;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(500px);
+            }
+        }
+
+        .ornament {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .tree {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 40px solid #2e7d32;
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .tree:before, .tree:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 35px solid #1b5e20;
+        }
+
+        .tree:before {
+            top: 10px;
+            left: -20px;
+        }
+
+        .tree:after {
+            top: 25px;
+            left: -20px;
+            border-bottom: 30px solid #0d4217;
+        }
+
+        .lights {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+
+        .star {
+            position: absolute;
+            color: gold;
+            font-size: 2rem;
+            top: 20px;
+            right: 30px;
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .garland {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(90deg, red, gold, green, red);
+            opacity: 0.7;
+            z-index: 1;
+        }
+
+        .flip-btn {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .flip-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 20px;
+            max-width: 600px;
+            color: #e0f7d7;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .home-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: #c62828;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .home-link:hover {
+            background-color: #b71c1c;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(198, 40, 40, 0.4);
+        }
+
+        .snow-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snow-particle {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: snowfall linear infinite;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-100px) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .christmas-card {
+                width: 350px;
+                height: 450px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .christmas-card {
+                width: 300px;
+                height: 400px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .card-title {
+                font-size: 2rem;
+            }
+            
+            .card-message {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo de nieve -->
+    <div class="snow-background" id="snowBackground"></div>
+    
+    <div class="container">
+        <header>
+            <h1>¡Feliz Navidad!</h1>
+            <p class="subtitle">Has recibido una tarjeta navideña especial</p>
+        </header>
+        
+        <div class="card-container">
+            <div class="christmas-card" id="christmasCard">
+                <div class="card-inner" id="cardInner">
+                    <!-- Frente de la tarjeta -->
+                    <div class="card-front">
+                        <div class="garland"></div>
+                        <div class="star"><i class="fas fa-star"></i></div>
+                        
+                        <!-- Decoraciones navideñas -->
+                        <div class="ornament" style="background-color: #c62828; top: 60px; left: 50px;"></div>
+                        <div class="ornament" style="background-color: #ffd700; top: 120px; right: 60px;"></div>
+                        <div class="ornament" style="background-color: #2196f3; bottom: 100px; left: 80px;"></div>
+                        <div class="lights" style="background-color: #ff5722; top: 90px; left: 100px;"></div>
+                        <div class="lights" style="background-color: #4caf50; bottom: 150px; right: 100px;"></div>
+                        <div class="lights" style="background-color: #9c27b0; top: 180px; left: 150px;"></div>
+                        <div class="tree"></div>
+                        
+                        <!-- Copos de nieve -->
+                        <div class="snowflake" style="left: 10%; animation-duration: 10s;">❅</div>
+                        <div class="snowflake" style="left: 20%; animation-duration: 12s;">❆</div>
+                        <div class="snowflake" style="left: 50%; animation-duration: 8s;">❅</div>
+                        <div class="snowflake" style="left: 70%; animation-duration: 14s;">❆</div>
+                        <div class="snowflake" style="left: 90%; animation-duration: 11s;">❅</div>
+                        
+                        <div class="card-header">
+                            <div class="card-title">¡Feliz Navidad!</div>
+                            <div class="card-subtitle" id="cardRecipient">Para: Familia Martínez</div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="card-message" id="cardMessage">¡Feliz Navidad y Próspero Año Nuevo! Que esta temporada esté llena de alegría, paz y amor.</div>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <div class="card-sender" id="cardSender">De: María y Juan</div>
+                        </div>
+                        
+                        <button class="flip-btn" id="flipCardBtn">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Interior de la tarjeta -->
+                    <div class="card-inside">
+                        <div class="card-header">
+                            <div class="card-title" style="color: #c62828;">Felices Fiestas</div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="card-message" style="color: #333; font-size: 1.5rem;" id="cardMessageInside">
+                                Que la magia de la Navidad llene vuestros hogares de felicidad y vuestros corazones de amor. ¡Brindemos por un año lleno de bendiciones!
+                            </div>
+                            
+                            <div style="margin-top: 30px; text-align: center;">
+                                <div style="font-size: 1.2rem; color: #0a3d1a; margin-bottom: 10px;">Con cariño,</div>
+                                <div style="font-size: 1.5rem; color: #c62828; font-weight: bold;" id="cardSenderInside">María y Juan</div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <div style="text-align: center; color: #0a3d1a; font-style: italic;">
+                                Que el espíritu navideño os acompañe todo el año
+                            </div>
+                        </div>
+                        
+                        <button class="flip-btn" id="flipCardBtnInside">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="message">
+            <p>Esta tarjeta navideña ha sido creada especialmente para ti con mucho cariño. ¡Que disfrutes de estas fiestas rodeado de tus seres queridos!</p>
+        </div>
+        
+        <a href="#" class="home-link" id="createLink">
+            <i class="fas fa-gift"></i> Crea tu propia tarjeta navideña
+        </a>
+    </div>
+
+    <script>
+        // Obtener parámetros de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const cardId = urlParams.get('card');
+        
+        // Elementos del DOM
+        const cardInner = document.getElementById('cardInner');
+        const flipCardBtn = document.getElementById('flipCardBtn');
+        const flipCardBtnInside = document.getElementById('flipCardBtnInside');
+        const createLink = document.getElementById('createLink');
+        
+        // Elementos de la tarjeta
+        const cardRecipient = document.getElementById('cardRecipient');
+        const cardMessage = document.getElementById('cardMessage');
+        const cardSender = document.getElementById('cardSender');
+        const cardMessageInside = document.getElementById('cardMessageInside');
+        const cardSenderInside = document.getElementById('cardSenderInside');
+        const christmasCard = document.getElementById('christmasCard');
+        
+        // Voltear tarjeta
+        flipCardBtn.addEventListener('click', flipCard);
+        flipCardBtnInside.addEventListener('click', flipCard);
+        
+        // Función para voltear la tarjeta
+        function flipCard() {
+            cardInner.style.transform = cardInner.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
+        }
+        
+        // Función para dividir el mensaje en dos partes
+        function splitMessage(message) {
+            const sentences = message.split(/[.!?]+/).filter(s => s.trim().length > 0);
+            
+            if (sentences.length <= 1) {
+                return {
+                    front: message,
+                    inside: "Que esta Navidad esté llena de momentos especiales y alegría compartida."
+                };
+            }
+            
+            const mid = Math.ceil(sentences.length / 2);
+            const frontSentences = sentences.slice(0, mid);
+            const insideSentences = sentences.slice(mid);
+            
+            return {
+                front: frontSentences.join('. ') + '.',
+                inside: insideSentences.join('. ') + '.'
+            };
+        }
+        
+        // Cargar datos de la tarjeta
+        function loadCardData() {
+            if (cardId) {
+                // Intentar cargar datos desde localStorage
+                const cardData = localStorage.getItem(cardId);
+                
+                if (cardData) {
+                    try {
+                        const data = JSON.parse(cardData);
+                        
+                        // Dividir el mensaje en dos partes
+                        const messageParts = splitMessage(data.message);
+                        
+                        // Actualizar tarjeta con los datos
+                        cardRecipient.textContent = `Para: ${data.recipient || "Queridos amigos"}`;
+                        cardMessage.textContent = messageParts.front;
+                        cardSender.textContent = `De: ${data.sender || "Tus amigos"}`;
+                        cardMessageInside.textContent = messageParts.inside;
+                        cardSenderInside.textContent = data.sender || "Tus amigos";
+                        
+                        // Cambiar color de la tarjeta si está definido
+                        if (data.color) {
+                            christmasCard.style.backgroundColor = data.color;
+                        }
+                        
+                        // Añadir más decoraciones
+                        addDecorations();
+                        
+                        return;
+                    } catch (e) {
+                        console.error("Error al cargar datos de la tarjeta:", e);
+                    }
+                }
+            }
+            
+            // Si no hay datos, usar valores por defecto
+            const defaultMessage = "¡Feliz Navidad y Próspero Año Nuevo! Que esta temporada esté llena de alegría, paz y amor. Que la magia de la Navidad llene vuestros hogares de felicidad.";
+            const messageParts = splitMessage(defaultMessage);
+            
+            cardMessage.textContent = messageParts.front;
+            cardMessageInside.textContent = messageParts.inside;
+            
+            // Añadir decoraciones
+            addDecorations();
+        }
+        
+        // Función para añadir decoraciones adicionales
+        function addDecorations() {
+            // Añadir luces parpadeantes
+            for (let i = 0; i < 10; i++) {
+                const light = document.createElement('div');
+                light.className = 'lights';
+                light.style.backgroundColor = i % 3 === 0 ? '#ff5722' : (i % 3 === 1 ? '#4caf50' : '#9c27b0');
+                light.style.top = `${30 + Math.random() * 400}px`;
+                light.style.left = `${20 + Math.random() * 350}px`;
+                light.style.animationDelay = `${Math.random() * 2}s`;
+                
+                document.querySelector('.card-front').appendChild(light);
+            }
+            
+            // Añadir más copos de nieve
+            for (let i = 0; i < 8; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = Math.random() > 0.5 ? '❅' : '❆';
+                snowflake.style.left = `${Math.random() * 100}%`;
+                snowflake.style.animationDuration = `${8 + Math.random() * 10}s`;
+                snowflake.style.fontSize = `${0.8 + Math.random() * 0.8}rem`;
+                
+                document.querySelector('.card-front').appendChild(snowflake);
+            }
+        }
+        
+        // Función para crear nieve en el fondo
+        function createSnow() {
+            const snowBackground = document.getElementById('snowBackground');
+            const snowCount = 100;
+            
+            for (let i = 0; i < snowCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snow-particle';
+                snowflake.style.width = `${3 + Math.random() * 5}px`;
+                snowflake.style.height = snowflake.style.width;
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                snowflake.style.animationDuration = `${5 + Math.random() * 10}s`;
+                snowflake.style.animationDelay = `${Math.random() * 5}s`;
+                
+                snowBackground.appendChild(snowflake);
+            }
+        }
+        
+        // Configurar enlace para crear tarjeta
+        createLink.href = window.location.origin + window.location.pathname.replace('view-card.html', 'index.html');
+        
+        // Inicializar
+        loadCardData();
+        createSnow();
+        
+        // Voltear automáticamente la tarjeta después de 5 segundos
+        setTimeout(() => {
+            flipCard();
+            
+            // Voltear de nuevo después de 7 segundos
+            setTimeout(flipCard, 7000);
+        }, 5000);
+    </script>
+</body>
+</html>
