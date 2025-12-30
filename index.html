@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 WishCraft | Crea tu Tarjeta Navideña</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET Y BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --christmas-red: #C41E3A;
+            --christmas-green: #228B22;
+            --christmas-gold: #FFD700;
+            --snow-white: #FFFFFF;
+            --dark-red: #8B0000;
+            --dark-green: #006400;
+            --bg-light: #FFF9F0;
+            --text-dark: #2D3748;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f2b1e 0%, #1a472a 100%);
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ===== FONDO NEVADO ===== */
+        .snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* ===== NAVEGACIÓN ===== */
+        .nav-christmas {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(20, 40, 28, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 3px solid var(--christmas-red);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--christmas-green);
+            animation: glow 2s infinite alternate;
+        }
+
+        .logo span {
+            font-family: 'Mountains of Christmas', cursive;
+        }
+
+        .logo-accent {
+            color: var(--christmas-gold);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: var(--christmas-red);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            background: var(--christmas-green);
+            box-shadow: 0 4px 15px rgba(34, 139, 34, 0.4);
+        }
+
+        .btn-nav-create {
+            background: linear-gradient(135deg, var(--christmas-red), var(--dark-red));
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-nav-create:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(196, 30, 58, 0.4);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-christmas {
+            position: relative;
+            padding: 10rem 2rem 6rem;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1543083115-638c32cd3d58?auto=format&fit=crop&w=1600');
+            background-size: cover;
+            background-position: center;
+            margin-top: 80px;
+            border-bottom: 5px solid var(--christmas-green);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Mountains of Christmas', cursive;
+        }
+
+        .title-line {
+            display: block;
+            line-height: 1.2;
+        }
+
+        .title-line.accent {
+            color: var(--christmas-gold);
+            font-size: 4rem;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 180px;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            color: var(--christmas-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--christmas-red), var(--dark-red));
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(196, 30, 58, 0.4);
+        }
+
+        /* ===== SECCIÓN DE CREACIÓN ===== */
+        .creation-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.5rem;
+            color: var(--christmas-gold);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        .creation-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 900px) {
+            .creation-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-panel {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--christmas-gold);
+            font-weight: 500;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-wrapper input:focus {
+            outline: none;
+            border-color: var(--christmas-green);
+            box-shadow: 0 0 0 3px rgba(34, 139, 34, 0.3);
+        }
+
+        .input-decoration {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--christmas-gold);
+        }
+
+        .design-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .design-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .design-btn:hover {
+            transform: translateY(-3px);
+            border-color: var(--christmas-green);
+        }
+
+        .design-btn.active {
+            border-color: var(--christmas-red);
+            background: rgba(196, 30, 58, 0.2);
+        }
+
+        .design-preview {
+            width: 60px;
+            height: 40px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .create-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--christmas-red), var(--dark-red));
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 2rem;
+        }
+
+        .create-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(196, 30, 58, 0.4);
+        }
+
+        /* ===== PREVIEW CARD ===== */
+        .preview-panel {
+            padding: 2rem;
+        }
+
+        .card-preview-container {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-card {
+            width: 100%;
+            height: 400px;
+            perspective: 1000px;
+            margin-bottom: 2rem;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            padding: 2rem;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, var(--dark-red), var(--christmas-red));
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, var(--dark-green), var(--christmas-green));
+            transform: rotateY(180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .card-header {
+            text-align: center;
+        }
+
+        .card-title h3 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .title-underline {
+            width: 100px;
+            height: 3px;
+            background: var(--christmas-gold);
+            margin: 0 auto;
+        }
+
+        .name-display {
+            margin: 2rem 0;
+        }
+
+        .user-name {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.5rem;
+            color: var(--christmas-gold);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-decoration {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .decoration-tree {
+            font-size: 3rem;
+            color: var(--christmas-green);
+        }
+
+        .decoration-gifts {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .decoration-gifts i {
+            font-size: 2rem;
+            color: var(--christmas-gold);
+        }
+
+        /* ===== CÓMO FUNCIONA ===== */
+        .how-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 900px) {
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--christmas-red);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            background: var(--christmas-red);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .step-content h3 {
+            color: var(--christmas-gold);
+            margin-bottom: 1rem;
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 1.8rem;
+        }
+
+        .step-features {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .step-features li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-features i {
+            color: var(--christmas-green);
+        }
+
+        .step-decoration {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--christmas-green);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* ===== TARJETAS DESTACADAS ===== */
+        .featured-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .featured-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .featured-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--christmas-gold);
+        }
+
+        .featured-card.red {
+            border-left: 5px solid var(--christmas-red);
+        }
+
+        .featured-card.green {
+            border-left: 5px solid var(--christmas-green);
+        }
+
+        .featured-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .featured-badge {
+            background: var(--christmas-gold);
+            color: var(--dark-red);
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .featured-name {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 1.8rem;
+            color: var(--christmas-gold);
+            margin: 1rem 0;
+        }
+
+        .featured-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .featured-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--christmas-green);
+            text-decoration: none;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+
+        .featured-ornament {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--christmas-red);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .view-all-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--christmas-green), var(--dark-green));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 3rem;
+            transition: all 0.3s ease;
+        }
+
+        .view-all-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(34, 139, 34, 0.4);
+        }
+
+        /* ===== FOOTER ===== */
+        .christmas-footer {
+            background: rgba(20, 40, 28, 0.95);
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 3px solid var(--christmas-red);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--christmas-red);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            color: var(--christmas-gold);
+            margin-bottom: 1.5rem;
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 1.5rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-links a:hover {
+            color: var(--christmas-gold);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-toggle {
+                display: block;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .title-line.accent {
+                font-size: 3rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .stat-card {
+                min-width: auto;
+            }
+        }
+
+        /* ===== ANIMACIONES ===== */
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.8),
+                           0 0 30px rgba(255, 215, 0, 0.6);
+            }
+        }
+
+        .heart-beat {
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo Nevado -->
+    <div class="snow-container" id="snowContainer"></div>
+
+    <!-- Navegación -->
+    <nav class="nav-christmas">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-tree"></i>
+                <span>Wish<span class="logo-accent">Craft</span></span>
+            </a>
+            
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="gallery.html" class="nav-link">
+                    <i class="fas fa-images"></i>
+                    <span>Galería</span>
+                </a>
+                <a href="#como-funciona" class="nav-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Cómo Funciona</span>
+                </a>
+                <a href="#crear" class="btn-nav-create">
+                    <i class="fas fa-plus"></i>
+                    Crear Tarjeta
+                </a>
+            </div>
+            
+            <button class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-christmas">
+        <h1 class="hero-title">
+            <span class="title-line">Crea tu Tarjeta</span>
+            <span class="title-line accent">Navideña Mágica</span>
+        </h1>
+        
+        <p class="hero-subtitle">
+            Personaliza una tarjeta única con tu nombre y comparte<br>
+            el espíritu navideño con familia y amigos
+        </p>
+        
+        <div class="hero-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-number">2,548</span>
+                    <span class="stat-label">Personas Felicitadas</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-tree"></i>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-number">893</span>
+                    <span class="stat-label">Tarjetas Hoy</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-share-alt"></i>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-number">1.2K</span>
+                    <span class="stat-label">Compartidas</span>
+                </div>
+            </div>
+        </div>
+        
+        <a href="#crear" class="hero-cta">
+            <i class="fas fa-magic"></i>
+            Crear Mi Tarjeta Navideña
+        </a>
+    </header>
+
+    <!-- Sección Principal -->
+    <main class="main-content">
+        <!-- Sección de Creación -->
+        <section id="crear" class="creation-section">
+            <div class="section-header">
+                <h2>Personaliza tu Tarjeta Navideña</h2>
+                <p class="section-subtitle">Diseña una tarjeta especial en solo 2 minutos</p>
+            </div>
+            
+            <div class="creation-container">
+                <!-- Panel de Entrada -->
+                <div class="input-panel">
+                    <div class="input-group">
+                        <label for="userName">
+                            <i class="fas fa-user-circle"></i>
+                            Tu Nombre o Mensaje
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                id="userName" 
+                                placeholder="Ej: La Familia Pérez"
+                                maxlength="50"
+                            >
+                            <div class="input-decoration">
+                                <i class="fas fa-snowflake"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="messageType">
+                            <i class="fas fa-comment-alt"></i>
+                            Tipo de Mensaje
+                        </label>
+                        <div class="input-wrapper">
+                            <select id="messageType">
+                                <option value="standard">🎄 Feliz Navidad</option>
+                                <option value="family">👨‍👩‍👧‍👦 Para la Familia</option>
+                                <option value="friends">👫 Para Amigos</option>
+                                <option value="funny">😂 Divertido</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <h4><i class="fas fa-palette"></i> Estilo Navideño</h4>
+                        <div class="design-buttons">
+                            <button class="design-btn active" data-design="1">
+                                <div class="design-preview" style="background: linear-gradient(135deg, #C41E3A, #8B0000)">
+                                    <i class="fas fa-candy-cane"></i>
+                                </div>
+                                <span>Clásico Rojo</span>
+                            </button>
+                            <button class="design-btn" data-design="2">
+                                <div class="design-preview" style="background: linear-gradient(135deg, #228B22, #006400)">
+                                    <i class="fas fa-tree"></i>
+                                </div>
+                                <span>Verde Navideño</span>
+                            </button>
+                            <button class="design-btn" data-design="3">
+                                <div class="design-preview" style="background: linear-gradient(135deg, #4169E1, #00008B)">
+                                    <i class="fas fa-snowflake"></i>
+                                </div>
+                                <span>Azul Invernal</span>
+                            </button>
+                            <button class="design-btn" data-design="4">
+                                <div class="design-preview" style="background: linear-gradient(135deg, #FFD700, #DAA520)">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span>Dorado Elegante</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button class="create-btn" id="generateBtn">
+                        <i class="fas fa-sparkles"></i>
+                        <span class="btn-text">Crear Tarjeta Mágica</span>
+                    </button>
+                </div>
+                
+                <!-- Vista Previa -->
+                <div class="preview-panel">
+                    <div class="card-preview-container">
+                        <div class="preview-card">
+                            <div class="card-inner" id="cardInner">
+                                <div class="card-front">
+                                    <div class="card-header">
+                                        <div class="card-title">
+                                            <h3>¡Feliz Navidad!</h3>
+                                            <div class="title-underline"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card-body">
+                                        <div class="name-display">
+                                            <span class="user-name" id="previewName">Tu Nombre Aquí</span>
+                                        </div>
+                                        
+                                        <div class="card-decoration">
+                                            <div class="decoration-tree">
+                                                <i class="fas fa-tree"></i>
+                                            </div>
+                                            <div class="decoration-gifts">
+                                                <i class="fas fa-gift"></i>
+                                                <i class="fas fa-gift"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card-footer">
+                                        <p>Que esta Navidad llene tu hogar de alegría y amor</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-back">
+                                    <div class="back-content">
+                                        <h3>WishCraft</h3>
+                                        <p>Tarjeta creada con amor</p>
+                                        <small id="cardCode">Código: WC-NAVIDAD</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Cómo Funciona -->
+        <section id="como-funciona" class="how-section">
+            <div class="section-header">
+                <h2>Cómo Funciona WishCraft</h2>
+                <p class="section-subtitle">Crea y comparte en 3 pasos mágicos</p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Personaliza</h3>
+                        <p>Escribe tu nombre o mensaje especial. Elige entre diseños navideños únicos.</p>
+                        <ul class="step-features">
+                            <li><i class="fas fa-check"></i> Nombres individuales o grupales</li>
+                            <li><i class="fas fa-check"></i> Varios estilos navideños</li>
+                            <li><i class="fas fa-check"></i> Mensajes predefinidos</li>
+                        </ul>
+                    </div>
+                    <div class="step-decoration">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Genera</h3>
+                        <p>Nuestra magia navideña crea una tarjeta única con animaciones y efectos especiales.</p>
+                        <ul class="step-features">
+                            <li><i class="fas fa-check"></i> Animaciones festivas</li>
+                            <li><i class="fas fa-check"></i> Efectos de nieve</li>
+                            <li><i class="fas fa-check"></i> Calidad HD</li>
+                        </ul>
+                    </div>
+                    <div class="step-decoration">
+                        <i class="fas fa-snowflake"></i>
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Comparte</h3>
+                        <p>Envía tu tarjeta a través de WhatsApp, Facebook, o copia el enlace.</p>
+                        <ul class="step-features">
+                            <li><i class="fas fa-check"></i> Compartir en redes</li>
+                            <li><i class="fas fa-check"></i> Enlace personalizado</li>
+                            <li><i class="fas fa-check"></i> Vista en cualquier dispositivo</li>
+                        </ul>
+                    </div>
+                    <div class="step-decoration">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tarjetas Destacadas -->
+        <section class="featured-section">
+            <div class="section-header">
+                <h2>Tarjetas Destacadas</h2>
+                <p class="section-subtitle">Inspírate con las creaciones de nuestra comunidad</p>
+            </div>
+            
+            <div class="featured-grid" id="featuredCards">
+                <!-- Tarjetas se cargan con JavaScript -->
+                <div class="featured-card red">
+                    <div class="featured-card-header">
+                        <div class="featured-badge">
+                            <i class="fas fa-crown"></i>
+                            Destacada
+                        </div>
+                        <div class="featured-date">
+                            20 de Dic
+                        </div>
+                    </div>
+                    <div class="featured-card-content">
+                        <h4>¡Feliz Navidad!</h4>
+                        <div class="featured-name">Familia González</div>
+                        <p class="featured-wish">Que esta Navidad sea especial</p>
+                    </div>
+                    <div class="featured-card-footer">
+                        <div class="featured-stats">
+                            <span><i class="fas fa-eye"></i> 245</span>
+                            <span><i class="fas fa-heart"></i> 89</span>
+                        </div>
+                        <a href="#" class="featured-link">
+                            Ver Tarjeta
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="featured-card green">
+                    <div class="featured-card-header">
+                        <div class="featured-badge">
+                            <i class="fas fa-crown"></i>
+                            Destacada
+                        </div>
+                        <div class="featured-date">
+                            19 de Dic
+                        </div>
+                    </div>
+                    <div class="featured-card-content">
+                        <h4>¡Feliz Navidad!</h4>
+                        <div class="featured-name">Los Mejores Amigos</div>
+                        <p class="featured-wish">Que esta Navidad sea especial</p>
+                    </div>
+                    <div class="featured-card-footer">
+                        <div class="featured-stats">
+                            <span><i class="fas fa-eye"></i> 189</span>
+                            <span><i class="fas fa-heart"></i> 67</span>
+                        </div>
+                        <a href="#" class="featured-link">
+                            Ver Tarjeta
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="gallery.html" class="view-all-btn">
+                    <i class="fas fa-images"></i>
+                    Ver Galería Completa
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="christmas-footer">
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">
+                    <i class="fas fa-tree"></i>
+                    <span>Wish<span class="logo-accent">Craft</span></span>
+                </div>
+                <p class="footer-description">
+                    Creando magia navideña desde 2023.<br>
+                    ¡Que tus deseos se hagan realidad esta Navidad!
+                </p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h4>Navegación</h4>
+                <ul class="footer-links">
+                    <li>
+                        <a href="index.html">
+                            <i class="fas fa-home"></i>
+                            Inicio
+                        </a>
+                    </li>
+                    <li>
+                        <a href="gallery.html">
+                            <i class="fas fa-images"></i>
+                            Galería Navideña
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#como-funciona">
+                            <i class="fas fa-question-circle"></i>
+                            Cómo Funciona
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4>Recursos</h4>
+                <ul class="footer-links">
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-shield-alt"></i>
+                            Privacidad
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-file-contract"></i>
+                            Términos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-envelope"></i>
+                            Contacto
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4>¡Felices Fiestas!</h4>
+                <div class="footer-message">
+                    <p>Que esta Navidad traiga paz, alegría y prosperidad a tu hogar.</p>
+                    <div class="footer-countdown" style="margin-top: 1rem;">
+                        <div style="font-size: 0.9rem; opacity: 0.8;">Faltan para Navidad:</div>
+                        <div style="font-size: 2rem; font-weight: bold; color: var(--christmas-gold);" id="days">5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 WishCraft. Todos los derechos reservados.</p>
+            <p style="margin-top: 0.5rem;">
+                Hecho con <i class="fas fa-heart heart-beat" style="color: var(--christmas-red);"></i> 
+                para esparcir alegría navideña
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Crear efecto de nieve
+        function createSnow() {
+            const container = document.getElementById('snowContainer');
+            const snowflakes = ['❄', '❅', '❆', '•', '✦'];
+            
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+                snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+                container.appendChild(snowflake);
+            }
+        }
+
+        // Actualizar vista previa
+        document.getElementById('userName').addEventListener('input', function() {
+            const name = this.value.trim();
+            document.getElementById('previewName').textContent = name || 'Tu Nombre Aquí';
+            
+            // Generar código único
+            const code = 'WC-' + (name.substring(0, 3).toUpperCase() || 'YOU') + '-' + 
+                        Date.now().toString().substr(-4);
+            document.getElementById('cardCode').textContent = 'Código: ' + code;
+        });
+
+        // Cambiar diseño
+        document.querySelectorAll('.design-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.design-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const design = this.dataset.design;
+                const cardFront = document.querySelector('.card-front');
+                
+                // Cambiar colores según diseño
+                const designs = {
+                    '1': { bg: 'linear-gradient(135deg, #C41E3A, #8B0000)', color: '#FFD700' },
+                    '2': { bg: 'linear-gradient(135deg, #228B22, #006400)', color: '#FF6B6B' },
+                    '3': { bg: 'linear-gradient(135deg, #4169E1, #00008B)', color: '#FFFFFF' },
+                    '4': { bg: 'linear-gradient(135deg, #FFD700, #DAA520)', color: '#C41E3A' }
+                };
+                
+                const selected = designs[design];
+                cardFront.style.background = selected.bg;
+                document.querySelector('.user-name').style.color = selected.color;
+                document.querySelector('.title-underline').style.background = selected.color;
+            });
+        });
+
+        // Girar tarjeta
+        let isFlipped = false;
+        document.getElementById('generateBtn').addEventListener('mouseenter', function() {
+            if (!isFlipped) {
+                document.getElementById('cardInner').style.transform = 'rotateY(180deg)';
+                isFlipped = true;
+                setTimeout(() => {
+                    document.getElementById('cardInner').style.transform = 'rotateY(0deg)';
+                    isFlipped = false;
+                }, 1000);
+            }
+        });
+
+        // Crear tarjeta
+        document.getElementById('generateBtn').addEventListener('click', function() {
+            const name = document.getElementById('userName').value.trim();
+            
+            if (!name) {
+                alert('🎅 ¡Escribe un nombre para tu tarjeta navideña!');
+                return;
+            }
+
+            // Mostrar animación
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando...';
+            this.disabled = true;
+
+            // Simular creación
+            setTimeout(() => {
+                // Guardar en localStorage
+                const cardId = 'navidad_' + Date.now();
+                const cardData = {
+                    id: cardId,
+                    name: name,
+                    design: document.querySelector('.design-btn.active').dataset.design,
+                    timestamp: new Date().toISOString()
+                };
+
+                localStorage.setItem(cardId, JSON.stringify(cardData));
+                
+                // Redirigir a página de tarjeta
+                window.location.href = `card.html?id=${cardId}`;
+            }, 1500);
+        });
+
+        // Contador para Navidad
+        function updateCountdown() {
+            const now = new Date();
+            const christmas = new Date(now.getFullYear(), 11, 25);
+            if (now > christmas) {
+                christmas.setFullYear(christmas.getFullYear() + 1);
+            }
+            
+            const diff = christmas - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('days').textContent = days;
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            createSnow();
+            updateCountdown();
+            
+            // Actualizar cada minuto
+            setInterval(updateCountdown, 60000);
+        });
+    </script>
+</body>
+</html>
