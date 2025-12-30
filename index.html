@@ -425,7 +425,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>Tarjeta Navideña</h1>
+            <h1>Tarjeta Navideña Fácil</h1>
             <div class="instructions">
                 <i class="fas fa-lightbulb"></i>
                 <strong>¡Muy fácil!</strong> Solo escribe directamente en la tarjeta y luego presiona "COMPARTIR"
@@ -506,147 +506,173 @@
             });
         });
 
-        // Función para generar un ID único para la tarjeta
-        function generateCardId() {
-            return 'nav_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        // Función para crear una imagen de la tarjeta
+        function createCardImage() {
+            return new Promise((resolve) => {
+                // Crear un canvas para la imagen
+                const canvas = document.createElement('canvas');
+                const card = document.querySelector('.christmas-card');
+                
+                // Obtener dimensiones reales
+                const width = card.offsetWidth;
+                const height = card.offsetHeight;
+                
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                
+                // Fondo
+                ctx.fillStyle = christmasCard.style.backgroundColor || '#0a3d1a';
+                ctx.fillRect(0, 0, width, height);
+                
+                // Borde marrón
+                ctx.fillStyle = '#8b4513';
+                ctx.fillRect(0, 0, width, 10);
+                ctx.fillRect(0, 0, 10, height);
+                ctx.fillRect(width - 10, 0, 10, height);
+                ctx.fillRect(0, height - 10, width, 10);
+                
+                // Texto
+                ctx.textAlign = 'center';
+                
+                // Título
+                ctx.fillStyle = '#ffd700';
+                ctx.font = 'bold 56px "Mountains of Christmas"';
+                ctx.fillText('¡Feliz Navidad!', width / 2, 100);
+                
+                // Destinatario
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 24px "Open Sans"';
+                ctx.fillText(`Para: ${recipientInput.value || 'Mis Seres Queridos'}`, width / 2, 160);
+                
+                // Mensaje
+                ctx.fillStyle = '#ffd700';
+                ctx.font = '36px "Mountains of Christmas"';
+                const message = messageInput.value || '¡Feliz Navidad!';
+                wrapText(ctx, message, width / 2, 250, width - 100, 40);
+                
+                // Remitente
+                ctx.fillStyle = '#ffd700';
+                ctx.font = 'bold 28px "Open Sans"';
+                ctx.fillText(`De: ${senderInput.value || 'Con cariño'}`, width / 2, height - 80);
+                
+                // Convertir a URL de imagen
+                const imageUrl = canvas.toDataURL('image/jpeg', 0.9);
+                resolve(imageUrl);
+            });
         }
 
-        // Función para guardar la tarjeta en localStorage
-        function saveCardToStorage(cardId, cardData) {
-            try {
-                // Guardar en localStorage
-                localStorage.setItem(cardId, JSON.stringify(cardData));
+        // Función para envolver texto
+        function wrapText(context, text, x, y, maxWidth, lineHeight) {
+            const words = text.split(' ');
+            let line = '';
+            
+            for (let n = 0; n < words.length; n++) {
+                const testLine = line + words[n] + ' ';
+                const metrics = context.measureText(testLine);
+                const testWidth = metrics.width;
                 
-                // También guardar en sessionStorage como respaldo
-                sessionStorage.setItem('last_card_id', cardId);
-                
-                return true;
-            } catch (error) {
-                console.error('Error al guardar la tarjeta:', error);
-                return false;
+                if (testWidth > maxWidth && n > 0) {
+                    context.fillText(line, x, y);
+                    line = words[n] + ' ';
+                    y += lineHeight;
+                } else {
+                    line = testLine;
+                }
             }
+            context.fillText(line, x, y);
         }
 
-        // Función para crear un enlace de la tarjeta
-        function createCardLink(cardId) {
-            // Obtener la URL base actual
-            const currentUrl = window.location.href;
-            const baseUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/') + 1);
-            
-            // Crear URL para la tarjeta compartida
-            const cardUrl = `${baseUrl}ver-tarjeta.html?id=${cardId}`;
-            
-            return cardUrl;
-        }
-
-        // Función para compartir usando la Web Share API
+        // Función principal para compartir - MENÚ NATIVO DIRECTO
         async function shareCard() {
             try {
-                // Mostrar mensaje de carga
+                // Cambiar texto del botón a "Preparando..."
                 const originalText = shareButton.innerHTML;
                 shareButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparando...';
                 shareButton.disabled = true;
-
-                // Generar ID único para esta tarjeta
-                const cardId = generateCardId();
                 
-                // Crear objeto con los datos de la tarjeta
-                const cardData = {
-                    recipient: recipientInput.value || 'Mis Seres Queridos',
-                    message: messageInput.value || '¡Feliz Navidad! Que esta época esté llena de alegría, paz y amor para todos.',
-                    sender: senderInput.value || 'Con cariño',
-                    color: document.querySelector('.color-option.active').getAttribute('data-color') || '#0a3d1a',
-                    timestamp: new Date().toISOString(),
-                    createdFrom: 'tarjeta-navideña.html'
-                };
+                // Obtener datos de la tarjeta
+                const recipient = recipientInput.value || 'Mis Seres Queridos';
+                const message = messageInput.value || '¡Feliz Navidad! Que esta época esté llena de alegría, paz y amor para todos.';
+                const sender = senderInput.value || 'Con cariño';
                 
-                // Guardar la tarjeta
-                const saved = saveCardToStorage(cardId, cardData);
+                // Crear texto para compartir
+                const shareText = `🎄 ¡Feliz Navidad! 🎄\n\n${sender} te envía una tarjeta navideña:\n\n"${message}"\n\nPara: ${recipient}\n\n✨ ¡Que tengas una feliz Navidad! ✨`;
                 
-                if (!saved) {
-                    alert('Error al guardar la tarjeta. Intenta de nuevo.');
-                    shareButton.innerHTML = originalText;
-                    shareButton.disabled = false;
-                    return;
-                }
+                // Crear imagen de la tarjeta
+                const cardImage = await createCardImage();
                 
-                // Crear el enlace para compartir
-                const cardUrl = createCardLink(cardId);
-                
-                // Preparar texto para compartir
-                const recipient = cardData.recipient;
-                const sender = cardData.sender;
-                const message = cardData.message;
-                
-                const shareText = `🎄 ¡Feliz Navidad! 🎄\n\n${sender} te ha enviado una tarjeta navideña personalizada:\n\n"${message}"\n\nPara: ${recipient}\n\n✨ Ver la tarjeta completa aquí: ${cardUrl} ✨`;
-                
-                // Intentar usar la Web Share API (la más fácil para usuarios)
+                // Verificar si el navegador soporta la Web Share API
                 if (navigator.share) {
                     try {
+                        // Convertir data URL a Blob
+                        const blob = await (await fetch(cardImage)).blob();
+                        const file = new File([blob], 'tarjeta-navidad.jpg', { type: 'image/jpeg' });
+                        
+                        // INTENTAR COMPARTIR CON IMAGEN
                         await navigator.share({
                             title: 'Tarjeta Navideña Personalizada',
                             text: shareText,
-                            url: cardUrl
+                            files: [file]
                         });
                         
-                        // Restaurar botón
+                        // Éxito - restaurar botón
                         shareButton.innerHTML = originalText;
                         shareButton.disabled = false;
                         return;
-                    } catch (shareError) {
-                        console.log('No se pudo compartir con Web Share API');
+                        
+                    } catch (imageError) {
+                        console.log('No se pudo compartir con imagen, intentando solo texto...');
+                        
+                        // INTENTAR SOLO CON TEXTO
+                        try {
+                            await navigator.share({
+                                title: 'Tarjeta Navideña',
+                                text: shareText
+                            });
+                            
+                            // Éxito - restaurar botón
+                            shareButton.innerHTML = originalText;
+                            shareButton.disabled = false;
+                            return;
+                            
+                        } catch (textError) {
+                            console.log('No se pudo compartir con Web Share API');
+                        }
                     }
                 }
                 
-                // Si Web Share API no está disponible, usar métodos alternativos
-                
-                // Para WhatsApp
+                // SI NO HAY WEB SHARE API, USAR WHATSAPP DIRECTO
                 const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
                 
-                // Preguntar al usuario cómo quiere compartir
-                if (confirm('¿Quieres compartir por WhatsApp?\n\nSi prefieres otra app, copia el mensaje y pégalo donde quieras.')) {
-                    window.open(whatsappUrl, '_blank');
-                } else {
-                    // Copiar al portapapeles
-                    navigator.clipboard.writeText(shareText).then(() => {
-                        alert('✅ ¡Enlace copiado al portapapeles!\n\nAhora puedes pegarlo en:\n• WhatsApp\n• Mensajes de texto\n• Facebook\n• Correo electrónico\n• O donde quieras compartirlo');
-                    }).catch(() => {
-                        // Fallback para navegadores antiguos
-                        const textArea = document.createElement('textarea');
-                        textArea.value = shareText;
-                        document.body.appendChild(textArea);
-                        textArea.select();
-                        document.execCommand('copy');
-                        document.body.removeChild(textArea);
-                        alert('✅ ¡Enlace copiado al portapapeles!\n\nAhora puedes pegarlo en:\n• WhatsApp\n• Mensajes de texto\n• Facebook\n• Correo electrónico\n• O donde quieras compartirlo');
-                    });
-                }
+                // Abrir WhatsApp directamente
+                window.open(whatsappUrl, '_blank');
                 
-                // Restaurar botón
-                shareButton.innerHTML = originalText;
-                shareButton.disabled = false;
+                // Restaurar botón después de un momento
+                setTimeout(() => {
+                    shareButton.innerHTML = originalText;
+                    shareButton.disabled = false;
+                }, 2000);
                 
             } catch (error) {
                 console.error('Error al compartir:', error);
                 
                 // Método de respaldo más simple
-                alert('✅ ¡Tarjeta creada!\n\nComparte este enlace manualmente:\n\n' + 
-                      createCardLink('ultima_tarjeta'));
+                const recipient = recipientInput.value || 'Mis Seres Queridos';
+                const message = messageInput.value || '¡Feliz Navidad!';
+                const sender = senderInput.value || 'Con cariño';
                 
-                // Guardar datos como respaldo
-                const cardData = {
-                    recipient: recipientInput.value,
-                    message: messageInput.value,
-                    sender: senderInput.value,
-                    color: document.querySelector('.color-option.active').getAttribute('data-color'),
-                    timestamp: new Date().toISOString()
-                };
+                const simpleText = `🎄 ¡Feliz Navidad ${recipient}! 🎄\n${message}\n\nDe: ${sender}`;
                 
-                localStorage.setItem('ultima_tarjeta', JSON.stringify(cardData));
+                // Abrir WhatsApp como fallback
+                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(simpleText)}`;
+                window.open(whatsappUrl, '_blank');
                 
                 // Restaurar botón
-                shareButton.innerHTML = '<i class="fas fa-share-alt"></i> COMPARTIR TARJETA';
-                shareButton.disabled = false;
+                setTimeout(() => {
+                    shareButton.innerHTML = '<i class="fas fa-share-alt"></i> COMPARTIR TARJETA';
+                    shareButton.disabled = false;
+                }, 2000);
             }
         }
 
@@ -683,32 +709,17 @@
             }
         }
 
-        // Inicializar efectos cuando la página cargue
+        // Inicializar cuando la página cargue
         window.addEventListener('load', function() {
             addChristmasEffects();
             
-            // Configurar placeholders con ejemplos útiles para personas mayores
+            // Configurar placeholders
             recipientInput.placeholder = "Ejemplo: Para mi familia, Para mis hijos, Para Juan y María...";
             messageInput.placeholder = "Ejemplo: ¡Feliz Navidad! Les deseo mucha salud y felicidad. Los quiero mucho.";
             senderInput.placeholder = "Ejemplo: De mamá, De tu abuelo, De Pedro...";
             
             // Enfocar el primer campo
             recipientInput.focus();
-            
-            // Verificar si hay datos de una tarjeta reciente
-            const lastCardId = sessionStorage.getItem('last_card_id');
-            if (lastCardId) {
-                try {
-                    const lastCard = localStorage.getItem(lastCardId);
-                    if (lastCard) {
-                        const cardData = JSON.parse(lastCard);
-                        // Opcional: cargar los últimos datos usados
-                        console.log('Última tarjeta creada:', cardData);
-                    }
-                } catch (e) {
-                    console.log('No hay tarjetas recientes');
-                }
-            }
         });
 
         // Auto-ajustar altura del textarea
@@ -716,7 +727,6 @@
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
             
-            // Limitar altura máxima
             if (this.scrollHeight > 200) {
                 this.style.height = '200px';
                 this.style.overflowY = 'auto';
@@ -729,15 +739,6 @@
         setTimeout(() => {
             messageInput.dispatchEvent(new Event('input'));
         }, 100);
-
-        // Añadir atajos de teclado
-        document.addEventListener('keydown', function(e) {
-            // Ctrl + Enter o Cmd + Enter para compartir
-            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-                e.preventDefault();
-                shareButton.click();
-            }
-        });
     </script>
 </body>
 </html>
