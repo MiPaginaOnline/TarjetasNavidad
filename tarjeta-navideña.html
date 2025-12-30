@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta Navideña Fácil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #0a3d1a 0%, #1a472a 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        header {
+            text-align: center;
+            width: 100%;
+        }
+
+        h1 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.8rem;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .instructions {
+            font-size: 1.1rem;
+            color: #e0f7d7;
+            margin-bottom: 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .instructions i {
+            color: #ffd700;
+            margin-right: 8px;
+        }
+
+        .christmas-card {
+            width: 100%;
+            max-width: 450px;
+            height: 600px;
+            background-color: #0a3d1a;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 10px solid #8b4513;
+        }
+
+        .card-content {
+            width: 100%;
+            height: 100%;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .card-header {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-title {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.8rem;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 15px;
+        }
+
+        .recipient-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.3rem;
+            text-align: center;
+            background: transparent;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            color: white;
+            font-family: 'Open Sans', sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .recipient-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .recipient-input:focus {
+            outline: none;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .card-message-area {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            margin: 20px 0;
+        }
+
+        .message-input {
+            width: 100%;
+            height: 180px;
+            padding: 20px;
+            font-size: 1.8rem;
+            text-align: center;
+            background: transparent;
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            color: #ffd700;
+            font-family: 'Mountains of Christmas', cursive;
+            line-height: 1.4;
+            resize: none;
+        }
+
+        .message-input::placeholder {
+            color: rgba(255, 215, 0, 0.7);
+        }
+
+        .message-input:focus {
+            outline: none;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .card-footer {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sender-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.3rem;
+            text-align: center;
+            background: transparent;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            color: #ffd700;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 600;
+        }
+
+        .sender-input::placeholder {
+            color: rgba(255, 215, 0, 0.7);
+        }
+
+        .sender-input:focus {
+            outline: none;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        /* Christmas decorations */
+        .snowflake {
+            position: absolute;
+            color: white;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(600px);
+            }
+        }
+
+        .ornament {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .tree {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 40px solid #2e7d32;
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .tree:before, .tree:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 35px solid #1b5e20;
+        }
+
+        .tree:before {
+            top: 10px;
+            left: -20px;
+        }
+
+        .tree:after {
+            top: 25px;
+            left: -20px;
+            border-bottom: 30px solid #0d4217;
+        }
+
+        .lights {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+
+        .star {
+            position: absolute;
+            color: gold;
+            font-size: 2rem;
+            top: 20px;
+            right: 30px;
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .garland {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(90deg, red, gold, green, red);
+            opacity: 0.7;
+            z-index: 1;
+        }
+
+        .share-button {
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            background-color: #c62828;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 5px 15px rgba(198, 40, 40, 0.4);
+            margin-top: 10px;
+        }
+
+        .share-button:hover {
+            background-color: #b71c1c;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(198, 40, 40, 0.6);
+        }
+
+        .share-button:active {
+            transform: translateY(-1px);
+        }
+
+        .simple-instructions {
+            text-align: center;
+            color: #e0f7d7;
+            font-size: 1rem;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        /* Color selector simple */
+        .color-selector {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .color-option {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.active {
+            border-color: #fff;
+            transform: scale(1.1);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .christmas-card {
+                height: 550px;
+                max-width: 400px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .card-title {
+                font-size: 2.3rem;
+            }
+            
+            .message-input {
+                font-size: 1.6rem;
+                height: 160px;
+            }
+            
+            .share-button {
+                font-size: 1.3rem;
+                padding: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .christmas-card {
+                height: 500px;
+                max-width: 350px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .card-title {
+                font-size: 2rem;
+            }
+            
+            .message-input {
+                font-size: 1.4rem;
+                height: 140px;
+                padding: 15px;
+            }
+            
+            .recipient-input, .sender-input {
+                font-size: 1.1rem;
+                padding: 10px;
+            }
+            
+            .share-button {
+                font-size: 1.2rem;
+                padding: 16px;
+            }
+            
+            .instructions {
+                font-size: 1rem;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .christmas-card {
+                height: 450px;
+                max-width: 300px;
+            }
+            
+            .card-title {
+                font-size: 1.8rem;
+            }
+            
+            .message-input {
+                font-size: 1.3rem;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tarjeta Navideña</h1>
+            <div class="instructions">
+                <i class="fas fa-lightbulb"></i>
+                <strong>¡Muy fácil!</strong> Solo escribe directamente en la tarjeta y luego presiona "COMPARTIR"
+            </div>
+        </header>
+
+        <!-- Selector de color simple -->
+        <div class="color-selector">
+            <div class="color-option active" style="background-color: #0a3d1a;" data-color="#0a3d1a" title="Verde navideño"></div>
+            <div class="color-option" style="background-color: #8b0000;" data-color="#8b0000" title="Rojo navideño"></div>
+            <div class="color-option" style="background-color: #0d2b50;" data-color="#0d2b50" title="Azul noche"></div>
+            <div class="color-option" style="background-color: #4b0082;" data-color="#4b0082" title="Púrpura"></div>
+            <div class="color-option" style="background-color: #8b4513;" data-color="#8b4513" title="Marrón madera"></div>
+        </div>
+
+        <!-- Tarjeta Navideña -->
+        <div class="christmas-card" id="christmasCard">
+            <div class="garland"></div>
+            <div class="star"><i class="fas fa-star"></i></div>
+            
+            <!-- Decoraciones navideñas -->
+            <div class="ornament" style="background-color: #c62828; top: 60px; left: 50px;"></div>
+            <div class="ornament" style="background-color: #ffd700; top: 120px; right: 60px;"></div>
+            <div class="ornament" style="background-color: #2196f3; bottom: 100px; left: 80px;"></div>
+            <div class="lights" style="background-color: #ff5722; top: 90px; left: 100px;"></div>
+            <div class="lights" style="background-color: #4caf50; bottom: 150px; right: 100px;"></div>
+            <div class="lights" style="background-color: #9c27b0; top: 180px; left: 150px;"></div>
+            <div class="tree"></div>
+            
+            <!-- Copos de nieve -->
+            <div class="snowflake" style="left: 10%; animation-duration: 10s;">❅</div>
+            <div class="snowflake" style="left: 20%; animation-duration: 12s;">❆</div>
+            <div class="snowflake" style="left: 50%; animation-duration: 8s;">❅</div>
+            <div class="snowflake" style="left: 70%; animation-duration: 14s;">❆</div>
+            <div class="snowflake" style="left: 90%; animation-duration: 11s;">❅</div>
+            
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-title">¡Feliz Navidad!</div>
+                    <input type="text" class="recipient-input" id="recipientInput" placeholder="¿Para quién es esta tarjeta? (ej: Familia, Amigos, Mamá...)" value="Mis Seres Queridos">
+                </div>
+                
+                <div class="card-message-area">
+                    <textarea class="message-input" id="messageInput" placeholder="Escribe aquí tu mensaje de Navidad...">¡Feliz Navidad! Que esta época esté llena de alegría, paz y amor para todos.</textarea>
+                </div>
+                
+                <div class="card-footer">
+                    <input type="text" class="sender-input" id="senderInput" placeholder="¿Quién la envía? (Tu nombre)" value="Con cariño">
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón para compartir -->
+        <button class="share-button" id="shareButton">
+            <i class="fas fa-share-alt"></i> COMPARTIR TARJETA
+        </button>
+
+        <div class="simple-instructions">
+            <i class="fas fa-hand-point-up"></i> Presiona el botón rojo de arriba para compartir por WhatsApp, Mensajes, Correo, etc.
+        </div>
+    </div>
+
+    <script>
+        // Elementos principales
+        const christmasCard = document.getElementById('christmasCard');
+        const recipientInput = document.getElementById('recipientInput');
+        const messageInput = document.getElementById('messageInput');
+        const senderInput = document.getElementById('senderInput');
+        const shareButton = document.getElementById('shareButton');
+        const colorOptions = document.querySelectorAll('.color-option');
+
+        // Configurar colores
+        colorOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                colorOptions.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                christmasCard.style.backgroundColor = this.getAttribute('data-color');
+            });
+        });
+
+        // Función para generar un ID único para la tarjeta
+        function generateCardId() {
+            return 'nav_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        // Función para guardar la tarjeta en localStorage
+        function saveCardToStorage(cardId, cardData) {
+            try {
+                // Guardar en localStorage
+                localStorage.setItem(cardId, JSON.stringify(cardData));
+                
+                // También guardar en sessionStorage como respaldo
+                sessionStorage.setItem('last_card_id', cardId);
+                
+                return true;
+            } catch (error) {
+                console.error('Error al guardar la tarjeta:', error);
+                return false;
+            }
+        }
+
+        // Función para crear un enlace de la tarjeta
+        function createCardLink(cardId) {
+            // Obtener la URL base actual
+            const currentUrl = window.location.href;
+            const baseUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/') + 1);
+            
+            // Crear URL para la tarjeta compartida
+            const cardUrl = `${baseUrl}ver-tarjeta.html?id=${cardId}`;
+            
+            return cardUrl;
+        }
+
+        // Función para compartir usando la Web Share API
+        async function shareCard() {
+            try {
+                // Mostrar mensaje de carga
+                const originalText = shareButton.innerHTML;
+                shareButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparando...';
+                shareButton.disabled = true;
+
+                // Generar ID único para esta tarjeta
+                const cardId = generateCardId();
+                
+                // Crear objeto con los datos de la tarjeta
+                const cardData = {
+                    recipient: recipientInput.value || 'Mis Seres Queridos',
+                    message: messageInput.value || '¡Feliz Navidad! Que esta época esté llena de alegría, paz y amor para todos.',
+                    sender: senderInput.value || 'Con cariño',
+                    color: document.querySelector('.color-option.active').getAttribute('data-color') || '#0a3d1a',
+                    timestamp: new Date().toISOString(),
+                    createdFrom: 'tarjeta-navideña.html'
+                };
+                
+                // Guardar la tarjeta
+                const saved = saveCardToStorage(cardId, cardData);
+                
+                if (!saved) {
+                    alert('Error al guardar la tarjeta. Intenta de nuevo.');
+                    shareButton.innerHTML = originalText;
+                    shareButton.disabled = false;
+                    return;
+                }
+                
+                // Crear el enlace para compartir
+                const cardUrl = createCardLink(cardId);
+                
+                // Preparar texto para compartir
+                const recipient = cardData.recipient;
+                const sender = cardData.sender;
+                const message = cardData.message;
+                
+                const shareText = `🎄 ¡Feliz Navidad! 🎄\n\n${sender} te ha enviado una tarjeta navideña personalizada:\n\n"${message}"\n\nPara: ${recipient}\n\n✨ Ver la tarjeta completa aquí: ${cardUrl} ✨`;
+                
+                // Intentar usar la Web Share API (la más fácil para usuarios)
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            title: 'Tarjeta Navideña Personalizada',
+                            text: shareText,
+                            url: cardUrl
+                        });
+                        
+                        // Restaurar botón
+                        shareButton.innerHTML = originalText;
+                        shareButton.disabled = false;
+                        return;
+                    } catch (shareError) {
+                        console.log('No se pudo compartir con Web Share API');
+                    }
+                }
+                
+                // Si Web Share API no está disponible, usar métodos alternativos
+                
+                // Para WhatsApp
+                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+                
+                // Preguntar al usuario cómo quiere compartir
+                if (confirm('¿Quieres compartir por WhatsApp?\n\nSi prefieres otra app, copia el mensaje y pégalo donde quieras.')) {
+                    window.open(whatsappUrl, '_blank');
+                } else {
+                    // Copiar al portapapeles
+                    navigator.clipboard.writeText(shareText).then(() => {
+                        alert('✅ ¡Enlace copiado al portapapeles!\n\nAhora puedes pegarlo en:\n• WhatsApp\n• Mensajes de texto\n• Facebook\n• Correo electrónico\n• O donde quieras compartirlo');
+                    }).catch(() => {
+                        // Fallback para navegadores antiguos
+                        const textArea = document.createElement('textarea');
+                        textArea.value = shareText;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        alert('✅ ¡Enlace copiado al portapapeles!\n\nAhora puedes pegarlo en:\n• WhatsApp\n• Mensajes de texto\n• Facebook\n• Correo electrónico\n• O donde quieras compartirlo');
+                    });
+                }
+                
+                // Restaurar botón
+                shareButton.innerHTML = originalText;
+                shareButton.disabled = false;
+                
+            } catch (error) {
+                console.error('Error al compartir:', error);
+                
+                // Método de respaldo más simple
+                alert('✅ ¡Tarjeta creada!\n\nComparte este enlace manualmente:\n\n' + 
+                      createCardLink('ultima_tarjeta'));
+                
+                // Guardar datos como respaldo
+                const cardData = {
+                    recipient: recipientInput.value,
+                    message: messageInput.value,
+                    sender: senderInput.value,
+                    color: document.querySelector('.color-option.active').getAttribute('data-color'),
+                    timestamp: new Date().toISOString()
+                };
+                
+                localStorage.setItem('ultima_tarjeta', JSON.stringify(cardData));
+                
+                // Restaurar botón
+                shareButton.innerHTML = '<i class="fas fa-share-alt"></i> COMPARTIR TARJETA';
+                shareButton.disabled = false;
+            }
+        }
+
+        // Configurar botón de compartir
+        shareButton.addEventListener('click', shareCard);
+
+        // Añadir efectos navideños
+        function addChristmasEffects() {
+            const card = document.querySelector('.christmas-card');
+            
+            // Añadir más luces parpadeantes
+            for (let i = 0; i < 10; i++) {
+                const light = document.createElement('div');
+                light.className = 'lights';
+                light.style.backgroundColor = i % 3 === 0 ? '#ff5722' : (i % 3 === 1 ? '#4caf50' : '#9c27b0');
+                light.style.top = `${30 + Math.random() * 500}px`;
+                light.style.left = `${20 + Math.random() * 380}px`;
+                light.style.animationDelay = `${Math.random() * 2}s`;
+                
+                card.appendChild(light);
+            }
+            
+            // Añadir más copos de nieve
+            for (let i = 0; i < 8; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = Math.random() > 0.5 ? '❅' : '❆';
+                snowflake.style.left = `${Math.random() * 100}%`;
+                snowflake.style.animationDuration = `${8 + Math.random() * 12}s`;
+                snowflake.style.fontSize = `${1 + Math.random() * 1}rem`;
+                snowflake.style.opacity = `${0.5 + Math.random() * 0.5}`;
+                
+                card.appendChild(snowflake);
+            }
+        }
+
+        // Inicializar efectos cuando la página cargue
+        window.addEventListener('load', function() {
+            addChristmasEffects();
+            
+            // Configurar placeholders con ejemplos útiles para personas mayores
+            recipientInput.placeholder = "Ejemplo: Para mi familia, Para mis hijos, Para Juan y María...";
+            messageInput.placeholder = "Ejemplo: ¡Feliz Navidad! Les deseo mucha salud y felicidad. Los quiero mucho.";
+            senderInput.placeholder = "Ejemplo: De mamá, De tu abuelo, De Pedro...";
+            
+            // Enfocar el primer campo
+            recipientInput.focus();
+            
+            // Verificar si hay datos de una tarjeta reciente
+            const lastCardId = sessionStorage.getItem('last_card_id');
+            if (lastCardId) {
+                try {
+                    const lastCard = localStorage.getItem(lastCardId);
+                    if (lastCard) {
+                        const cardData = JSON.parse(lastCard);
+                        // Opcional: cargar los últimos datos usados
+                        console.log('Última tarjeta creada:', cardData);
+                    }
+                } catch (e) {
+                    console.log('No hay tarjetas recientes');
+                }
+            }
+        });
+
+        // Auto-ajustar altura del textarea
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+            
+            // Limitar altura máxima
+            if (this.scrollHeight > 200) {
+                this.style.height = '200px';
+                this.style.overflowY = 'auto';
+            } else {
+                this.style.overflowY = 'hidden';
+            }
+        });
+
+        // Ajustar altura inicial
+        setTimeout(() => {
+            messageInput.dispatchEvent(new Event('input'));
+        }, 100);
+
+        // Añadir atajos de teclado
+        document.addEventListener('keydown', function(e) {
+            // Ctrl + Enter o Cmd + Enter para compartir
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                shareButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
