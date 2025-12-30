@@ -425,7 +425,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>Tarjeta Navideña Fácil</h1>
+            <h1>Tarjeta Navideña</h1>
             <div class="instructions">
                 <i class="fas fa-lightbulb"></i>
                 <strong>¡Muy fácil!</strong> Solo escribe directamente en la tarjeta y luego presiona "COMPARTIR"
@@ -470,10 +470,6 @@
                 
                 <div class="card-message-area">
                     <textarea class="message-input" id="messageInput" placeholder="Escribe aquí tu mensaje de Navidad...">¡Feliz Navidad! Que esta época esté llena de alegría, paz y amor para todos.</textarea>
-                </div>
-                
-                <div class="card-footer">
-                    <input type="text" class="sender-input" id="senderInput" placeholder="¿Quién la envía? (Tu nombre)" value="Con cariño">
                 </div>
             </div>
         </div>
@@ -594,10 +590,9 @@
                 // Obtener datos de la tarjeta
                 const recipient = recipientInput.value || 'Mis Seres Queridos';
                 const message = messageInput.value || '¡Feliz Navidad! Que esta época esté llena de alegría, paz y amor para todos.';
-                const sender = senderInput.value || 'Con cariño';
                 
                 // Crear texto para compartir
-                const shareText = `🎄 ¡Feliz Navidad! 🎄\n\n${sender} te envía una tarjeta navideña:\n\n"${message}"\n\nPara: ${recipient}\n\n✨ ¡Que tengas una feliz Navidad! ✨`;
+                const shareText = `🎄 ¡Feliz Navidad! 🎄 Te envío una tarjeta navideña:\n\n"${message}"\n\nPara: ${recipient}\n\n✨ ¡Que tengas una feliz Navidad! ✨  Si quieres crear tu propia tarjeta navideña pulsa en el siguinte enlace: https://mipaginaonline.github.io/TarjetasNavidad/`;
                 
                 // Crear imagen de la tarjeta
                 const cardImage = await createCardImage();
