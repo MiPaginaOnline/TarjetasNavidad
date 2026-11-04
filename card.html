@@ -1,278 +1,54 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarjeta Navideña | WishCraft</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #0f2b1e 0%, #1a472a 100%);
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem;
-        }
-        
-        .container {
-            max-width: 800px;
-            width: 100%;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: white;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 1rem;
-        }
-        
-        .card-container {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .card-display {
-            background: linear-gradient(135deg, #C41E3A, #8B0000);
-            border-radius: 15px;
-            padding: 3rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .card-title {
-            font-family: 'Mountains of Christmas', cursive;
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .card-name {
-            font-family: 'Mountains of Christmas', cursive;
-            font-size: 2.5rem;
-            color: #FFD700;
-            margin: 2rem 0;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-        
-        .card-message {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        .actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-        
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-share {
-            background: #228B22;
-            color: white;
-        }
-        
-        .btn-download {
-            background: #4169E1;
-            color: white;
-        }
-        
-        .btn-new {
-            background: #FFD700;
-            color: #000;
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .stat-item {
-            text-align: center;
-        }
-        
-        .stat-number {
-            display: block;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #FFD700;
-        }
-        
-        .home-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: #FFD700;
-            text-decoration: none;
-            margin-top: 2rem;
-            padding: 1rem 2rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tienes una felicitación | WishCraft</title>
+<meta name="description" content="Abre tu felicitación de Navidad.">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://mipaginaonline.github.io/TarjetasNavidad/card.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="WishCraft">
+<meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Tienes una felicitación | WishCraft">
+<meta property="og:description" content="Abre tu felicitación de Navidad.">
+<meta property="og:image" content="https://mipaginaonline.github.io/TarjetasNavidad/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0c2c24">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/fraunces-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <a href="index.html" class="logo">
-                <i class="fas fa-tree"></i>
-                WishCraft
-            </a>
-            <h1>Tarjeta Navideña Personalizada</h1>
-            <p>Comparte esta tarjeta única con tus seres queridos</p>
-        </div>
-        
-        <div class="card-container">
-            <div class="card-display" id="cardDisplay">
-                <!-- La tarjeta se cargará aquí -->
-                <h2 class="card-title">¡Feliz Navidad!</h2>
-                <div class="card-name" id="cardName">Cargando...</div>
-                <p class="card-message">Que esta Navidad llene tu hogar de alegría y amor</p>
-            </div>
-            
-            <div class="actions">
-                <a href="#" class="btn btn-share" id="shareBtn">
-                    <i class="fas fa-share-alt"></i>
-                    Compartir
-                </a>
-                <a href="#" class="btn btn-download" id="downloadBtn">
-                    <i class="fas fa-download"></i>
-                    Descargar
-                </a>
-                <a href="index.html" class="btn btn-new">
-                    <i class="fas fa-plus"></i>
-                    Crear Otra
-                </a>
-            </div>
-            
-            <div class="stats">
-                <div class="stat-item">
-                    <span class="stat-number" id="viewCount">0</span>
-                    <span>Vistas</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" id="likeCount">0</span>
-                    <span>Me gusta</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" id="shareCount">0</span>
-                    <span>Compartido</span>
-                </div>
-            </div>
-        </div>
-        
-        <a href="index.html" class="home-link">
-            <i class="fas fa-home"></i>
-            Volver al Inicio
-        </a>
-    </div>
-
-    <script>
-        // Obtener ID de la tarjeta de la URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const cardId = urlParams.get('id');
-        
-        // Cargar datos de la tarjeta
-        function loadCard() {
-            if (!cardId) {
-                document.getElementById('cardName').textContent = 'Tarjeta no encontrada';
-                return;
-            }
-            
-            const cardData = localStorage.getItem(cardId);
-            if (cardData) {
-                const card = JSON.parse(cardData);
-                
-                // Mostrar datos
-                document.getElementById('cardName').textContent = card.name;
-                
-                // Actualizar estadísticas
-                card.views = (card.views || 0) + 1;
-                document.getElementById('viewCount').textContent = card.views;
-                document.getElementById('likeCount').textContent = card.likes || 0;
-                document.getElementById('shareCount').textContent = card.shares || 0;
-                
-                // Guardar actualización
-                localStorage.setItem(cardId, JSON.stringify(card));
-                
-                // Configurar compartir
-                setupSharing(card);
-            } else {
-                document.getElementById('cardName').textContent = 'Tarjeta no encontrada';
-            }
-        }
-        
-        function setupSharing(card) {
-            const shareBtn = document.getElementById('shareBtn');
-            const shareUrl = window.location.href;
-            const shareText = `¡Mira mi tarjeta navideña creada con WishCraft! ${card.name} te desea Feliz Navidad`;
-            
-            shareBtn.href = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
-            
-            // Para compartir en otras redes
-            shareBtn.addEventListener('click', function(e) {
-                if (navigator.share) {
-                    e.preventDefault();
-                    navigator.share({
-                        title: 'Mi Tarjeta Navideña',
-                        text: shareText,
-                        url: shareUrl
-                    });
-                }
-            });
-        }
-        
-        // Descargar tarjeta
-        document.getElementById('downloadBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('¡Funcionalidad de descarga activada! En una versión real, esto generaría una imagen.');
-        });
-        
-        // Cargar al iniciar
-        document.addEventListener('DOMContentLoaded', loadCard);
-    </script>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site-head"><div class="wrap">
+<a class="logo" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#f2c14e" d="M12 1l2.9 6.6 7.1.7-5.4 4.7 1.6 7L12 16.3 5.8 20l1.6-7L2 8.3l7.1-.7z"/></svg>WishCraft</a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menú</button>
+<nav class="nav" id="nav" aria-label="Principal"><a href="index.html">Inicio</a><a href="gallery.html">Tarjetas</a><a href="guia.html">Guía</a><a class="nav-cta" href="index.html#crear">Crear tarjeta</a></nav>
+</div></header>
+<main id="main"><section class="card-page"><canvas class="snow" aria-hidden="true"></canvas><div class="wrap">
+<div id="ok"><h1 id="titulo">Tienes una felicitación</h1>
+<div class="stage" id="stage"><canvas class="sheet" id="sheet" width="840" height="1176"></canvas>
+<div class="env"><div class="env-back"></div><div class="env-flap"></div><div class="env-front"></div><div class="env-to" id="sobre-para"></div><button class="seal" type="button">Abrir<br>sobre</button></div></div>
+<div class="reveal-after"><div class="card-actions"><button class="btn gold" type="button" id="descargar">Descargar imagen</button><button class="btn ghost" type="button" id="compartir">Compartir</button><a class="btn ghost" href="index.html#crear">Crear la mía</a></div>
+<p class="status" id="estado" role="status" style="color:#fff"></p>
+<p class="notice">Esta tarjeta la ha escrito quien te la envía. WishCraft no guarda ni revisa su contenido.</p></div></div>
+<div id="bad" hidden><h1>No hemos podido abrir esta tarjeta</h1><p>El enlace está incompleto. Pide a quien te lo envió que lo copie entero o crea una tarjeta nueva.</p><div class="card-actions"><a class="btn gold" href="index.html#crear">Crear una tarjeta</a></div></div>
+</div></section>
+</main>
+<footer class="site-foot"><div class="wrap">
+<div class="foot-grid">
+<div><a class="logo" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#f2c14e" d="M12 1l2.9 6.6 7.1.7-5.4 4.7 1.6 7L12 16.3 5.8 20l1.6-7L2 8.3l7.1-.7z"/></svg>WishCraft</a>
+<p style="margin-top:10px">Tarjetas de Navidad gratuitas para escribir, enviar por enlace o imprimir.</p>
+<p class="countdown" id="countdown"></p></div>
+<div><h2>Sitio</h2><ul><li><a href="index.html#crear">Crear tarjeta</a></li><li><a href="gallery.html">Tarjetas</a></li><li><a href="guia.html">Guía para felicitar</a></li><li><a href="sobre-nosotros.html">Sobre WishCraft</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
+<div><h2>Legal</h2><ul><li><a href="aviso-legal.html">Aviso legal</a></li><li><a href="privacidad.html">Política de privacidad</a></li><li><a href="cookies.html">Política de cookies</a></li><li><a href="terminos.html">Términos de uso</a></li></ul></div>
+</div>
+<p class="copy">© <span id="year">2026</span> WishCraft</p>
+</div></footer>
+<script src="assets/site.js"></script>
+<script src="assets/cards.js"></script>
+<script src="assets/card.js"></script>
 </body>
 </html>

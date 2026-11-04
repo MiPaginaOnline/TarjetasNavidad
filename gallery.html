@@ -1,304 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería Navideña | WishCraft</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #0f2b1e 0%, #1a472a 100%);
-            color: white;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: white;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 1rem;
-        }
-        
-        h1 {
-            font-family: 'Mountains of Christmas', cursive;
-            font-size: 3rem;
-            color: #FFD700;
-            margin-bottom: 1rem;
-        }
-        
-        .filters {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .filter-btn {
-            padding: 0.8rem 1.5rem;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: #C41E3A;
-            transform: translateY(-2px);
-        }
-        
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-        
-        .gallery-card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .gallery-card:hover {
-            transform: translateY(-5px);
-            border-color: #FFD700;
-        }
-        
-        .card-preview {
-            background: linear-gradient(135deg, #C41E3A, #8B0000);
-            border-radius: 10px;
-            padding: 2rem;
-            text-align: center;
-            margin-bottom: 1rem;
-            min-height: 200px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .card-name {
-            font-family: 'Mountains of Christmas', cursive;
-            font-size: 1.8rem;
-            color: #FFD700;
-            margin: 1rem 0;
-        }
-        
-        .card-info {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        .view-btn {
-            display: block;
-            width: 100%;
-            padding: 0.8rem;
-            background: #228B22;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            text-align: center;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .view-btn:hover {
-            background: #1a7a1a;
-            transform: translateY(-2px);
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            grid-column: 1 / -1;
-        }
-        
-        .empty-state i {
-            font-size: 4rem;
-            color: #FFD700;
-            margin-bottom: 1rem;
-        }
-        
-        .create-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #C41E3A;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            text-decoration: none;
-            margin-top: 2rem;
-        }
-        
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .page-btn {
-            padding: 0.5rem 1rem;
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        .page-btn.active {
-            background: #FFD700;
-            color: #000;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tarjetas de Navidad para familia, amigos y trabajo | WishCraft</title>
+<meta name="description" content="Veinte tarjetas de Navidad con frases originales para familia, amigos, trabajo y Reyes. Personalízalas gratis y envíalas por enlace.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://mipaginaonline.github.io/TarjetasNavidad/gallery.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="WishCraft">
+<meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Tarjetas de Navidad para familia, amigos y trabajo | WishCraft">
+<meta property="og:description" content="Veinte tarjetas de Navidad con frases originales para familia, amigos, trabajo y Reyes. Personalízalas gratis y envíalas por enlace.">
+<meta property="og:image" content="https://mipaginaonline.github.io/TarjetasNavidad/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0c2c24">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/fraunces-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+<!-- ADSENSE -->
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <a href="index.html" class="logo">
-                <i class="fas fa-tree"></i>
-                WishCraft
-            </a>
-            <h1>Galería Navideña</h1>
-            <p>Descubre las tarjetas creadas por nuestra comunidad</p>
-        </div>
-        
-        <div class="filters">
-            <button class="filter-btn active" data-filter="all">Todas</button>
-            <button class="filter-btn" data-filter="recent">Recientes</button>
-            <button class="filter-btn" data-filter="popular">Populares</button>
-            <button class="filter-btn" data-filter="family">Familia</button>
-            <button class="filter-btn" data-filter="friends">Amigos</button>
-        </div>
-        
-        <div class="gallery-grid" id="galleryGrid">
-            <!-- Las tarjetas se cargarán aquí -->
-        </div>
-        
-        <div class="pagination">
-            <button class="page-btn">‹</button>
-            <button class="page-btn active">1</button>
-            <button class="page-btn">2</button>
-            <button class="page-btn">3</button>
-            <button class="page-btn">›</button>
-        </div>
-    </div>
-
-    <script>
-        // Cargar galería
-        function loadGallery(filter = 'all') {
-            const galleryGrid = document.getElementById('galleryGrid');
-            
-            // Obtener todas las tarjetas del localStorage
-            let allCards = [];
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.startsWith('navidad_')) {
-                    try {
-                        const card = JSON.parse(localStorage.getItem(key));
-                        allCards.push({...card, id: key});
-                    } catch(e) {
-                        console.error('Error parsing card:', key);
-                    }
-                }
-            }
-            
-            // Ordenar por fecha (más reciente primero)
-            allCards.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-            
-            // Aplicar filtro
-            let filteredCards = allCards;
-            if (filter === 'recent') {
-                // Últimas 24 horas
-                const yesterday = new Date();
-                yesterday.setDate(yesterday.getDate() - 1);
-                filteredCards = allCards.filter(card => new Date(card.timestamp) > yesterday);
-            } else if (filter === 'popular') {
-                // Ordenar por vistas
-                filteredCards = [...allCards].sort((a, b) => (b.views || 0) - (a.views || 0));
-            }
-            
-            // Mostrar tarjetas
-            if (filteredCards.length === 0) {
-                galleryGrid.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-tree"></i>
-                        <h3>¡No hay tarjetas aún!</h3>
-                        <p>Sé el primero en crear una tarjeta navideña</p>
-                        <a href="index.html" class="create-link">
-                            <i class="fas fa-plus"></i>
-                            Crear Tarjeta
-                        </a>
-                    </div>
-                `;
-                return;
-            }
-            
-            galleryGrid.innerHTML = filteredCards.map(card => {
-                const date = new Date(card.timestamp);
-                const formattedDate = `${date.getDate()} de Diciembre`;
-                
-                return `
-                    <div class="gallery-card">
-                        <div class="card-preview">
-                            <h4>¡Feliz Navidad!</h4>
-                            <div class="card-name">${card.name}</div>
-                            <p>Que esta Navidad sea especial</p>
-                        </div>
-                        <div class="card-info">
-                            <span><i class="fas fa-eye"></i> ${card.views || 0}</span>
-                            <span><i class="fas fa-heart"></i> ${card.likes || 0}</span>
-                            <span>${formattedDate}</span>
-                        </div>
-                        <a href="card.html?id=${card.id}" class="view-btn">
-                            Ver Tarjeta Completa
-                        </a>
-                    </div>
-                `;
-            }).join('');
-        }
-        
-        // Filtros
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                loadGallery(this.dataset.filter);
-            });
-        });
-        
-        // Cargar al iniciar
-        document.addEventListener('DOMContentLoaded', () => loadGallery());
-    </script>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site-head"><div class="wrap">
+<a class="logo" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#f2c14e" d="M12 1l2.9 6.6 7.1.7-5.4 4.7 1.6 7L12 16.3 5.8 20l1.6-7L2 8.3l7.1-.7z"/></svg>WishCraft</a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menú</button>
+<nav class="nav" id="nav" aria-label="Principal"><a href="index.html">Inicio</a><a href="gallery.html" aria-current=page>Tarjetas</a><a href="guia.html">Guía</a><a class="nav-cta" href="index.html#crear">Crear tarjeta</a></nav>
+</div></header>
+<main id="main"><section class="section"><div class="wrap"><div class="section-head"><h1>Tarjetas de Navidad para personalizar</h1><p class="muted">Elige una tarjeta, cambia lo que quieras y envíala. Las frases son originales y puedes editarlas por completo.</p></div>
+<div class="filters" role="group" aria-label="Filtrar tarjetas"><button type="button" data-f="todas">Todas</button><button type="button" data-f="familia">Familia</button><button type="button" data-f="amigos">Amigos</button><button type="button" data-f="trabajo">Trabajo</button><button type="button" data-f="divertidas">Divertidas</button><button type="button" data-f="tradicional">Tradicionales</button><button type="button" data-f="mias">Mis tarjetas</button></div>
+<p class="status" id="estado" role="status"></p><div class="grid" id="grid"></div></div></section>
+<section class="section white"><div class="narrow"><h2>Cómo elegir la tarjeta adecuada</h2><p>Para la familia suelen funcionar los diseños cálidos, como Abeto o Bolas, con un mensaje que mencione algo compartido. En el trabajo conviene optar por Oro o Postal, más sobrios. Si tienes confianza y quieres arrancar una sonrisa, prueba Jersey o Galleta.</p><p>Las tarjetas de <a href="guia-calendario.html">Reyes</a> sorprenden porque casi nadie las envía. Si no sabes por dónde empezar, lee nuestra guía sobre <a href="guia-que-escribir.html">qué escribir en una tarjeta de Navidad</a>.</p></div></section>
+</main>
+<footer class="site-foot"><div class="wrap">
+<div class="foot-grid">
+<div><a class="logo" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#f2c14e" d="M12 1l2.9 6.6 7.1.7-5.4 4.7 1.6 7L12 16.3 5.8 20l1.6-7L2 8.3l7.1-.7z"/></svg>WishCraft</a>
+<p style="margin-top:10px">Tarjetas de Navidad gratuitas para escribir, enviar por enlace o imprimir.</p>
+<p class="countdown" id="countdown"></p></div>
+<div><h2>Sitio</h2><ul><li><a href="index.html#crear">Crear tarjeta</a></li><li><a href="gallery.html">Tarjetas</a></li><li><a href="guia.html">Guía para felicitar</a></li><li><a href="sobre-nosotros.html">Sobre WishCraft</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
+<div><h2>Legal</h2><ul><li><a href="aviso-legal.html">Aviso legal</a></li><li><a href="privacidad.html">Política de privacidad</a></li><li><a href="cookies.html">Política de cookies</a></li><li><a href="terminos.html">Términos de uso</a></li></ul></div>
+</div>
+<p class="copy">© <span id="year">2026</span> WishCraft</p>
+</div></footer>
+<script src="assets/site.js"></script>
+<script src="assets/cards.js"></script>
+<script src="assets/gallery.js"></script>
 </body>
 </html>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mipaginaonline.github.io/TarjetasNavidad/sitemap.xml

@@ -1,0 +1,2 @@
+# Sustituye esta linea por la que te da AdSense en Sitios > ads.txt
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
